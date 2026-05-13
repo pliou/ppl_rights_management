@@ -1,180 +1,203 @@
-﻿<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers" data-namespace-typo3-fluid="true">
-    
-    
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers" data-namespace-typo3-fluid="true">
     <div class="rm-shell">
-<div class="rm-page-head"><div class="rm-page-head__icon" aria-hidden="true"></div><div><h1>{title}</h1><p>{introText}</p></div></div>
-    <div class="rm-toolbar"><f:for each="{tabs}" as="tab"><f:if condition="{tab.id} == {activeTab.id}"><f:then><a href="{tab.route}" class="btn btn-primary" data-tab-id="{tab.id}">{tab.label}</a></f:then><f:else><a href="{tab.route}" class="btn btn-default" data-tab-id="{tab.id}">{tab.label}</a></f:else></f:if></f:for></div>
-    <div class="rm-note"><div class="rm-note__content"><strong>{activeTab.label}</strong><span>{activeTab.description}</span></div></div>
-    <div class="rm-i18n" data-role="i18n" hidden>
-        <span data-i18n-key="module.title"><f:translate key="LLL:EXT:ppl_rights_management/Resources/Private/Language/locallang.xlf:module.title" /></span>
-        <span data-i18n-key="module.intro"><f:translate key="LLL:EXT:ppl_rights_management/Resources/Private/Language/locallang.xlf:module.intro" /></span>
-        <span data-i18n-key="tabs.overview.label"><f:translate key="LLL:EXT:ppl_rights_management/Resources/Private/Language/locallang.xlf:tabs.overview.label" /></span>
-        <span data-i18n-key="tabs.overview.description"><f:translate key="LLL:EXT:ppl_rights_management/Resources/Private/Language/locallang.xlf:tabs.overview.description" /></span>
-        <span data-i18n-key="tabs.groupManagement.label"><f:translate key="LLL:EXT:ppl_rights_management/Resources/Private/Language/locallang.xlf:tabs.groupManagement.label" /></span>
-        <span data-i18n-key="tabs.groupManagement.description"><f:translate key="LLL:EXT:ppl_rights_management/Resources/Private/Language/locallang.xlf:tabs.groupManagement.description" /></span>
-        <span data-i18n-key="tabs.groupRightsManagement.label"><f:translate key="LLL:EXT:ppl_rights_management/Resources/Private/Language/locallang.xlf:tabs.groupRightsManagement.label" /></span>
-        <span data-i18n-key="tabs.groupRightsManagement.description"><f:translate key="LLL:EXT:ppl_rights_management/Resources/Private/Language/locallang.xlf:tabs.groupRightsManagement.description" /></span>
-        <span data-i18n-key="tabs.moduleManagement.label"><f:translate key="LLL:EXT:ppl_rights_management/Resources/Private/Language/locallang.xlf:tabs.moduleManagement.label" /></span>
-        <span data-i18n-key="tabs.moduleManagement.description"><f:translate key="LLL:EXT:ppl_rights_management/Resources/Private/Language/locallang.xlf:tabs.moduleManagement.description" /></span>
-        <span data-i18n-key="tabs.groupRightsInheritanceManagement.label"><f:translate key="LLL:EXT:ppl_rights_management/Resources/Private/Language/locallang.xlf:tabs.groupRightsInheritanceManagement.label" /></span>
-        <span data-i18n-key="tabs.groupRightsInheritanceManagement.description"><f:translate key="LLL:EXT:ppl_rights_management/Resources/Private/Language/locallang.xlf:tabs.groupRightsInheritanceManagement.description" /></span>
-        <span data-i18n-key="tabs.groupBackendUserManagement.label"><f:translate key="LLL:EXT:ppl_rights_management/Resources/Private/Language/locallang.xlf:tabs.groupBackendUserManagement.label" /></span>
-        <span data-i18n-key="tabs.groupBackendUserManagement.description"><f:translate key="LLL:EXT:ppl_rights_management/Resources/Private/Language/locallang.xlf:tabs.groupBackendUserManagement.description" /></span>
-        <span data-i18n-key="tabs.backendUserManagement.label"><f:translate key="LLL:EXT:ppl_rights_management/Resources/Private/Language/locallang.xlf:tabs.backendUserManagement.label" /></span>
-        <span data-i18n-key="tabs.backendUserManagement.description"><f:translate key="LLL:EXT:ppl_rights_management/Resources/Private/Language/locallang.xlf:tabs.backendUserManagement.description" /></span>
-        <span data-i18n-key="tabs.mountManagement.label"><f:translate key="LLL:EXT:ppl_rights_management/Resources/Private/Language/locallang.xlf:tabs.mountManagement.label" /></span>
-        <span data-i18n-key="tabs.mountManagement.description"><f:translate key="LLL:EXT:ppl_rights_management/Resources/Private/Language/locallang.xlf:tabs.mountManagement.description" /></span>
-        <span data-i18n-key="actions"><f:translate key="LLL:EXT:ppl_rights_management/Resources/Private/Language/locallang.xlf:common.actions" /></span>
-        <span data-i18n-key="active"><f:translate key="LLL:EXT:ppl_rights_management/Resources/Private/Language/locallang.xlf:common.active" /></span>
-        <span data-i18n-key="addGroup"><f:translate key="LLL:EXT:ppl_rights_management/Resources/Private/Language/locallang.xlf:common.addGroup" /></span>
-        <span data-i18n-key="applySelection"><f:translate key="LLL:EXT:ppl_rights_management/Resources/Private/Language/locallang.xlf:common.applySelection" /></span>
-        <span data-i18n-key="available"><f:translate key="LLL:EXT:ppl_rights_management/Resources/Private/Language/locallang.xlf:common.available" /></span>
-        <span data-i18n-key="backendGroups"><f:translate key="LLL:EXT:ppl_rights_management/Resources/Private/Language/locallang.xlf:common.backendGroups" /></span>
-        <span data-i18n-key="backendModule"><f:translate key="LLL:EXT:ppl_rights_management/Resources/Private/Language/locallang.xlf:common.backendModule" /></span>
-        <span data-i18n-key="backendUsers"><f:translate key="LLL:EXT:ppl_rights_management/Resources/Private/Language/locallang.xlf:common.backendUsers" /></span>
-        <span data-i18n-key="cancel"><f:translate key="LLL:EXT:ppl_rights_management/Resources/Private/Language/locallang.xlf:common.cancel" /></span>
-        <span data-i18n-key="current"><f:translate key="LLL:EXT:ppl_rights_management/Resources/Private/Language/locallang.xlf:common.current" /></span>
-        <span data-i18n-key="delete"><f:translate key="LLL:EXT:ppl_rights_management/Resources/Private/Language/locallang.xlf:common.delete" /></span>
-        <span data-i18n-key="description"><f:translate key="LLL:EXT:ppl_rights_management/Resources/Private/Language/locallang.xlf:common.description" /></span>
-        <span data-i18n-key="disabled"><f:translate key="LLL:EXT:ppl_rights_management/Resources/Private/Language/locallang.xlf:common.disabled" /></span>
-        <span data-i18n-key="discard"><f:translate key="LLL:EXT:ppl_rights_management/Resources/Private/Language/locallang.xlf:common.discard" /></span>
-        <span data-i18n-key="draft"><f:translate key="LLL:EXT:ppl_rights_management/Resources/Private/Language/locallang.xlf:common.draft" /></span>
-        <span data-i18n-key="edit"><f:translate key="LLL:EXT:ppl_rights_management/Resources/Private/Language/locallang.xlf:common.edit" /></span>
-        <span data-i18n-key="entries"><f:translate key="LLL:EXT:ppl_rights_management/Resources/Private/Language/locallang.xlf:common.entries" /></span>
-        <span data-i18n-key="groupSearch"><f:translate key="LLL:EXT:ppl_rights_management/Resources/Private/Language/locallang.xlf:common.groupSearch" /></span>
-        <span data-i18n-key="groups"><f:translate key="LLL:EXT:ppl_rights_management/Resources/Private/Language/locallang.xlf:common.groups" /></span>
-        <span data-i18n-key="inherited"><f:translate key="LLL:EXT:ppl_rights_management/Resources/Private/Language/locallang.xlf:common.inherited" /></span>
-        <span data-i18n-key="maxEight"><f:translate key="LLL:EXT:ppl_rights_management/Resources/Private/Language/locallang.xlf:common.maxEight" /></span>
-        <span data-i18n-key="maxTen"><f:translate key="LLL:EXT:ppl_rights_management/Resources/Private/Language/locallang.xlf:common.maxTen" /></span>
-        <span data-i18n-key="modules"><f:translate key="LLL:EXT:ppl_rights_management/Resources/Private/Language/locallang.xlf:common.modules" /></span>
-        <span data-i18n-key="mounts"><f:translate key="LLL:EXT:ppl_rights_management/Resources/Private/Language/locallang.xlf:common.mounts" /></span>
-        <span data-i18n-key="noChanges"><f:translate key="LLL:EXT:ppl_rights_management/Resources/Private/Language/locallang.xlf:common.noChanges" /></span>
-        <span data-i18n-key="noSelection"><f:translate key="LLL:EXT:ppl_rights_management/Resources/Private/Language/locallang.xlf:common.noSelection" /></span>
-        <span data-i18n-key="noTitle"><f:translate key="LLL:EXT:ppl_rights_management/Resources/Private/Language/locallang.xlf:common.noTitle" /></span>
-        <span data-i18n-key="own"><f:translate key="LLL:EXT:ppl_rights_management/Resources/Private/Language/locallang.xlf:common.own" /></span>
-        <span data-i18n-key="save"><f:translate key="LLL:EXT:ppl_rights_management/Resources/Private/Language/locallang.xlf:common.save" /></span>
-        <span data-i18n-key="saveChanges"><f:translate key="LLL:EXT:ppl_rights_management/Resources/Private/Language/locallang.xlf:common.saveChanges" /></span>
-        <span data-i18n-key="status"><f:translate key="LLL:EXT:ppl_rights_management/Resources/Private/Language/locallang.xlf:common.status" /></span>
-        <span data-i18n-key="title"><f:translate key="LLL:EXT:ppl_rights_management/Resources/Private/Language/locallang.xlf:common.title" /></span>
-        <span data-i18n-key="userSearch"><f:translate key="LLL:EXT:ppl_rights_management/Resources/Private/Language/locallang.xlf:common.userSearch" /></span>
-        <span data-i18n-key="users"><f:translate key="LLL:EXT:ppl_rights_management/Resources/Private/Language/locallang.xlf:common.users" /></span>
-        <span data-i18n-key="warningDraftNotPersisted"><f:translate key="LLL:EXT:ppl_rights_management/Resources/Private/Language/locallang.xlf:common.warningDraftNotPersisted" /></span>
-        <span data-i18n-key="inheritsFromUid"><f:translate key="LLL:EXT:ppl_rights_management/Resources/Private/Language/locallang.xlf:common.inheritsFromUid" /></span>
-        <span data-i18n-key="writeNotActive"><f:translate key="LLL:EXT:ppl_rights_management/Resources/Private/Language/locallang.xlf:common.writeNotActive" /></span>
-        <span data-i18n-key="groupTitleExample"><f:translate key="LLL:EXT:ppl_rights_management/Resources/Private/Language/locallang.xlf:common.groupTitleExample" /></span>
-        <span data-i18n-key="groupDescriptionPlaceholder"><f:translate key="LLL:EXT:ppl_rights_management/Resources/Private/Language/locallang.xlf:common.groupDescriptionPlaceholder" /></span>
-        <span data-i18n-key="area"><f:translate key="LLL:EXT:ppl_rights_management/Resources/Private/Language/locallang.xlf:common.area" /></span>
-        <span data-i18n-key="assignedRightsThisUser"><f:translate key="LLL:EXT:ppl_rights_management/Resources/Private/Language/locallang.xlf:common.assignedRightsThisUser" /></span>
-        <span data-i18n-key="commonAssignedRights"><f:translate key="LLL:EXT:ppl_rights_management/Resources/Private/Language/locallang.xlf:common.commonAssignedRights" /></span>
-        <span data-i18n-key="commonDbMounts"><f:translate key="LLL:EXT:ppl_rights_management/Resources/Private/Language/locallang.xlf:common.commonDbMounts" /></span>
-        <span data-i18n-key="commonDirectoryMounts"><f:translate key="LLL:EXT:ppl_rights_management/Resources/Private/Language/locallang.xlf:common.commonDirectoryMounts" /></span>
-        <span data-i18n-key="commonMountsOfSelection"><f:translate key="LLL:EXT:ppl_rights_management/Resources/Private/Language/locallang.xlf:common.commonMountsOfSelection" /></span>
-        <span data-i18n-key="combinationSearch"><f:translate key="LLL:EXT:ppl_rights_management/Resources/Private/Language/locallang.xlf:common.combinationSearch" /></span>
-        <span data-i18n-key="databaseMounts"><f:translate key="LLL:EXT:ppl_rights_management/Resources/Private/Language/locallang.xlf:common.databaseMounts" /></span>
-        <span data-i18n-key="databaseMountSearch"><f:translate key="LLL:EXT:ppl_rights_management/Resources/Private/Language/locallang.xlf:common.databaseMountSearch" /></span>
-        <span data-i18n-key="databasePermissions"><f:translate key="LLL:EXT:ppl_rights_management/Resources/Private/Language/locallang.xlf:common.databasePermissions" /></span>
-        <span data-i18n-key="dbMountsAndDirectoryMounts"><f:translate key="LLL:EXT:ppl_rights_management/Resources/Private/Language/locallang.xlf:common.dbMountsAndDirectoryMounts" /></span>
-        <span data-i18n-key="direct"><f:translate key="LLL:EXT:ppl_rights_management/Resources/Private/Language/locallang.xlf:common.direct" /></span>
-        <span data-i18n-key="directAssignmentEdit"><f:translate key="LLL:EXT:ppl_rights_management/Resources/Private/Language/locallang.xlf:common.directAssignmentEdit" /></span>
-        <span data-i18n-key="directAtUser"><f:translate key="LLL:EXT:ppl_rights_management/Resources/Private/Language/locallang.xlf:common.directAtUser" /></span>
-        <span data-i18n-key="directGroup"><f:translate key="LLL:EXT:ppl_rights_management/Resources/Private/Language/locallang.xlf:common.directGroup" /></span>
-        <span data-i18n-key="directoryMounts"><f:translate key="LLL:EXT:ppl_rights_management/Resources/Private/Language/locallang.xlf:common.directoryMounts" /></span>
-        <span data-i18n-key="directoryMountSearch"><f:translate key="LLL:EXT:ppl_rights_management/Resources/Private/Language/locallang.xlf:common.directoryMountSearch" /></span>
-        <span data-i18n-key="file"><f:translate key="LLL:EXT:ppl_rights_management/Resources/Private/Language/locallang.xlf:common.file" /></span>
-        <span data-i18n-key="fileMountSearch"><f:translate key="LLL:EXT:ppl_rights_management/Resources/Private/Language/locallang.xlf:common.fileMountSearch" /></span>
-        <span data-i18n-key="fileMounts"><f:translate key="LLL:EXT:ppl_rights_management/Resources/Private/Language/locallang.xlf:common.fileMounts" /></span>
-        <span data-i18n-key="formPreparedNoDbWriteLater"><f:translate key="LLL:EXT:ppl_rights_management/Resources/Private/Language/locallang.xlf:common.formPreparedNoDbWriteLater" /></span>
-        <span data-i18n-key="group"><f:translate key="LLL:EXT:ppl_rights_management/Resources/Private/Language/locallang.xlf:common.group" /></span>
-        <span data-i18n-key="rights"><f:translate key="LLL:EXT:ppl_rights_management/Resources/Private/Language/locallang.xlf:common.rights" /></span>
-        <span data-i18n-key="rightSearch"><f:translate key="LLL:EXT:ppl_rights_management/Resources/Private/Language/locallang.xlf:common.rightSearch" /></span>
-        <span data-i18n-key="groupAssignment"><f:translate key="LLL:EXT:ppl_rights_management/Resources/Private/Language/locallang.xlf:common.groupAssignment" /></span>
-        <span data-i18n-key="groupRightsInheritanceEdit"><f:translate key="LLL:EXT:ppl_rights_management/Resources/Private/Language/locallang.xlf:common.groupRightsInheritanceEdit" /></span>
-        <span data-i18n-key="groupsSelected"><f:translate key="LLL:EXT:ppl_rights_management/Resources/Private/Language/locallang.xlf:common.groupsSelected" /></span>
-        <span data-i18n-key="hidden"><f:translate key="LLL:EXT:ppl_rights_management/Resources/Private/Language/locallang.xlf:common.hidden" /></span>
-        <span data-i18n-key="inheritance"><f:translate key="LLL:EXT:ppl_rights_management/Resources/Private/Language/locallang.xlf:common.inheritance" /></span>
-        <span data-i18n-key="inheritedRightsReadonly"><f:translate key="LLL:EXT:ppl_rights_management/Resources/Private/Language/locallang.xlf:common.inheritedRightsReadonly" /></span>
-        <span data-i18n-key="inheritedState"><f:translate key="LLL:EXT:ppl_rights_management/Resources/Private/Language/locallang.xlf:common.inheritedState" /></span>
-        <span data-i18n-key="moduleSearch"><f:translate key="LLL:EXT:ppl_rights_management/Resources/Private/Language/locallang.xlf:common.moduleSearch" /></span>
-        <span data-i18n-key="modulePermissions"><f:translate key="LLL:EXT:ppl_rights_management/Resources/Private/Language/locallang.xlf:common.modulePermissions" /></span>
-        <span data-i18n-key="mountRightsPerBackendGroup"><f:translate key="LLL:EXT:ppl_rights_management/Resources/Private/Language/locallang.xlf:common.mountRightsPerBackendGroup" /></span>
-        <span data-i18n-key="noCommonRights"><f:translate key="LLL:EXT:ppl_rights_management/Resources/Private/Language/locallang.xlf:common.noCommonRights" /></span>
-        <span data-i18n-key="noFileMountsFound"><f:translate key="LLL:EXT:ppl_rights_management/Resources/Private/Language/locallang.xlf:common.noFileMountsFound" /></span>
-        <span data-i18n-key="noGroup"><f:translate key="LLL:EXT:ppl_rights_management/Resources/Private/Language/locallang.xlf:common.noGroup" /></span>
-        <span data-i18n-key="noInheritedGroups"><f:translate key="LLL:EXT:ppl_rights_management/Resources/Private/Language/locallang.xlf:common.noInheritedGroups" /></span>
-        <span data-i18n-key="noMoreGroups"><f:translate key="LLL:EXT:ppl_rights_management/Resources/Private/Language/locallang.xlf:common.noMoreGroups" /></span>
-        <span data-i18n-key="noPagesFound"><f:translate key="LLL:EXT:ppl_rights_management/Resources/Private/Language/locallang.xlf:common.noPagesFound" /></span>
-        <span data-i18n-key="noPath"><f:translate key="LLL:EXT:ppl_rights_management/Resources/Private/Language/locallang.xlf:common.noPath" /></span>
-        <span data-i18n-key="noUsersSelected"><f:translate key="LLL:EXT:ppl_rights_management/Resources/Private/Language/locallang.xlf:common.noUsersSelected" /></span>
-        <span data-i18n-key="noRightsFound"><f:translate key="LLL:EXT:ppl_rights_management/Resources/Private/Language/locallang.xlf:common.noRightsFound" /></span>
-        <span data-i18n-key="onlyCommonAssignedRights"><f:translate key="LLL:EXT:ppl_rights_management/Resources/Private/Language/locallang.xlf:common.onlyCommonAssignedRights" /></span>
-        <span data-i18n-key="overview"><f:translate key="LLL:EXT:ppl_rights_management/Resources/Private/Language/locallang.xlf:common.overview" /></span>
-        <span data-i18n-key="overviewSearch"><f:translate key="LLL:EXT:ppl_rights_management/Resources/Private/Language/locallang.xlf:common.overviewSearch" /></span>
-        <span data-i18n-key="pageTree"><f:translate key="LLL:EXT:ppl_rights_management/Resources/Private/Language/locallang.xlf:common.pageTree" /></span>
-        <span data-i18n-key="pageTreeSearch"><f:translate key="LLL:EXT:ppl_rights_management/Resources/Private/Language/locallang.xlf:common.pageTreeSearch" /></span>
-        <span data-i18n-key="pageType"><f:translate key="LLL:EXT:ppl_rights_management/Resources/Private/Language/locallang.xlf:common.pageType" /></span>
-        <span data-i18n-key="pageTypes"><f:translate key="LLL:EXT:ppl_rights_management/Resources/Private/Language/locallang.xlf:common.pageTypes" /></span>
-        <span data-i18n-key="partial"><f:translate key="LLL:EXT:ppl_rights_management/Resources/Private/Language/locallang.xlf:common.partial" /></span>
-        <span data-i18n-key="permissionSearch"><f:translate key="LLL:EXT:ppl_rights_management/Resources/Private/Language/locallang.xlf:common.permissionSearch" /></span>
-        <span data-i18n-key="read"><f:translate key="LLL:EXT:ppl_rights_management/Resources/Private/Language/locallang.xlf:common.read" /></span>
-        <span data-i18n-key="readAndWrite"><f:translate key="LLL:EXT:ppl_rights_management/Resources/Private/Language/locallang.xlf:common.readAndWrite" /></span>
-        <span data-i18n-key="readOnly"><f:translate key="LLL:EXT:ppl_rights_management/Resources/Private/Language/locallang.xlf:common.readOnly" /></span>
-        <span data-i18n-key="readShort"><f:translate key="LLL:EXT:ppl_rights_management/Resources/Private/Language/locallang.xlf:common.readShort" /></span>
-        <span data-i18n-key="recordPermissions"><f:translate key="LLL:EXT:ppl_rights_management/Resources/Private/Language/locallang.xlf:common.recordPermissions" /></span>
-        <span data-i18n-key="remove"><f:translate key="LLL:EXT:ppl_rights_management/Resources/Private/Language/locallang.xlf:common.remove" /></span>
-        <span data-i18n-key="selected"><f:translate key="LLL:EXT:ppl_rights_management/Resources/Private/Language/locallang.xlf:common.selected" /></span>
-        <span data-i18n-key="selectedGroup"><f:translate key="LLL:EXT:ppl_rights_management/Resources/Private/Language/locallang.xlf:common.selectedGroup" /></span>
-        <span data-i18n-key="source"><f:translate key="LLL:EXT:ppl_rights_management/Resources/Private/Language/locallang.xlf:common.source" /></span>
-        <span data-i18n-key="table"><f:translate key="LLL:EXT:ppl_rights_management/Resources/Private/Language/locallang.xlf:common.table" /></span>
-        <span data-i18n-key="tablePermissions"><f:translate key="LLL:EXT:ppl_rights_management/Resources/Private/Language/locallang.xlf:common.tablePermissions" /></span>
-        <span data-i18n-key="tablesRead"><f:translate key="LLL:EXT:ppl_rights_management/Resources/Private/Language/locallang.xlf:common.tablesRead" /></span>
-        <span data-i18n-key="tablesWrite"><f:translate key="LLL:EXT:ppl_rights_management/Resources/Private/Language/locallang.xlf:common.tablesWrite" /></span>
-        <span data-i18n-key="userManagementHint"><f:translate key="LLL:EXT:ppl_rights_management/Resources/Private/Language/locallang.xlf:common.userManagementHint" /></span>
-        <span data-i18n-key="usersSelected"><f:translate key="LLL:EXT:ppl_rights_management/Resources/Private/Language/locallang.xlf:common.usersSelected" /></span>
-        <span data-i18n-key="viaGroups"><f:translate key="LLL:EXT:ppl_rights_management/Resources/Private/Language/locallang.xlf:common.viaGroups" /></span>
-        <span data-i18n-key="write"><f:translate key="LLL:EXT:ppl_rights_management/Resources/Private/Language/locallang.xlf:common.write" /></span>
-        <span data-i18n-key="writeShort"><f:translate key="LLL:EXT:ppl_rights_management/Resources/Private/Language/locallang.xlf:common.writeShort" /></span>
-        <span data-i18n-key="add"><f:translate key="LLL:EXT:ppl_rights_management/Resources/Private/Language/locallang.xlf:common.add" /></span>
-        <span data-i18n-key="addInheritance"><f:translate key="LLL:EXT:ppl_rights_management/Resources/Private/Language/locallang.xlf:common.addInheritance" /></span>
-        <span data-i18n-key="access"><f:translate key="LLL:EXT:ppl_rights_management/Resources/Private/Language/locallang.xlf:common.access" /></span>
-        <span data-i18n-key="all"><f:translate key="LLL:EXT:ppl_rights_management/Resources/Private/Language/locallang.xlf:common.all" /></span>
-        <span data-i18n-key="admin"><f:translate key="LLL:EXT:ppl_rights_management/Resources/Private/Language/locallang.xlf:common.admin" /></span>
-        <span data-i18n-key="assignments"><f:translate key="LLL:EXT:ppl_rights_management/Resources/Private/Language/locallang.xlf:common.assignments" /></span>
-        <span data-i18n-key="noPermission"><f:translate key="LLL:EXT:ppl_rights_management/Resources/Private/Language/locallang.xlf:common.noPermission" /></span>
-        <span data-i18n-key="none"><f:translate key="LLL:EXT:ppl_rights_management/Resources/Private/Language/locallang.xlf:common.none" /></span>
-        <span data-i18n-key="noneShort"><f:translate key="LLL:EXT:ppl_rights_management/Resources/Private/Language/locallang.xlf:common.noneShort" /></span>
-        <span data-i18n-key="scope"><f:translate key="LLL:EXT:ppl_rights_management/Resources/Private/Language/locallang.xlf:common.scope" /></span>
-        <span data-i18n-key="accessDeniedTitle"><f:translate key="LLL:EXT:ppl_rights_management/Resources/Private/Language/locallang.xlf:accessDenied.title" /></span>
-        <span data-i18n-key="accessDeniedDescription"><f:translate key="LLL:EXT:ppl_rights_management/Resources/Private/Language/locallang.xlf:accessDenied.description" /></span>
-        <span data-i18n-key="accessDeniedHint"><f:translate key="LLL:EXT:ppl_rights_management/Resources/Private/Language/locallang.xlf:accessDenied.hint" /></span>
-    </div>
-
-    <form method="post" action="{routeUrls.save}" data-role="save-form" hidden>
-        <input type="hidden" name="scope" value="backend-user-management">
-        <input type="hidden" name="payload" value="">
-        <input type="hidden" name="returnUrl" value="">
-    </form>
-
-    <div id="rm-user-rights-app" class="rm-card" data-has-file-mount-feature="{data.hasFileMountFeature}" data-can-save="{f:if(condition: data.canSave, then: '1', else: '0')}">
-        <div class="rm-card__head">
+        <div class="rm-page-head">
+            <div class="rm-page-head__icon" aria-hidden="true"></div>
             <div>
-                <strong>{activeTab.label}</strong><br>
-                <span class="rm-muted"><f:translate key="LLL:EXT:ppl_rights_management/Resources/Private/Language/locallang.xlf:common.userManagementHint" /></span>
+                <h1>{title}</h1>
+                <p>{introText}</p>
             </div>
-            <span class="rm-muted"><span data-role="selected-count">0</span> <f:translate key="LLL:EXT:ppl_rights_management/Resources/Private/Language/locallang.xlf:common.selected" /></span>
         </div>
-        <div class="rm-card__body">
-            <div class="rm-user-layout">
-                <section class="rm-selector">
-                    <div class="rm-selector__head">
-                        <div class="rm-title"><f:translate key="LLL:EXT:ppl_rights_management/Resources/Private/Language/locallang.xlf:common.backendUsers" /></div>
-                        <span class="rm-meta"><f:count subject="{data.users}" /> <f:translate key="LLL:EXT:ppl_rights_management/Resources/Private/Language/locallang.xlf:common.entries" /></span>
-                    </div>
-                    <div class="rm-tools">
-                        <input class="rm-search" type="search" data-role="user-search" placeholder="{labels.userSearch}">
-                    </div>
-                    <div class="rm-list" data-role="user-list">
-                        <f:for each="{data.users}" as="user">
-                            <label
+        <div class="rm-toolbar">
+            <f:for each="{tabs}" as="tab">
+                <f:if condition="{tab.id} == {activeTab.id}">
+                    <f:then>
+                        <a href="{tab.route}" class="btn btn-primary" data-tab-id="{tab.id}">{tab.label}</a>
+                    </f:then>
+                    <f:else>
+                        <a href="{tab.route}" class="btn btn-default" data-tab-id="{tab.id}">{tab.label}</a>
+                    </f:else>
+                </f:if>
+            </f:for>
+        </div>
+        <div class="rm-note">
+            <div class="rm-note__content">
+                <strong>{activeTab.label}</strong>
+                <span>{activeTab.description}</span>
+            </div>
+        </div>
+        <div class="rm-i18n" data-role="i18n" hidden>
+            <span data-i18n-key="module.title"><f:translate key="LLL:EXT:ppl_rights_management/Resources/Private/Language/locallang.xlf:module.title" /></span>
+            <span data-i18n-key="module.intro"><f:translate key="LLL:EXT:ppl_rights_management/Resources/Private/Language/locallang.xlf:module.intro" /></span>
+            <span data-i18n-key="tabs.overview.label"><f:translate key="LLL:EXT:ppl_rights_management/Resources/Private/Language/locallang.xlf:tabs.overview.label" /></span>
+            <span data-i18n-key="tabs.overview.description"><f:translate key="LLL:EXT:ppl_rights_management/Resources/Private/Language/locallang.xlf:tabs.overview.description" /></span>
+            <span data-i18n-key="tabs.groupManagement.label"><f:translate key="LLL:EXT:ppl_rights_management/Resources/Private/Language/locallang.xlf:tabs.groupManagement.label" /></span>
+            <span data-i18n-key="tabs.groupManagement.description"><f:translate key="LLL:EXT:ppl_rights_management/Resources/Private/Language/locallang.xlf:tabs.groupManagement.description" /></span>
+            <span data-i18n-key="tabs.groupRightsManagement.label"><f:translate key="LLL:EXT:ppl_rights_management/Resources/Private/Language/locallang.xlf:tabs.groupRightsManagement.label" /></span>
+            <span data-i18n-key="tabs.groupRightsManagement.description"><f:translate key="LLL:EXT:ppl_rights_management/Resources/Private/Language/locallang.xlf:tabs.groupRightsManagement.description" /></span>
+            <span data-i18n-key="tabs.moduleManagement.label"><f:translate key="LLL:EXT:ppl_rights_management/Resources/Private/Language/locallang.xlf:tabs.moduleManagement.label" /></span>
+            <span data-i18n-key="tabs.moduleManagement.description"><f:translate key="LLL:EXT:ppl_rights_management/Resources/Private/Language/locallang.xlf:tabs.moduleManagement.description" /></span>
+            <span data-i18n-key="tabs.groupRightsInheritanceManagement.label"><f:translate key="LLL:EXT:ppl_rights_management/Resources/Private/Language/locallang.xlf:tabs.groupRightsInheritanceManagement.label" /></span>
+            <span data-i18n-key="tabs.groupRightsInheritanceManagement.description"><f:translate key="LLL:EXT:ppl_rights_management/Resources/Private/Language/locallang.xlf:tabs.groupRightsInheritanceManagement.description" /></span>
+            <span data-i18n-key="tabs.groupBackendUserManagement.label"><f:translate key="LLL:EXT:ppl_rights_management/Resources/Private/Language/locallang.xlf:tabs.groupBackendUserManagement.label" /></span>
+            <span data-i18n-key="tabs.groupBackendUserManagement.description"><f:translate key="LLL:EXT:ppl_rights_management/Resources/Private/Language/locallang.xlf:tabs.groupBackendUserManagement.description" /></span>
+            <span data-i18n-key="tabs.backendUserManagement.label"><f:translate key="LLL:EXT:ppl_rights_management/Resources/Private/Language/locallang.xlf:tabs.backendUserManagement.label" /></span>
+            <span data-i18n-key="tabs.backendUserManagement.description"><f:translate key="LLL:EXT:ppl_rights_management/Resources/Private/Language/locallang.xlf:tabs.backendUserManagement.description" /></span>
+            <span data-i18n-key="tabs.mountManagement.label"><f:translate key="LLL:EXT:ppl_rights_management/Resources/Private/Language/locallang.xlf:tabs.mountManagement.label" /></span>
+            <span data-i18n-key="tabs.mountManagement.description"><f:translate key="LLL:EXT:ppl_rights_management/Resources/Private/Language/locallang.xlf:tabs.mountManagement.description" /></span>
+            <span data-i18n-key="actions"><f:translate key="LLL:EXT:ppl_rights_management/Resources/Private/Language/locallang.xlf:common.actions" /></span>
+            <span data-i18n-key="active"><f:translate key="LLL:EXT:ppl_rights_management/Resources/Private/Language/locallang.xlf:common.active" /></span>
+            <span data-i18n-key="addGroup"><f:translate key="LLL:EXT:ppl_rights_management/Resources/Private/Language/locallang.xlf:common.addGroup" /></span>
+            <span data-i18n-key="applySelection"><f:translate key="LLL:EXT:ppl_rights_management/Resources/Private/Language/locallang.xlf:common.applySelection" /></span>
+            <span data-i18n-key="available"><f:translate key="LLL:EXT:ppl_rights_management/Resources/Private/Language/locallang.xlf:common.available" /></span>
+            <span data-i18n-key="backendGroups"><f:translate key="LLL:EXT:ppl_rights_management/Resources/Private/Language/locallang.xlf:common.backendGroups" /></span>
+            <span data-i18n-key="backendModule"><f:translate key="LLL:EXT:ppl_rights_management/Resources/Private/Language/locallang.xlf:common.backendModule" /></span>
+            <span data-i18n-key="backendUsers"><f:translate key="LLL:EXT:ppl_rights_management/Resources/Private/Language/locallang.xlf:common.backendUsers" /></span>
+            <span data-i18n-key="cancel"><f:translate key="LLL:EXT:ppl_rights_management/Resources/Private/Language/locallang.xlf:common.cancel" /></span>
+            <span data-i18n-key="current"><f:translate key="LLL:EXT:ppl_rights_management/Resources/Private/Language/locallang.xlf:common.current" /></span>
+            <span data-i18n-key="delete"><f:translate key="LLL:EXT:ppl_rights_management/Resources/Private/Language/locallang.xlf:common.delete" /></span>
+            <span data-i18n-key="description"><f:translate key="LLL:EXT:ppl_rights_management/Resources/Private/Language/locallang.xlf:common.description" /></span>
+            <span data-i18n-key="disabled"><f:translate key="LLL:EXT:ppl_rights_management/Resources/Private/Language/locallang.xlf:common.disabled" /></span>
+            <span data-i18n-key="discard"><f:translate key="LLL:EXT:ppl_rights_management/Resources/Private/Language/locallang.xlf:common.discard" /></span>
+            <span data-i18n-key="draft"><f:translate key="LLL:EXT:ppl_rights_management/Resources/Private/Language/locallang.xlf:common.draft" /></span>
+            <span data-i18n-key="edit"><f:translate key="LLL:EXT:ppl_rights_management/Resources/Private/Language/locallang.xlf:common.edit" /></span>
+            <span data-i18n-key="entries"><f:translate key="LLL:EXT:ppl_rights_management/Resources/Private/Language/locallang.xlf:common.entries" /></span>
+            <span data-i18n-key="groupSearch"><f:translate key="LLL:EXT:ppl_rights_management/Resources/Private/Language/locallang.xlf:common.groupSearch" /></span>
+            <span data-i18n-key="groups"><f:translate key="LLL:EXT:ppl_rights_management/Resources/Private/Language/locallang.xlf:common.groups" /></span>
+            <span data-i18n-key="inherited"><f:translate key="LLL:EXT:ppl_rights_management/Resources/Private/Language/locallang.xlf:common.inherited" /></span>
+            <span data-i18n-key="maxEight"><f:translate key="LLL:EXT:ppl_rights_management/Resources/Private/Language/locallang.xlf:common.maxEight" /></span>
+            <span data-i18n-key="maxTen"><f:translate key="LLL:EXT:ppl_rights_management/Resources/Private/Language/locallang.xlf:common.maxTen" /></span>
+            <span data-i18n-key="modules"><f:translate key="LLL:EXT:ppl_rights_management/Resources/Private/Language/locallang.xlf:common.modules" /></span>
+            <span data-i18n-key="mounts"><f:translate key="LLL:EXT:ppl_rights_management/Resources/Private/Language/locallang.xlf:common.mounts" /></span>
+            <span data-i18n-key="noChanges"><f:translate key="LLL:EXT:ppl_rights_management/Resources/Private/Language/locallang.xlf:common.noChanges" /></span>
+            <span data-i18n-key="noSelection"><f:translate key="LLL:EXT:ppl_rights_management/Resources/Private/Language/locallang.xlf:common.noSelection" /></span>
+            <span data-i18n-key="noTitle"><f:translate key="LLL:EXT:ppl_rights_management/Resources/Private/Language/locallang.xlf:common.noTitle" /></span>
+            <span data-i18n-key="own"><f:translate key="LLL:EXT:ppl_rights_management/Resources/Private/Language/locallang.xlf:common.own" /></span>
+            <span data-i18n-key="save"><f:translate key="LLL:EXT:ppl_rights_management/Resources/Private/Language/locallang.xlf:common.save" /></span>
+            <span data-i18n-key="saveChanges"><f:translate key="LLL:EXT:ppl_rights_management/Resources/Private/Language/locallang.xlf:common.saveChanges" /></span>
+            <span data-i18n-key="status"><f:translate key="LLL:EXT:ppl_rights_management/Resources/Private/Language/locallang.xlf:common.status" /></span>
+            <span data-i18n-key="title"><f:translate key="LLL:EXT:ppl_rights_management/Resources/Private/Language/locallang.xlf:common.title" /></span>
+            <span data-i18n-key="userSearch"><f:translate key="LLL:EXT:ppl_rights_management/Resources/Private/Language/locallang.xlf:common.userSearch" /></span>
+            <span data-i18n-key="users"><f:translate key="LLL:EXT:ppl_rights_management/Resources/Private/Language/locallang.xlf:common.users" /></span>
+            <span data-i18n-key="warningDraftNotPersisted"><f:translate key="LLL:EXT:ppl_rights_management/Resources/Private/Language/locallang.xlf:common.warningDraftNotPersisted" /></span>
+            <span data-i18n-key="inheritsFromUid"><f:translate key="LLL:EXT:ppl_rights_management/Resources/Private/Language/locallang.xlf:common.inheritsFromUid" /></span>
+            <span data-i18n-key="writeNotActive"><f:translate key="LLL:EXT:ppl_rights_management/Resources/Private/Language/locallang.xlf:common.writeNotActive" /></span>
+            <span data-i18n-key="groupTitleExample"><f:translate key="LLL:EXT:ppl_rights_management/Resources/Private/Language/locallang.xlf:common.groupTitleExample" /></span>
+            <span data-i18n-key="groupDescriptionPlaceholder"><f:translate key="LLL:EXT:ppl_rights_management/Resources/Private/Language/locallang.xlf:common.groupDescriptionPlaceholder" /></span>
+            <span data-i18n-key="area"><f:translate key="LLL:EXT:ppl_rights_management/Resources/Private/Language/locallang.xlf:common.area" /></span>
+            <span data-i18n-key="assignedRightsThisUser"><f:translate key="LLL:EXT:ppl_rights_management/Resources/Private/Language/locallang.xlf:common.assignedRightsThisUser" /></span>
+            <span data-i18n-key="commonAssignedRights"><f:translate key="LLL:EXT:ppl_rights_management/Resources/Private/Language/locallang.xlf:common.commonAssignedRights" /></span>
+            <span data-i18n-key="commonDbMounts"><f:translate key="LLL:EXT:ppl_rights_management/Resources/Private/Language/locallang.xlf:common.commonDbMounts" /></span>
+            <span data-i18n-key="commonDirectoryMounts"><f:translate key="LLL:EXT:ppl_rights_management/Resources/Private/Language/locallang.xlf:common.commonDirectoryMounts" /></span>
+            <span data-i18n-key="commonMountsOfSelection"><f:translate key="LLL:EXT:ppl_rights_management/Resources/Private/Language/locallang.xlf:common.commonMountsOfSelection" /></span>
+            <span data-i18n-key="combinationSearch"><f:translate key="LLL:EXT:ppl_rights_management/Resources/Private/Language/locallang.xlf:common.combinationSearch" /></span>
+            <span data-i18n-key="databaseMounts"><f:translate key="LLL:EXT:ppl_rights_management/Resources/Private/Language/locallang.xlf:common.databaseMounts" /></span>
+            <span data-i18n-key="databaseMountSearch"><f:translate key="LLL:EXT:ppl_rights_management/Resources/Private/Language/locallang.xlf:common.databaseMountSearch" /></span>
+            <span data-i18n-key="databasePermissions"><f:translate key="LLL:EXT:ppl_rights_management/Resources/Private/Language/locallang.xlf:common.databasePermissions" /></span>
+            <span data-i18n-key="dbMountsAndDirectoryMounts"><f:translate key="LLL:EXT:ppl_rights_management/Resources/Private/Language/locallang.xlf:common.dbMountsAndDirectoryMounts" /></span>
+            <span data-i18n-key="direct"><f:translate key="LLL:EXT:ppl_rights_management/Resources/Private/Language/locallang.xlf:common.direct" /></span>
+            <span data-i18n-key="directAssignmentEdit"><f:translate key="LLL:EXT:ppl_rights_management/Resources/Private/Language/locallang.xlf:common.directAssignmentEdit" /></span>
+            <span data-i18n-key="directAtUser"><f:translate key="LLL:EXT:ppl_rights_management/Resources/Private/Language/locallang.xlf:common.directAtUser" /></span>
+            <span data-i18n-key="directGroup"><f:translate key="LLL:EXT:ppl_rights_management/Resources/Private/Language/locallang.xlf:common.directGroup" /></span>
+            <span data-i18n-key="directoryMounts"><f:translate key="LLL:EXT:ppl_rights_management/Resources/Private/Language/locallang.xlf:common.directoryMounts" /></span>
+            <span data-i18n-key="directoryMountSearch"><f:translate key="LLL:EXT:ppl_rights_management/Resources/Private/Language/locallang.xlf:common.directoryMountSearch" /></span>
+            <span data-i18n-key="file"><f:translate key="LLL:EXT:ppl_rights_management/Resources/Private/Language/locallang.xlf:common.file" /></span>
+            <span data-i18n-key="fileMountSearch"><f:translate key="LLL:EXT:ppl_rights_management/Resources/Private/Language/locallang.xlf:common.fileMountSearch" /></span>
+            <span data-i18n-key="fileMounts"><f:translate key="LLL:EXT:ppl_rights_management/Resources/Private/Language/locallang.xlf:common.fileMounts" /></span>
+            <span data-i18n-key="formPreparedNoDbWriteLater"><f:translate key="LLL:EXT:ppl_rights_management/Resources/Private/Language/locallang.xlf:common.formPreparedNoDbWriteLater" /></span>
+            <span data-i18n-key="group"><f:translate key="LLL:EXT:ppl_rights_management/Resources/Private/Language/locallang.xlf:common.group" /></span>
+            <span data-i18n-key="rights"><f:translate key="LLL:EXT:ppl_rights_management/Resources/Private/Language/locallang.xlf:common.rights" /></span>
+            <span data-i18n-key="rightSearch"><f:translate key="LLL:EXT:ppl_rights_management/Resources/Private/Language/locallang.xlf:common.rightSearch" /></span>
+            <span data-i18n-key="groupAssignment"><f:translate key="LLL:EXT:ppl_rights_management/Resources/Private/Language/locallang.xlf:common.groupAssignment" /></span>
+            <span data-i18n-key="groupRightsInheritanceEdit"><f:translate key="LLL:EXT:ppl_rights_management/Resources/Private/Language/locallang.xlf:common.groupRightsInheritanceEdit" /></span>
+            <span data-i18n-key="groupsSelected"><f:translate key="LLL:EXT:ppl_rights_management/Resources/Private/Language/locallang.xlf:common.groupsSelected" /></span>
+            <span data-i18n-key="hidden"><f:translate key="LLL:EXT:ppl_rights_management/Resources/Private/Language/locallang.xlf:common.hidden" /></span>
+            <span data-i18n-key="inheritance"><f:translate key="LLL:EXT:ppl_rights_management/Resources/Private/Language/locallang.xlf:common.inheritance" /></span>
+            <span data-i18n-key="inheritedRightsReadonly"><f:translate key="LLL:EXT:ppl_rights_management/Resources/Private/Language/locallang.xlf:common.inheritedRightsReadonly" /></span>
+            <span data-i18n-key="inheritedState"><f:translate key="LLL:EXT:ppl_rights_management/Resources/Private/Language/locallang.xlf:common.inheritedState" /></span>
+            <span data-i18n-key="moduleSearch"><f:translate key="LLL:EXT:ppl_rights_management/Resources/Private/Language/locallang.xlf:common.moduleSearch" /></span>
+            <span data-i18n-key="modulePermissions"><f:translate key="LLL:EXT:ppl_rights_management/Resources/Private/Language/locallang.xlf:common.modulePermissions" /></span>
+            <span data-i18n-key="mountRightsPerBackendGroup"><f:translate key="LLL:EXT:ppl_rights_management/Resources/Private/Language/locallang.xlf:common.mountRightsPerBackendGroup" /></span>
+            <span data-i18n-key="noCommonRights"><f:translate key="LLL:EXT:ppl_rights_management/Resources/Private/Language/locallang.xlf:common.noCommonRights" /></span>
+            <span data-i18n-key="noFileMountsFound"><f:translate key="LLL:EXT:ppl_rights_management/Resources/Private/Language/locallang.xlf:common.noFileMountsFound" /></span>
+            <span data-i18n-key="noGroup"><f:translate key="LLL:EXT:ppl_rights_management/Resources/Private/Language/locallang.xlf:common.noGroup" /></span>
+            <span data-i18n-key="noInheritedGroups"><f:translate key="LLL:EXT:ppl_rights_management/Resources/Private/Language/locallang.xlf:common.noInheritedGroups" /></span>
+            <span data-i18n-key="noMoreGroups"><f:translate key="LLL:EXT:ppl_rights_management/Resources/Private/Language/locallang.xlf:common.noMoreGroups" /></span>
+            <span data-i18n-key="noPagesFound"><f:translate key="LLL:EXT:ppl_rights_management/Resources/Private/Language/locallang.xlf:common.noPagesFound" /></span>
+            <span data-i18n-key="noPath"><f:translate key="LLL:EXT:ppl_rights_management/Resources/Private/Language/locallang.xlf:common.noPath" /></span>
+            <span data-i18n-key="noUsersSelected"><f:translate key="LLL:EXT:ppl_rights_management/Resources/Private/Language/locallang.xlf:common.noUsersSelected" /></span>
+            <span data-i18n-key="noRightsFound"><f:translate key="LLL:EXT:ppl_rights_management/Resources/Private/Language/locallang.xlf:common.noRightsFound" /></span>
+            <span data-i18n-key="onlyCommonAssignedRights"><f:translate key="LLL:EXT:ppl_rights_management/Resources/Private/Language/locallang.xlf:common.onlyCommonAssignedRights" /></span>
+            <span data-i18n-key="overview"><f:translate key="LLL:EXT:ppl_rights_management/Resources/Private/Language/locallang.xlf:common.overview" /></span>
+            <span data-i18n-key="overviewSearch"><f:translate key="LLL:EXT:ppl_rights_management/Resources/Private/Language/locallang.xlf:common.overviewSearch" /></span>
+            <span data-i18n-key="pageTree"><f:translate key="LLL:EXT:ppl_rights_management/Resources/Private/Language/locallang.xlf:common.pageTree" /></span>
+            <span data-i18n-key="pageTreeSearch"><f:translate key="LLL:EXT:ppl_rights_management/Resources/Private/Language/locallang.xlf:common.pageTreeSearch" /></span>
+            <span data-i18n-key="pageType"><f:translate key="LLL:EXT:ppl_rights_management/Resources/Private/Language/locallang.xlf:common.pageType" /></span>
+            <span data-i18n-key="pageTypes"><f:translate key="LLL:EXT:ppl_rights_management/Resources/Private/Language/locallang.xlf:common.pageTypes" /></span>
+            <span data-i18n-key="partial"><f:translate key="LLL:EXT:ppl_rights_management/Resources/Private/Language/locallang.xlf:common.partial" /></span>
+            <span data-i18n-key="permissionSearch"><f:translate key="LLL:EXT:ppl_rights_management/Resources/Private/Language/locallang.xlf:common.permissionSearch" /></span>
+            <span data-i18n-key="read"><f:translate key="LLL:EXT:ppl_rights_management/Resources/Private/Language/locallang.xlf:common.read" /></span>
+            <span data-i18n-key="readAndWrite"><f:translate key="LLL:EXT:ppl_rights_management/Resources/Private/Language/locallang.xlf:common.readAndWrite" /></span>
+            <span data-i18n-key="readOnly"><f:translate key="LLL:EXT:ppl_rights_management/Resources/Private/Language/locallang.xlf:common.readOnly" /></span>
+            <span data-i18n-key="readShort"><f:translate key="LLL:EXT:ppl_rights_management/Resources/Private/Language/locallang.xlf:common.readShort" /></span>
+            <span data-i18n-key="recordPermissions"><f:translate key="LLL:EXT:ppl_rights_management/Resources/Private/Language/locallang.xlf:common.recordPermissions" /></span>
+            <span data-i18n-key="remove"><f:translate key="LLL:EXT:ppl_rights_management/Resources/Private/Language/locallang.xlf:common.remove" /></span>
+            <span data-i18n-key="selected"><f:translate key="LLL:EXT:ppl_rights_management/Resources/Private/Language/locallang.xlf:common.selected" /></span>
+            <span data-i18n-key="selectedGroup"><f:translate key="LLL:EXT:ppl_rights_management/Resources/Private/Language/locallang.xlf:common.selectedGroup" /></span>
+            <span data-i18n-key="source"><f:translate key="LLL:EXT:ppl_rights_management/Resources/Private/Language/locallang.xlf:common.source" /></span>
+            <span data-i18n-key="table"><f:translate key="LLL:EXT:ppl_rights_management/Resources/Private/Language/locallang.xlf:common.table" /></span>
+            <span data-i18n-key="tablePermissions"><f:translate key="LLL:EXT:ppl_rights_management/Resources/Private/Language/locallang.xlf:common.tablePermissions" /></span>
+            <span data-i18n-key="tablesRead"><f:translate key="LLL:EXT:ppl_rights_management/Resources/Private/Language/locallang.xlf:common.tablesRead" /></span>
+            <span data-i18n-key="tablesWrite"><f:translate key="LLL:EXT:ppl_rights_management/Resources/Private/Language/locallang.xlf:common.tablesWrite" /></span>
+            <span data-i18n-key="userManagementHint"><f:translate key="LLL:EXT:ppl_rights_management/Resources/Private/Language/locallang.xlf:common.userManagementHint" /></span>
+            <span data-i18n-key="usersSelected"><f:translate key="LLL:EXT:ppl_rights_management/Resources/Private/Language/locallang.xlf:common.usersSelected" /></span>
+            <span data-i18n-key="viaGroups"><f:translate key="LLL:EXT:ppl_rights_management/Resources/Private/Language/locallang.xlf:common.viaGroups" /></span>
+            <span data-i18n-key="write"><f:translate key="LLL:EXT:ppl_rights_management/Resources/Private/Language/locallang.xlf:common.write" /></span>
+            <span data-i18n-key="writeShort"><f:translate key="LLL:EXT:ppl_rights_management/Resources/Private/Language/locallang.xlf:common.writeShort" /></span>
+            <span data-i18n-key="add"><f:translate key="LLL:EXT:ppl_rights_management/Resources/Private/Language/locallang.xlf:common.add" /></span>
+            <span data-i18n-key="addInheritance"><f:translate key="LLL:EXT:ppl_rights_management/Resources/Private/Language/locallang.xlf:common.addInheritance" /></span>
+            <span data-i18n-key="access"><f:translate key="LLL:EXT:ppl_rights_management/Resources/Private/Language/locallang.xlf:common.access" /></span>
+            <span data-i18n-key="all"><f:translate key="LLL:EXT:ppl_rights_management/Resources/Private/Language/locallang.xlf:common.all" /></span>
+            <span data-i18n-key="admin"><f:translate key="LLL:EXT:ppl_rights_management/Resources/Private/Language/locallang.xlf:common.admin" /></span>
+            <span data-i18n-key="assignments"><f:translate key="LLL:EXT:ppl_rights_management/Resources/Private/Language/locallang.xlf:common.assignments" /></span>
+            <span data-i18n-key="noPermission"><f:translate key="LLL:EXT:ppl_rights_management/Resources/Private/Language/locallang.xlf:common.noPermission" /></span>
+            <span data-i18n-key="none"><f:translate key="LLL:EXT:ppl_rights_management/Resources/Private/Language/locallang.xlf:common.none" /></span>
+            <span data-i18n-key="noneShort"><f:translate key="LLL:EXT:ppl_rights_management/Resources/Private/Language/locallang.xlf:common.noneShort" /></span>
+            <span data-i18n-key="scope"><f:translate key="LLL:EXT:ppl_rights_management/Resources/Private/Language/locallang.xlf:common.scope" /></span>
+            <span data-i18n-key="accessDeniedTitle"><f:translate key="LLL:EXT:ppl_rights_management/Resources/Private/Language/locallang.xlf:accessDenied.title" /></span>
+            <span data-i18n-key="accessDeniedDescription"><f:translate key="LLL:EXT:ppl_rights_management/Resources/Private/Language/locallang.xlf:accessDenied.description" /></span>
+            <span data-i18n-key="accessDeniedHint"><f:translate key="LLL:EXT:ppl_rights_management/Resources/Private/Language/locallang.xlf:accessDenied.hint" /></span>
+        </div>
+        <form method="post" action="{routeUrls.save}" data-role="save-form" hidden>
+            <input type="hidden" name="scope" value="backend-user-management">
+            <input type="hidden" name="payload" value="">
+            <input type="hidden" name="returnUrl" value="">
+        </form>
+        <div id="rm-user-rights-app" class="rm-card" data-has-file-mount-feature="{data.hasFileMountFeature}" data-can-save="{f:if(condition: data.canSave, then: '1', else: '0')}">
+            <div class="rm-card__head">
+                <div>
+                    <strong>{activeTab.label}</strong>
+                    <br>
+                    <span class="rm-muted"><f:translate key="LLL:EXT:ppl_rights_management/Resources/Private/Language/locallang.xlf:common.userManagementHint" /></span>
+                </div>
+                <span class="rm-muted">
+                    <span data-role="selected-count">0</span>
+                    <f:translate key="LLL:EXT:ppl_rights_management/Resources/Private/Language/locallang.xlf:common.selected" />
+                </span>
+            </div>
+            <div class="rm-card__body">
+                <div class="rm-user-layout">
+                    <section class="rm-selector">
+                        <div class="rm-selector__head">
+                            <div class="rm-title"><f:translate key="LLL:EXT:ppl_rights_management/Resources/Private/Language/locallang.xlf:common.backendUsers" /></div>
+                            <span class="rm-meta">
+                                <f:count subject="{data.users}" />
+                                <f:translate key="LLL:EXT:ppl_rights_management/Resources/Private/Language/locallang.xlf:common.entries" />
+                            </span>
+                        </div>
+                        <div class="rm-tools"><input class="rm-search" type="search" data-role="user-search" placeholder="{labels.userSearch}"></div>
+                        <div class="rm-list" data-role="user-list">
+                            <f:for each="{data.users}" as="user">
+                                <label
                                 class="rm-user-item"
                                 data-role="user-item"
                                 data-uid="{user.uid}"
@@ -189,105 +212,103 @@
                                 data-db-mounts="{user.dbMountCsv}"
                                 data-file-mounts="{user.fileMountCsv}"
                             >
-                                <span class="rm-user-main">
-                                    <input type="checkbox" data-role="user-check" data-uid="{user.uid}">
-                                    <span>
-                                        <strong>{user.username}</strong>
-                                        <span class="rm-muted">UID {user.uid}<f:if condition="{user.realName}"> / {user.realName}</f:if><f:if condition="{user.admin}"> / <f:translate key="LLL:EXT:ppl_rights_management/Resources/Private/Language/locallang.xlf:common.admin" /></f:if></span>
+                                    <span class="rm-user-main">
+                                        <input type="checkbox" data-role="user-check" data-uid="{user.uid}">
+                                        <span>
+                                            <strong>{user.username}</strong>
+                                            <span class="rm-muted">
+                                                UID {user.uid}
+                                                <f:if condition="{user.realName}">
+                                                    / {user.realName}
+                                                </f:if>
+                                                <f:if condition="{user.admin}">
+                                                    /
+                                                    <f:translate key="LLL:EXT:ppl_rights_management/Resources/Private/Language/locallang.xlf:common.admin" />
+                                                </f:if>
+                                            </span>
+                                        </span>
                                     </span>
-                                </span>
-                                <span class="rm-muted"><f:count subject="{user.groupIds}" /> <f:translate key="LLL:EXT:ppl_rights_management/Resources/Private/Language/locallang.xlf:common.groups" /></span>
-                            </label>
-                        </f:for>
-                    </div>
-                </section>
-
-                <section class="rm-workspace">
-                    <div class="rm-workspace__head">
-                        <div>
-                            <div class="rm-title" data-role="selected-title"><f:translate key="LLL:EXT:ppl_rights_management/Resources/Private/Language/locallang.xlf:common.noUsersSelected" /></div>
-                            <span class="rm-muted" data-role="selected-summary"><f:translate key="LLL:EXT:ppl_rights_management/Resources/Private/Language/locallang.xlf:common.commonAssignedRights" /></span>
+                                    <span class="rm-muted">
+                                        <f:count subject="{user.groupIds}" />
+                                        <f:translate key="LLL:EXT:ppl_rights_management/Resources/Private/Language/locallang.xlf:common.groups" />
+                                    </span>
+                                </label>
+                            </f:for>
                         </div>
-                        <div class="rm-tabs" role="tablist">
-                            <button type="button" class="rm-tab is-active" data-role="editor-tab" data-tab="overview"><f:translate key="LLL:EXT:ppl_rights_management/Resources/Private/Language/locallang.xlf:common.rights" /></button>
-                            <button type="button" class="rm-tab" data-role="editor-tab" data-tab="groups"><f:translate key="LLL:EXT:ppl_rights_management/Resources/Private/Language/locallang.xlf:common.groups" /></button>
-                            <button type="button" class="rm-tab" data-role="editor-tab" data-tab="modules"><f:translate key="LLL:EXT:ppl_rights_management/Resources/Private/Language/locallang.xlf:common.modules" /></button>
-                            <button type="button" class="rm-tab" data-role="editor-tab" data-tab="db"><f:translate key="LLL:EXT:ppl_rights_management/Resources/Private/Language/locallang.xlf:common.databaseMounts" /></button>
-                            <button type="button" class="rm-tab" data-role="editor-tab" data-tab="tree"><f:translate key="LLL:EXT:ppl_rights_management/Resources/Private/Language/locallang.xlf:common.pageTree" /></button>
-                            <button type="button" class="rm-tab" data-role="editor-tab" data-tab="files" data-requires-feature="file-mounts"><f:translate key="LLL:EXT:ppl_rights_management/Resources/Private/Language/locallang.xlf:common.fileMounts" /></button>
+                    </section>
+                    <section class="rm-workspace">
+                        <div class="rm-workspace__head">
+                            <div>
+                                <div class="rm-title" data-role="selected-title"><f:translate key="LLL:EXT:ppl_rights_management/Resources/Private/Language/locallang.xlf:common.noUsersSelected" /></div>
+                                <span class="rm-muted" data-role="selected-summary"><f:translate key="LLL:EXT:ppl_rights_management/Resources/Private/Language/locallang.xlf:common.commonAssignedRights" /></span>
+                            </div>
+                            <div class="rm-tabs" role="tablist">
+                                <button type="button" class="rm-tab is-active" data-role="editor-tab" data-tab="overview"><f:translate key="LLL:EXT:ppl_rights_management/Resources/Private/Language/locallang.xlf:common.rights" /></button>
+                                <button type="button" class="rm-tab" data-role="editor-tab" data-tab="groups"><f:translate key="LLL:EXT:ppl_rights_management/Resources/Private/Language/locallang.xlf:common.groups" /></button>
+                                <button type="button" class="rm-tab" data-role="editor-tab" data-tab="modules"><f:translate key="LLL:EXT:ppl_rights_management/Resources/Private/Language/locallang.xlf:common.modules" /></button>
+                                <button type="button" class="rm-tab" data-role="editor-tab" data-tab="db"><f:translate key="LLL:EXT:ppl_rights_management/Resources/Private/Language/locallang.xlf:common.databaseMounts" /></button>
+                                <button type="button" class="rm-tab" data-role="editor-tab" data-tab="tree"><f:translate key="LLL:EXT:ppl_rights_management/Resources/Private/Language/locallang.xlf:common.pageTree" /></button>
+                                <button type="button" class="rm-tab" data-role="editor-tab" data-tab="files" data-requires-feature="file-mounts"><f:translate key="LLL:EXT:ppl_rights_management/Resources/Private/Language/locallang.xlf:common.fileMounts" /></button>
+                            </div>
                         </div>
-                    </div>
-
-                    <div class="rm-tools" data-role="rights-tools">
-                        <input class="rm-search" type="search" data-role="rights-search" placeholder="{labels.rightSearch}">
-                    </div>
-                    <div class="rm-tools" data-role="group-tools" hidden>
-                        <input class="rm-search" type="search" data-role="group-search" placeholder="{labels.groupSearch}">
-                    </div>
-                    <div class="rm-tools" data-role="module-tools" hidden>
-                        <input class="rm-search" type="search" data-role="module-search" placeholder="{labels.moduleSearch}">
-                    </div>
-                    <div class="rm-tools" data-role="db-tools" hidden>
-                        <input class="rm-search" type="search" data-role="page-search" placeholder="{labels.databaseMountSearch}">
-                    </div>
-                    <div class="rm-tools" data-role="tree-tools" hidden>
-                        <input class="rm-search" type="search" data-role="page-tree-search" placeholder="{labels.pageTreeSearch}">
-                    </div>
-                    <div class="rm-tools" data-role="file-tools" data-requires-feature="file-mounts" hidden>
-                        <input class="rm-search" type="search" data-role="file-search" placeholder="{labels.fileMountSearch}">
-                    </div>
-
-                    <div class="rm-panel" data-role="overview-panel"></div>
-                    <div class="rm-panel" data-role="groups-panel" hidden></div>
-                    <div class="rm-panel" data-role="modules-panel" hidden></div>
-                    <div class="rm-panel" data-role="db-panel" hidden></div>
-                    <div class="rm-panel" data-role="tree-panel" hidden></div>
-                    <div class="rm-panel" data-role="file-panel" data-requires-feature="file-mounts" hidden></div>
-
-                    <div class="rm-draft">
-                        <strong><f:translate key="LLL:EXT:ppl_rights_management/Resources/Private/Language/locallang.xlf:common.draft" /></strong>
-                        <span data-role="change-summary" class="rm-muted"><f:translate key="LLL:EXT:ppl_rights_management/Resources/Private/Language/locallang.xlf:common.noChanges" /></span>
-                        <f:if condition="{data.canSave}"><f:else><span class="rm-muted"><f:translate key="LLL:EXT:ppl_rights_management/Resources/Private/Language/locallang.xlf:common.writeDisabledByConfig" /></span></f:else></f:if>
-                        <div class="rm-actions">
-                            <button type="button" class="btn btn-primary" data-role="save-draft" disabled><f:translate key="LLL:EXT:ppl_rights_management/Resources/Private/Language/locallang.xlf:common.save" /></button>
-                            <button type="button" class="btn btn-default" data-role="discard-draft" disabled><f:translate key="LLL:EXT:ppl_rights_management/Resources/Private/Language/locallang.xlf:common.discard" /></button>
+                        <div class="rm-tools" data-role="rights-tools"><input class="rm-search" type="search" data-role="rights-search" placeholder="{labels.rightSearch}"></div>
+                        <div class="rm-tools" data-role="group-tools" hidden><input class="rm-search" type="search" data-role="group-search" placeholder="{labels.groupSearch}"></div>
+                        <div class="rm-tools" data-role="module-tools" hidden><input class="rm-search" type="search" data-role="module-search" placeholder="{labels.moduleSearch}"></div>
+                        <div class="rm-tools" data-role="db-tools" hidden><input class="rm-search" type="search" data-role="page-search" placeholder="{labels.databaseMountSearch}"></div>
+                        <div class="rm-tools" data-role="tree-tools" hidden><input class="rm-search" type="search" data-role="page-tree-search" placeholder="{labels.pageTreeSearch}"></div>
+                        <div class="rm-tools" data-role="file-tools" data-requires-feature="file-mounts" hidden><input class="rm-search" type="search" data-role="file-search" placeholder="{labels.fileMountSearch}"></div>
+                        <div class="rm-panel" data-role="overview-panel"></div>
+                        <div class="rm-panel" data-role="groups-panel" hidden></div>
+                        <div class="rm-panel" data-role="modules-panel" hidden></div>
+                        <div class="rm-panel" data-role="db-panel" hidden></div>
+                        <div class="rm-panel" data-role="tree-panel" hidden></div>
+                        <div class="rm-panel" data-role="file-panel" data-requires-feature="file-mounts" hidden></div>
+                        <div class="rm-draft">
+                            <strong><f:translate key="LLL:EXT:ppl_rights_management/Resources/Private/Language/locallang.xlf:common.draft" /></strong>
+                            <span data-role="change-summary" class="rm-muted"><f:translate key="LLL:EXT:ppl_rights_management/Resources/Private/Language/locallang.xlf:common.noChanges" /></span>
+                            <f:if condition="{data.canSave}">
+                                <f:else>
+                                    <span class="rm-muted"><f:translate key="LLL:EXT:ppl_rights_management/Resources/Private/Language/locallang.xlf:common.writeDisabledByConfig" /></span>
+                                </f:else>
+                            </f:if>
+                            <div class="rm-actions">
+                                <button type="button" class="btn btn-primary" data-role="save-draft" disabled><f:translate key="LLL:EXT:ppl_rights_management/Resources/Private/Language/locallang.xlf:common.save" /></button>
+                                <button type="button" class="btn btn-default" data-role="discard-draft" disabled><f:translate key="LLL:EXT:ppl_rights_management/Resources/Private/Language/locallang.xlf:common.discard" /></button>
+                            </div>
                         </div>
-                    </div>
-                </section>
+                    </section>
+                </div>
+            </div>
+            <div data-role="rights-data" hidden>
+                <f:for each="{data.groups}" as="group">
+                    <span data-role="group-data" data-uid="{group.uid}" data-title="{group.title}" data-description="{group.description}" data-assignable="{f:if(condition: group.assignable, then: '1', else: '0')}" data-subgroups="{group.subgroupCsv}" data-page-types="{group.pageTypeCsv}" data-tables-select="{group.tablesSelectCsv}" data-tables-modify="{group.tablesModifyCsv}" data-modules="{group.moduleCsv}" data-db-mounts="{group.dbMountCsv}" data-file-mounts="{group.fileMountCsv}"></span>
+                </f:for>
+                <f:for each="{data.availablePageTypes}" as="pageType">
+                    <span data-role="page-type-data" data-id="{pageType.id}" data-label="{pageType.label}" data-assignable="{f:if(condition: pageType.assignable, then: '1', else: '0')}"></span>
+                </f:for>
+                <f:for each="{data.availableTables}" as="table">
+                    <span data-role="table-data" data-id="{table.id}" data-label="{table.label}" data-assignable="{f:if(condition: table.assignable, then: '1', else: '0')}" data-can-assign-write="{f:if(condition: table.canAssignWrite, then: '1', else: '0')}"></span>
+                </f:for>
+                <f:for each="{data.availableModules}" as="module">
+                    <span data-role="module-data" data-id="{module.id}" data-label="{module.label}" data-assignable="{f:if(condition: module.assignable, then: '1', else: '0')}"></span>
+                </f:for>
+                <f:for each="{data.availablePages}" as="page">
+                    <span data-role="page-data" data-uid="{page.uid}" data-pid="{page.pid}" data-sorting="{page.sorting}" data-label="{page.label}" data-meta="{page.meta}" data-disabled="{page.disabled}" data-assignable="{f:if(condition: page.assignable, then: '1', else: '0')}"></span>
+                </f:for>
+                <f:for each="{data.availableFileMounts}" as="mount">
+                    <span data-role="file-data" data-uid="{mount.uid}" data-label="{mount.label}" data-meta="{mount.meta}" data-disabled="{mount.disabled}" data-read-only="{mount.readOnly}" data-assignable="{f:if(condition: mount.assignable, then: '1', else: '0')}"></span>
+                </f:for>
             </div>
         </div>
-
-        <div data-role="rights-data" hidden>
-            <f:for each="{data.groups}" as="group">
-                <span data-role="group-data" data-uid="{group.uid}" data-title="{group.title}" data-description="{group.description}" data-assignable="{f:if(condition: group.assignable, then: '1', else: '0')}" data-subgroups="{group.subgroupCsv}" data-page-types="{group.pageTypeCsv}" data-tables-select="{group.tablesSelectCsv}" data-tables-modify="{group.tablesModifyCsv}" data-modules="{group.moduleCsv}" data-db-mounts="{group.dbMountCsv}" data-file-mounts="{group.fileMountCsv}"></span>
-            </f:for>
-            <f:for each="{data.availablePageTypes}" as="pageType">
-                <span data-role="page-type-data" data-id="{pageType.id}" data-label="{pageType.label}" data-assignable="{f:if(condition: pageType.assignable, then: '1', else: '0')}"></span>
-            </f:for>
-            <f:for each="{data.availableTables}" as="table">
-                <span data-role="table-data" data-id="{table.id}" data-label="{table.label}" data-assignable="{f:if(condition: table.assignable, then: '1', else: '0')}" data-can-assign-write="{f:if(condition: table.canAssignWrite, then: '1', else: '0')}"></span>
-            </f:for>
-            <f:for each="{data.availableModules}" as="module">
-                <span data-role="module-data" data-id="{module.id}" data-label="{module.label}" data-assignable="{f:if(condition: module.assignable, then: '1', else: '0')}"></span>
-            </f:for>
-            <f:for each="{data.availablePages}" as="page">
-                <span data-role="page-data" data-uid="{page.uid}" data-pid="{page.pid}" data-sorting="{page.sorting}" data-label="{page.label}" data-meta="{page.meta}" data-disabled="{page.disabled}" data-assignable="{f:if(condition: page.assignable, then: '1', else: '0')}"></span>
-            </f:for>
-            <f:for each="{data.availableFileMounts}" as="mount">
-                <span data-role="file-data" data-uid="{mount.uid}" data-label="{mount.label}" data-meta="{mount.meta}" data-disabled="{mount.disabled}" data-read-only="{mount.readOnly}" data-assignable="{f:if(condition: mount.assignable, then: '1', else: '0')}"></span>
-            </f:for>
-        </div>
-    </div>
-
-    <div class="rm-modal" data-role="confirm-modal" aria-hidden="true">
-        <div class="rm-modal__box">
-            <div class="rm-modal__head"><strong><f:translate key="LLL:EXT:ppl_rights_management/Resources/Private/Language/locallang.xlf:common.saveChanges" /></strong></div>
-            <div class="rm-modal__body" data-role="modal-changes"></div>
-            <div class="rm-modal__foot">
-                <button type="button" class="btn btn-default" data-role="modal-discard"><f:translate key="LLL:EXT:ppl_rights_management/Resources/Private/Language/locallang.xlf:common.back" /></button>
-                <button type="button" class="btn btn-primary" data-role="modal-save"><f:translate key="LLL:EXT:ppl_rights_management/Resources/Private/Language/locallang.xlf:common.save" /></button>
+        <div class="rm-modal" data-role="confirm-modal" aria-hidden="true">
+            <div class="rm-modal__box">
+                <div class="rm-modal__head"><strong><f:translate key="LLL:EXT:ppl_rights_management/Resources/Private/Language/locallang.xlf:common.saveChanges" /></strong></div>
+                <div class="rm-modal__body" data-role="modal-changes"></div>
+                <div class="rm-modal__foot">
+                    <button type="button" class="btn btn-default" data-role="modal-discard"><f:translate key="LLL:EXT:ppl_rights_management/Resources/Private/Language/locallang.xlf:common.back" /></button>
+                    <button type="button" class="btn btn-primary" data-role="modal-save"><f:translate key="LLL:EXT:ppl_rights_management/Resources/Private/Language/locallang.xlf:common.save" /></button>
+                </div>
             </div>
         </div>
     </div>
-</div>
 </html>
