@@ -38,10 +38,6 @@ class RightsManagementModuleConfiguration extends AbstractRightsManagementModule
                 'label' => 'tabs.groupRightsInheritanceManagement.label',
                 'description' => 'tabs.groupRightsInheritanceManagement.description',
             ],
-            'group-backend-user-management' => [
-                'label' => 'tabs.groupBackendUserManagement.label',
-                'description' => 'tabs.groupBackendUserManagement.description',
-            ],
             'backend-user-management' => [
                 'label' => 'tabs.backendUserManagement.label',
                 'description' => 'tabs.backendUserManagement.description',

@@ -322,7 +322,6 @@ abstract class AbstractRightsManagementController
             'groupSearch',
             'groups',
             'groupsSelected',
-            'groupAssignment',
             'groupRightsInheritanceEdit',
             'hidden',
             'inherited',

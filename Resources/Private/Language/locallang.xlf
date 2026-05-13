@@ -15,8 +15,6 @@
             <trans-unit id="tabs.moduleManagement.description"><source>Manages backend module permissions for backend groups.</source></trans-unit>
             <trans-unit id="tabs.groupRightsInheritanceManagement.label"><source>Group Rights Inheritance</source></trans-unit>
             <trans-unit id="tabs.groupRightsInheritanceManagement.description"><source>Defines which backend groups inherit rights from other groups.</source></trans-unit>
-            <trans-unit id="tabs.groupBackendUserManagement.label"><source>Group to Backend User Management</source></trans-unit>
-            <trans-unit id="tabs.groupBackendUserManagement.description"><source>Assigns backend groups to backend users.</source></trans-unit>
             <trans-unit id="tabs.backendUserManagement.label"><source>Backend User Management</source></trans-unit>
             <trans-unit id="tabs.backendUserManagement.description"><source>Manages backend user specific settings.</source></trans-unit>
             <trans-unit id="tabs.mountManagement.label"><source>Mount Management</source></trans-unit>
@@ -89,7 +87,6 @@
             <trans-unit id="common.group"><source>Group</source></trans-unit>
             <trans-unit id="common.rights"><source>Rights</source></trans-unit>
             <trans-unit id="common.rightSearch"><source>Search rights, modules, mounts or source</source></trans-unit>
-            <trans-unit id="common.groupAssignment"><source>Group assignment</source></trans-unit>
             <trans-unit id="common.groupRightsInheritanceEdit"><source>Edit group rights inheritance</source></trans-unit>
             <trans-unit id="common.groupsSelected"><source>groups selected</source></trans-unit>
             <trans-unit id="common.hidden"><source>hidden</source></trans-unit>

@@ -161,10 +161,6 @@
     background-image: var(--rm-icon-groups);
 }
 
-.rm-toolbar [data-tab-id="group-backend-user-management"]::before {
-    background-image: var(--rm-icon-link);
-}
-
 .rm-toolbar [data-tab-id="group-rights-management"]::before {
     background-image: var(--rm-icon-rights);
 }

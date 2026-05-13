@@ -15,8 +15,6 @@
             <trans-unit id="tabs.moduleManagement.description"><source>Manages backend module permissions for backend groups.</source><target>Verwaltet Backend-Modulrechte pro Backend-Gruppe.</target></trans-unit>
             <trans-unit id="tabs.groupRightsInheritanceManagement.label"><source>Group Rights Inheritance</source><target>Rechtevererbung</target></trans-unit>
             <trans-unit id="tabs.groupRightsInheritanceManagement.description"><source>Defines which backend groups inherit rights from other groups.</source><target>Definiert, welche Backend-Gruppen Rechte von anderen Gruppen erben.</target></trans-unit>
-            <trans-unit id="tabs.groupBackendUserManagement.label"><source>Group to Backend User Management</source><target>Gruppen zu Benutzern</target></trans-unit>
-            <trans-unit id="tabs.groupBackendUserManagement.description"><source>Assigns backend groups to backend users.</source><target>Ordnet Gruppen den Backend-Benutzern zu.</target></trans-unit>
             <trans-unit id="tabs.backendUserManagement.label"><source>Backend User Management</source><target>Benutzerverwaltung</target></trans-unit>
             <trans-unit id="tabs.backendUserManagement.description"><source>Manages backend user specific settings.</source><target>Pflegt Backend-Benutzer-spezifische Einstellungen.</target></trans-unit>
             <trans-unit id="tabs.mountManagement.label"><source>Mount Management</source><target>Mounts</target></trans-unit>
@@ -89,7 +87,6 @@
             <trans-unit id="common.group"><source>Group</source><target>Gruppe</target></trans-unit>
             <trans-unit id="common.rights"><source>Rights</source><target>Rechte</target></trans-unit>
             <trans-unit id="common.rightSearch"><source>Search rights, modules, mounts or source</source><target>Rechte, Module, Mounts oder Quelle suchen</target></trans-unit>
-            <trans-unit id="common.groupAssignment"><source>Group assignment</source><target>Gruppen-Zuordnung</target></trans-unit>
             <trans-unit id="common.groupRightsInheritanceEdit"><source>Edit group rights inheritance</source><target>Gruppen-Rechte-Vererbung bearbeiten</target></trans-unit>
             <trans-unit id="common.groupsSelected"><source>groups selected</source><target>Gruppen ausgewählt</target></trans-unit>
             <trans-unit id="common.hidden"><source>hidden</source><target>ausgeblendet</target></trans-unit>

@@ -1910,24 +1910,6 @@
             render();
         })();
 
-// Template: GroupBackendUserManagement.html #0
-(() => {
-            const input = document.querySelector('[data-role="assignment-group-search"]');
-            if (!input) return;
-            const pills = [...document.querySelectorAll('[data-role="assignment-group-pill"]')];
-            input.addEventListener('input', () => {
-                const needle = normalize(input.value);
-                for (const pill of pills) {
-                    const searchable = `${pill.textContent || ''} ${pill.dataset.title || ''} ${pill.dataset.description || ''} ${pill.dataset.uid || ''}`;
-                    pill.hidden = needle !== '' && !normalize(searchable).includes(needle);
-                }
-            });
-
-            function normalize(value) {
-                return String(value || '').trim().toLowerCase();
-            }
-        })();
-
 // Template: GroupManagement.html #0
 (() => {
             const input = document.querySelector('[data-role="group-table-search"]');

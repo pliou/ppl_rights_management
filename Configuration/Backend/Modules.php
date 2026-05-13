@@ -3,7 +3,6 @@
 declare(strict_types=1);
 
 use Ppl\PplRightsManagement\Controller\BackendUserManagementController;
-use Ppl\PplRightsManagement\Controller\GroupBackendUserManagementController;
 use Ppl\PplRightsManagement\Controller\GroupManagementController;
 use Ppl\PplRightsManagement\Controller\GroupRightsInheritanceManagementController;
 use Ppl\PplRightsManagement\Controller\GroupRightsManagementController;
@@ -44,10 +43,6 @@ return [
             'group-rights-inheritance-management' => [
                 'path' => '/group-rights-inheritance-management',
                 'target' => GroupRightsInheritanceManagementController::class . '::handleRequest',
-            ],
-            'group-backend-user-management' => [
-                'path' => '/group-backend-user-management',
-                'target' => GroupBackendUserManagementController::class . '::handleRequest',
             ],
             'backend-user-management' => [
                 'path' => '/backend-user-management',

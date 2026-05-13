@@ -20,7 +20,6 @@ class RightsManagementSaveService
 
     private const READONLY_SCOPES = [
         'overview' => true,
-        'group-backend-user-management' => true,
     ];
 
     public function __construct(
