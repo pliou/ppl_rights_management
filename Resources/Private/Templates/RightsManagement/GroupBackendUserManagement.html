@@ -1,0 +1,30 @@
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers" data-namespace-typo3-fluid="true">
+<div class="rm-shell">
+    <div class="rm-page-head"><div class="rm-page-head__icon" aria-hidden="true"></div><div><h1>{title}</h1><p>{introText}</p></div></div>
+    <div class="rm-toolbar"><f:for each="{tabs}" as="tab"><f:if condition="{tab.id} == {activeTab.id}"><f:then><a href="{tab.route}" class="btn btn-primary" data-tab-id="{tab.id}">{tab.label}</a></f:then><f:else><a href="{tab.route}" class="btn btn-default" data-tab-id="{tab.id}">{tab.label}</a></f:else></f:if></f:for></div>
+    <div class="rm-import-note"><strong>{activeTab.label}</strong><br>{activeTab.description}</div>
+
+    <div class="rm-card">
+        <div class="rm-card__head">
+            <strong><f:translate key="LLL:EXT:ppl_rights_management/Resources/Private/Language/locallang.xlf:common.groupAssignment" /></strong>
+            <span class="rm-muted"><f:count subject="{data.groups}" /> <f:translate key="LLL:EXT:ppl_rights_management/Resources/Private/Language/locallang.xlf:common.groups" /></span>
+        </div>
+        <div class="rm-card__body">
+            <div class="rm-selector-tools">
+                <input class="rm-search" type="search" data-role="assignment-group-search" placeholder="{labels.groupSearch}">
+            </div>
+            <div class="rm-group-grid">
+                <f:for each="{data.groups}" as="group">
+                    <div class="rm-group-option {f:if(condition: group.assignable, then: '', else: 'is-disabled')}" data-role="assignment-group-pill" data-uid="{group.uid}" data-title="{group.title}" data-description="{group.description}" data-assignable="{f:if(condition: group.assignable, then: '1', else: '0')}">
+                        <span>
+                            <strong>{group.title}</strong><br>
+                            <span class="rm-muted">UID {group.uid}</span>
+                            <f:if condition="{group.description}"><br><span class="rm-muted">{group.description}</span></f:if>
+                        </span>
+                    </div>
+                </f:for>
+            </div>
+        </div>
+    </div>
+</div>
+</html>

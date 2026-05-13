@@ -1,0 +1,46 @@
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers" data-namespace-typo3-fluid="true">
+<div class="rm-shell">
+    <div class="rm-page-head"><div class="rm-page-head__icon" aria-hidden="true"></div><div><h1>{title}</h1><p>{introText}</p></div></div>
+    <div class="rm-toolbar"><f:for each="{tabs}" as="tab"><f:if condition="{tab.id} == {activeTab.id}"><f:then><a href="{tab.route}" class="btn btn-primary" data-tab-id="{tab.id}">{tab.label}</a></f:then><f:else><a href="{tab.route}" class="btn btn-default" data-tab-id="{tab.id}">{tab.label}</a></f:else></f:if></f:for></div>
+    <div class="rm-note"><strong>{activeTab.label}</strong><br>{activeTab.description}</div>
+
+    <div class="rm-card">
+        <div class="rm-card__head"><strong>History</strong></div>
+        <div class="rm-card__body">
+            <p class="rm-muted">{data.historyNotice}</p>
+            <f:if condition="{data.canSeeHistory}">
+                <f:then>
+                    <f:if condition="{data.historyTableReady}">
+                        <f:then>
+                            <f:if condition="{data.historyRows}">
+                                <f:then>
+                                    <div class="rm-table-wrap">
+                                        <table class="rm-table">
+                                            <thead><tr><th>Zeit</th><th>Backend-User</th><f:if condition="{data.showImpersonationColumn}"><th>Gewechselt von</th></f:if><th>Bereich</th><th>Aktion</th><th>Zusammenfassung</th></tr></thead>
+                                            <tbody>
+                                                <f:for each="{data.historyRows}" as="row">
+                                                    <tr>
+                                                        <td>{row.formattedTime}</td>
+                                                        <td>{row.backend_user_name}</td>
+                                                        <f:if condition="{data.showImpersonationColumn}"><td>{row.impersonated_user_name}</td></f:if>
+                                                        <td>{row.scope}</td>
+                                                        <td>{row.action}</td>
+                                                        <td>{row.summary}</td>
+                                                    </tr>
+                                                </f:for>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </f:then>
+                                <f:else><div class="rm-empty">Noch keine History-Einträge vorhanden.</div></f:else>
+                            </f:if>
+                        </f:then>
+                        <f:else><div class="rm-empty">Die History-Tabelle fehlt noch. Bitte den Database Analyzer ausführen.</div></f:else>
+                    </f:if>
+                </f:then>
+                <f:else><div class="rm-empty">Die History ist nur für Admins sichtbar.</div></f:else>
+            </f:if>
+        </div>
+    </div>
+</div>
+</html>

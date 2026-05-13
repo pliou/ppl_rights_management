@@ -1,0 +1,17 @@
+services:
+  _defaults:
+    autowire: true
+    autoconfigure: true
+    public: false
+
+  Ppl\PplRightsManagement\:
+    resource: '../Classes/*'
+
+  Ppl\PplRightsManagement\Controller\:
+    resource: '../Classes/Controller/*'
+    public: true
+
+  Ppl\PplRightsManagement\Configuration\AbstractRightsManagementModuleConfiguration: '@Ppl\PplRightsManagement\Configuration\RightsManagementModuleConfiguration'
+
+  Ppl\PplRightsManagement\Configuration\RightsManagementModuleConfiguration:
+    public: true

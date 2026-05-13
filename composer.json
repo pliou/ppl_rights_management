@@ -1,0 +1,36 @@
+{
+  "name": "ppl/ppl_rights_management",
+  "type": "typo3-cms-extension",
+  "description": "TYPO3 backend module for delegated backend user, group, module and mount rights management.",
+  "keywords": [
+    "TYPO3",
+    "backend",
+    "rights",
+    "permissions",
+    "backend-users",
+    "backend-groups"
+  ],
+  "license": "GPL-2.0-or-later",
+  "authors": [
+    {
+      "name": "Pawel Pliousnin",
+      "email": "pliousnin@ppl-ds.com",
+      "role": "Developer"
+    }
+  ],
+  "require": {
+    "php": ">=8.2",
+    "typo3/cms-core": "^13.4",
+    "typo3/cms-backend": "^13.4"
+  },
+  "autoload": {
+    "psr-4": {
+      "Ppl\\PplRightsManagement\\": "Classes/"
+    }
+  },
+  "extra": {
+    "typo3/cms": {
+      "extension-key": "ppl_rights_management"
+    }
+  }
+}
