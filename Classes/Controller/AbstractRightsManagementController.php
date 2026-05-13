@@ -31,8 +31,9 @@ abstract class AbstractRightsManagementController
 
     public function handleRequest(ServerRequestInterface $request): ResponseInterface
     {
-        $definition = $this->translateDefinition($this->moduleConfiguration->getDefinition());
-        $extensionKey = (string)$definition['module']['identifier'];
+        $definition = $this->moduleConfiguration->getDefinition();
+        $extensionKey = $this->getTranslationExtensionKey($definition);
+        $definition = $this->translateDefinition($definition, $extensionKey);
         $accessService = GeneralUtility::makeInstance(RightsManagementAccessService::class);
         $tabs = $this->filterAccessibleTabs($this->withGeneratedRoutes($definition['tabs']), $accessService);
         $routes = $this->filterAccessibleRoutes($this->withGeneratedRoutes($definition['routes']), $accessService);
@@ -209,9 +210,13 @@ abstract class AbstractRightsManagementController
         $this->pageRenderer->addJsFile($assetBase . 'JavaScript/rights-management-ui.js', 'module', true, false, '', true);
     }
 
-    private function translateDefinition(array $definition): array
+    private function getTranslationExtensionKey(array $definition): string
     {
-        $extensionKey = (string)$definition['module']['identifier'];
+        return (string)($definition['module']['translationExtensionKey'] ?? $definition['module']['identifier']);
+    }
+
+    private function translateDefinition(array $definition, string $extensionKey): array
+    {
         $definition['module']['title'] = $this->translate((string)$definition['module']['title'], $extensionKey);
 
         foreach ($definition['tabs'] as $tabId => $tab) {
