@@ -3,8 +3,8 @@
     <file source-language="en" target-language="de" datatype="plaintext" original="messages" date="2026-05-04T00:00:00Z" product-name="ppl_rights_management">
         <header/>
         <body>
-            <trans-unit id="module.title"><source>Rights Management</source><target>Rights Management</target></trans-unit>
-            <trans-unit id="module.intro"><source>Central backend module for managing groups, users, rights, modules and mounts.</source><target>Zentrales Backend-Modul zum Verwalten von Gruppen, Benutzern, Rechten, Modulen und Mounts.</target></trans-unit>
+            <trans-unit id="module.title"><source>PPL Rights Management</source><target>PPL Rights Management</target></trans-unit>
+            <trans-unit id="module.intro"><source>Central backend module for managing PPL groups, users, rights, modules and mounts.</source><target>Zentrales Backend-Modul zum Verwalten von PPL-Gruppen, Benutzern, Rechten, Modulen und Mounts.</target></trans-unit>
             <trans-unit id="tabs.overview.label"><source>Overview</source><target>Übersicht</target></trans-unit>
             <trans-unit id="tabs.overview.description"><source>Shows current and inherited rights, modules and mounts for selected groups or users.</source><target>Zeigt aktuelle und geerbte Rechte, Module und Mounts für ausgewählte Gruppen oder Benutzer.</target></trans-unit>
             <trans-unit id="tabs.groupManagement.label"><source>Group Management</source><target>Gruppenverwaltung</target></trans-unit>
@@ -28,6 +28,7 @@
             <trans-unit id="common.available"><source>Available</source><target>Verfügbar</target></trans-unit>
             <trans-unit id="common.backendGroups"><source>Backend groups</source><target>Backend-Gruppen</target></trans-unit>
             <trans-unit id="common.backendModule"><source>Backend module</source><target>Backend-Modul</target></trans-unit>
+            <trans-unit id="common.backendUser"><source>Backend user</source><target>Backend-Benutzer</target></trans-unit>
             <trans-unit id="common.backendUsers"><source>Backend users</source><target>Backend-Benutzer</target></trans-unit>
             <trans-unit id="common.back"><source>Back</source><target>Zurück</target></trans-unit>
             <trans-unit id="common.cancel"><source>Cancel</source><target>Abbrechen</target></trans-unit>
@@ -53,7 +54,14 @@
             <trans-unit id="common.own"><source>Own</source><target>Eigen</target></trans-unit>
             <trans-unit id="common.save"><source>Save</source><target>Speichern</target></trans-unit>
             <trans-unit id="common.saveChanges"><source>Save changes?</source><target>Änderungen speichern?</target></trans-unit>
+            <trans-unit id="common.saved"><source>Saved</source><target>Gespeichert</target></trans-unit>
+            <trans-unit id="common.saveAborted"><source>Save aborted</source><target>Speichern abgebrochen</target></trans-unit>
             <trans-unit id="common.status"><source>Status</source><target>Status</target></trans-unit>
+            <trans-unit id="common.time"><source>Time</source><target>Zeit</target></trans-unit>
+            <trans-unit id="common.switchedFrom"><source>Switched from</source><target>Gewechselt von</target></trans-unit>
+            <trans-unit id="common.section"><source>Section</source><target>Bereich</target></trans-unit>
+            <trans-unit id="common.action"><source>Action</source><target>Aktion</target></trans-unit>
+            <trans-unit id="common.summary"><source>Summary</source><target>Zusammenfassung</target></trans-unit>
             <trans-unit id="common.title"><source>Title</source><target>Titel</target></trans-unit>
             <trans-unit id="common.userSearch"><source>Search username, name or UID</source><target>Benutzername, Name oder UID suchen</target></trans-unit>
             <trans-unit id="common.users"><source>Users</source><target>Benutzer</target></trans-unit>
@@ -147,6 +155,9 @@
             <trans-unit id="accessDenied.title"><source>No access</source><target>Kein Zugriff</target></trans-unit>
             <trans-unit id="accessDenied.description"><source>This module is not enabled for the current backend user.</source><target>Dieses Modul ist für den aktuellen Backend-Benutzer nicht freigeschaltet.</target></trans-unit>
             <trans-unit id="accessDenied.hint"><source>Please check module access or the rights management configuration.</source><target>Bitte Modulzugriff oder Rights-Management-Konfiguration prüfen.</target></trans-unit>
+            <trans-unit id="history.empty"><source>No history entries yet.</source><target>Noch keine History-Einträge vorhanden.</target></trans-unit>
+            <trans-unit id="history.tableMissing"><source>The history table is missing. Please run the Database Analyzer.</source><target>Die History-Tabelle fehlt noch. Bitte den Database Analyzer ausführen.</target></trans-unit>
+            <trans-unit id="history.adminOnly"><source>History is only visible to administrators.</source><target>Die History ist nur für Admins sichtbar.</target></trans-unit>
         </body>
     </file>
 </xliff>

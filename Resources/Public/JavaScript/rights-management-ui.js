@@ -7,6 +7,9 @@
         return;
     }
 
+    ensureModuleScroll();
+    window.addEventListener('resize', ensureModuleScroll);
+
     enhanceTranslations();
     enhanceNavigation();
     enhanceTabs();
@@ -15,6 +18,47 @@
     enhanceForms();
     enhanceSearchInputs();
     enhanceMatrixSearches();
+
+    function ensureModuleScroll() {
+        const module = root.classList && root.classList.contains('module')
+            ? root
+            : (root.closest ? root.closest('.module') : document.querySelector('.module'));
+        const moduleBody = root.classList && root.classList.contains('module-body')
+            ? root
+            : (module ? module.querySelector('.module-body') : (root.closest ? root.closest('.module-body') : null));
+        const innerShell = moduleBody ? moduleBody.querySelector('.rm-shell') : (module === root ? null : root);
+        const docHeader = module ? module.querySelector('.module-docheader') : null;
+        const docHeaderHeight = docHeader ? Math.ceil(docHeader.getBoundingClientRect().height) : 0;
+
+        document.documentElement.style.setProperty('height', '100%', 'important');
+        document.documentElement.style.setProperty('overflow', 'hidden', 'important');
+        document.body.style.setProperty('height', '100%', 'important');
+        document.body.style.setProperty('overflow', 'hidden', 'important');
+
+        if (module) {
+            module.classList.add('rm-scroll-frame');
+            module.style.setProperty('height', '100%', 'important');
+            module.style.setProperty('min-height', '0', 'important');
+            module.style.setProperty('overflow', 'hidden', 'important');
+            module.style.setProperty('scroll-padding-bottom', '48px', 'important');
+        }
+        if (moduleBody) {
+            moduleBody.style.setProperty('box-sizing', 'border-box', 'important');
+            moduleBody.style.setProperty('height', docHeaderHeight > 0 ? 'calc(100% - ' + docHeaderHeight + 'px)' : '100%', 'important');
+            moduleBody.style.setProperty('min-height', 'auto', 'important');
+            moduleBody.style.setProperty('overflow', 'hidden', 'important');
+            moduleBody.style.setProperty('padding-bottom', '24px', 'important');
+        }
+        if (innerShell && innerShell !== module) {
+            innerShell.style.setProperty('box-sizing', 'border-box', 'important');
+            innerShell.style.setProperty('height', '100%', 'important');
+            innerShell.style.setProperty('max-height', '100%', 'important');
+            innerShell.style.setProperty('overflow-x', 'hidden', 'important');
+            innerShell.style.setProperty('overflow-y', 'auto', 'important');
+            innerShell.style.setProperty('padding-bottom', '24px', 'important');
+            innerShell.style.setProperty('scroll-padding-bottom', '48px', 'important');
+        }
+    }
 
     function enhanceTranslations() {
         const labels = {};
@@ -903,7 +947,7 @@
         },
         openModal(modal, changesNode, html) {
             if (!modal || !changesNode) {
-                this.notify('Bestätigungsdialog wurde nicht gefunden.');
+                this.notify('Confirmation dialog was not found.');
                 return;
             }
             changesNode.innerHTML = this.translate(html);
@@ -930,7 +974,7 @@
             form.method = 'post';
             form.action = actionUrl.toString();
             if (!routeToken && !form.querySelector('input[name="token"]')) {
-                this.notify('Speichertoken fehlt. Bitte Backend-Cache leeren und die Ansicht neu laden.');
+                this.notify('Save token is missing. Please clear the backend cache and reload the view.');
                 return;
             }
             if (typeof form.requestSubmit === 'function') {
@@ -2251,7 +2295,7 @@
             }
             function fallbackLabel(key) {
                 const language = String(document.documentElement.lang || navigator.language || '').toLowerCase();
-                const labels = language.indexOf('en') === 0 ? fallbackLabels.en : fallbackLabels.de;
+                const labels = language.indexOf('de') === 0 ? fallbackLabels.de : fallbackLabels.en;
                 return labels[key] || fallbackLabels.en[key] || key;
             }
             function translate(value) {

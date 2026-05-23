@@ -54,11 +54,11 @@ class RightsManagementSaveController
             GeneralUtility::makeInstance(HistoryService::class, GeneralUtility::makeInstance(ConnectionPool::class))
                 ->recordChange($scope, $payload, $message, is_array($result['history'] ?? null) ? $result['history'] : []);
             $this->logSave('info', $message, $scope, $payload);
-            $this->addFlashMessage($message, 'Gespeichert', ContextualFeedbackSeverity::OK);
+            $this->addFlashMessage($message, $this->translate('common.saved'), ContextualFeedbackSeverity::OK);
         } catch (\Throwable $throwable) {
             $message = $throwable->getMessage();
             $this->logSave('error', $message, $scope, $body);
-            $this->addFlashMessage($message, 'Speichern abgebrochen', ContextualFeedbackSeverity::ERROR);
+            $this->addFlashMessage($message, $this->translate('common.saveAborted'), ContextualFeedbackSeverity::ERROR);
         }
 
         $returnUrl = $this->resolveReturnUrl($request, (string)($body['returnUrl'] ?? ''));
@@ -74,7 +74,7 @@ class RightsManagementSaveController
         }
         $decoded = json_decode($payload, true);
         if (!is_array($decoded)) {
-            throw new \RuntimeException('Die Speicherdaten konnten nicht gelesen werden.');
+            throw new \RuntimeException('The save data could not be read.');
         }
 
         return $decoded;
@@ -84,6 +84,13 @@ class RightsManagementSaveController
     {
         $queue = GeneralUtility::makeInstance(FlashMessageService::class)->getMessageQueueByIdentifier();
         $queue->enqueue(new FlashMessage($message, $title, $severity, true));
+    }
+
+    private function translate(string $key): string
+    {
+        $label = $GLOBALS['LANG']->sL('LLL:EXT:ppl_rights_management/Resources/Private/Language/locallang.xlf:' . $key);
+
+        return $label !== '' ? $label : $key;
     }
 
     private function resolveReturnUrl(ServerRequestInterface $request, string $returnUrl): string

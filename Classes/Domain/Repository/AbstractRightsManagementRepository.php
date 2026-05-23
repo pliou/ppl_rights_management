@@ -11,6 +11,13 @@ use TYPO3\CMS\Core\Database\ConnectionPool;
 
 abstract class AbstractRightsManagementRepository
 {
+    private const SYSTEM_ADMIN_GROUP_TITLES = [
+        'admin',
+        'admins',
+        'administrator',
+        'administrators',
+    ];
+
     public function __construct(
         protected readonly ConnectionPool $connectionPool,
         protected readonly ModuleProvider $moduleProvider
@@ -27,7 +34,10 @@ abstract class AbstractRightsManagementRepository
             ->executeQuery()
             ->fetchAllAssociative();
 
-        return array_map(fn(array $row): array => $this->normalizeGroup($row), $rows);
+        return array_values(array_filter(
+            array_map(fn(array $row): array => $this->normalizeGroup($row), $rows),
+            static fn(array $group): bool => !($group['systemAdminGroup'] ?? false)
+        ));
     }
 
     public function getBackendUsers(array $groups): array
@@ -199,6 +209,7 @@ abstract class AbstractRightsManagementRepository
             'title' => (string)$row['title'],
             'description' => (string)($row['description'] ?? ''),
             'hidden' => (bool)$row['hidden'],
+            'systemAdminGroup' => $this->isSystemAdminGroupTitle((string)$row['title']),
             'subgroupIds' => $subgroupIds,
             'subgroupCsv' => implode(',', $subgroupIds),
             'pageTypeIds' => $this->splitCsv($row['pagetypes_select'] ?? ''),
@@ -224,6 +235,11 @@ abstract class AbstractRightsManagementRepository
             'categoryPermissionCsv' => (string)($row['category_perms'] ?? ''),
             'TSconfig' => (string)($row['TSconfig'] ?? ''),
         ];
+    }
+
+    private function isSystemAdminGroupTitle(string $title): bool
+    {
+        return in_array(strtolower(trim($title)), self::SYSTEM_ADMIN_GROUP_TITLES, true);
     }
 
     protected function mapByUid(array $rows): array

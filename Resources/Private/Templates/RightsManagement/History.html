@@ -25,7 +25,7 @@
             {activeTab.description}
         </div>
         <div class="rm-card">
-            <div class="rm-card__head"><strong>History</strong></div>
+            <div class="rm-card__head"><strong><f:translate key="LLL:EXT:ppl_rights_management/Resources/Private/Language/locallang.xlf:tabs.history.label" /></strong></div>
             <div class="rm-card__body">
                 <p class="rm-muted">{data.historyNotice}</p>
                 <f:if condition="{data.canSeeHistory}">
@@ -38,14 +38,14 @@
                                             <table class="rm-table">
                                                 <thead>
                                                     <tr>
-                                                        <th>Zeit</th>
-                                                        <th>Backend-User</th>
+                                                        <th><f:translate key="LLL:EXT:ppl_rights_management/Resources/Private/Language/locallang.xlf:common.time" /></th>
+                                                        <th><f:translate key="LLL:EXT:ppl_rights_management/Resources/Private/Language/locallang.xlf:common.backendUser" /></th>
                                                         <f:if condition="{data.showImpersonationColumn}">
-                                                            <th>Gewechselt von</th>
+                                                            <th><f:translate key="LLL:EXT:ppl_rights_management/Resources/Private/Language/locallang.xlf:common.switchedFrom" /></th>
                                                         </f:if>
-                                                        <th>Bereich</th>
-                                                        <th>Aktion</th>
-                                                        <th>Zusammenfassung</th>
+                                                        <th><f:translate key="LLL:EXT:ppl_rights_management/Resources/Private/Language/locallang.xlf:common.section" /></th>
+                                                        <th><f:translate key="LLL:EXT:ppl_rights_management/Resources/Private/Language/locallang.xlf:common.action" /></th>
+                                                        <th><f:translate key="LLL:EXT:ppl_rights_management/Resources/Private/Language/locallang.xlf:common.summary" /></th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
@@ -66,17 +66,17 @@
                                         </div>
                                     </f:then>
                                     <f:else>
-                                        <div class="rm-empty">Noch keine History-Einträge vorhanden.</div>
+                                        <div class="rm-empty"><f:translate key="LLL:EXT:ppl_rights_management/Resources/Private/Language/locallang.xlf:history.empty" /></div>
                                     </f:else>
                                 </f:if>
                             </f:then>
                             <f:else>
-                                <div class="rm-empty">Die History-Tabelle fehlt noch. Bitte den Database Analyzer ausführen.</div>
+                                <div class="rm-empty"><f:translate key="LLL:EXT:ppl_rights_management/Resources/Private/Language/locallang.xlf:history.tableMissing" /></div>
                             </f:else>
                         </f:if>
                     </f:then>
                     <f:else>
-                        <div class="rm-empty">Die History ist nur für Admins sichtbar.</div>
+                        <div class="rm-empty"><f:translate key="LLL:EXT:ppl_rights_management/Resources/Private/Language/locallang.xlf:history.adminOnly" /></div>
                     </f:else>
                 </f:if>
             </div>

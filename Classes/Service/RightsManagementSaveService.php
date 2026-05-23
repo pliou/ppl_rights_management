@@ -32,7 +32,7 @@ class RightsManagementSaveService
     {
         $scope = trim($scope);
         if ($scope === '' || isset(self::READONLY_SCOPES[$scope])) {
-            throw new RuntimeException('Diese Ansicht ist nur lesend.');
+            throw new RuntimeException('This view is read-only.');
         }
         $backendUser = $this->getBackendUser();
         if ($backendUser instanceof BackendUserAuthentication && $backendUser->isAdmin()) {
@@ -41,12 +41,12 @@ class RightsManagementSaveService
 
             return [
                 'count' => $count,
-                'message' => $count === 1 ? '1 Änderung gespeichert.' : $count . ' Änderungen gespeichert.',
+                'message' => $count === 1 ? '1 change saved.' : $count . ' changes saved.',
                 'history' => $history,
             ];
         }
         if (!$this->accessService->canSave()) {
-            throw new RuntimeException('Nur-Lese-Modus. Wenn etwas geändert werden muss, sprechen Sie bitte mit Ihrem Admin.');
+            throw new RuntimeException('Read-only mode. If something needs to be changed, please contact your administrator.');
         }
 
         $context = $this->buildContextForScope($scope, $payload);
@@ -54,7 +54,7 @@ class RightsManagementSaveService
 
         return [
             'count' => $count,
-            'message' => $count === 1 ? '1 Änderung gespeichert.' : $count . ' Änderungen gespeichert.',
+            'message' => $count === 1 ? '1 change saved.' : $count . ' changes saved.',
             'history' => $history,
         ];
     }
@@ -103,13 +103,13 @@ class RightsManagementSaveService
 
         $blockingErrors = $this->blockingDataHandlerErrors($dataHandler->errorLog);
         if ($blockingErrors !== []) {
-            throw new RuntimeException('TYPO3 hat das Speichern abgelehnt: ' . implode(' | ', $blockingErrors));
+            throw new RuntimeException('TYPO3 rejected the save operation: ' . implode(' | ', $blockingErrors));
         }
         foreach ($dataMap as $records) {
             foreach (array_keys($records) as $recordId) {
                 $recordId = (string)$recordId;
                 if (str_starts_with($recordId, 'NEW') && !isset($dataHandler->substNEWwithIDs[$recordId])) {
-                    throw new RuntimeException('TYPO3 hat den neuen Datensatz nicht angelegt.');
+                    throw new RuntimeException('TYPO3 did not create the new record.');
                 }
             }
         }
@@ -165,7 +165,7 @@ class RightsManagementSaveService
             $normalized = $this->withInsertPluginContentTypeAllow($explicitAllowDeny);
             if ($normalized !== $explicitAllowDeny) {
                 if (!$this->canAssignInsertPluginContentTypeAllow($explicitAllowDeny)) {
-                    throw new RuntimeException('Plugin-Bearbeitung ist aktiviert, aber der Inhaltstyp "Insert Plugin" darf von diesem Benutzer nicht vergeben werden.');
+                    throw new RuntimeException('Plugin editing is enabled, but this user is not allowed to assign the "Insert Plugin" content type.');
                 }
                 $dataMap['be_groups'][$recordId]['explicit_allowdeny'] = $normalized;
             }
@@ -256,23 +256,23 @@ class RightsManagementSaveService
             'mount-management' => [
                 'be_groups' => ['db_mountpoints', 'file_mountpoints'],
             ],
-            default => throw new RuntimeException('Unbekannter Speicherbereich: ' . $scope),
+            default => throw new RuntimeException('Unknown save scope: ' . $scope),
         };
         $allowedCommands = $scope === 'group-management' ? ['be_groups' => ['delete' => true]] : [];
 
         foreach ($dataMap as $tableName => $records) {
             $tableName = (string)$tableName;
             if (!isset($allowedFields[$tableName])) {
-                throw new RuntimeException('Tabelle ' . $tableName . ' darf in diesem Speicherbereich nicht geändert werden.');
+                throw new RuntimeException('Table ' . $tableName . ' cannot be changed in this save scope.');
             }
             $fieldSet = array_fill_keys($allowedFields[$tableName], true);
             foreach ((array)$records as $recordId => $fields) {
                 if (!is_array($fields)) {
-                    throw new RuntimeException('Ungültige Speicherdaten für ' . $tableName . ':' . (string)$recordId . '.');
+                    throw new RuntimeException('Invalid save data for ' . $tableName . ':' . (string)$recordId . '.');
                 }
                 foreach (array_keys($fields) as $fieldName) {
                     if (!isset($fieldSet[(string)$fieldName])) {
-                        throw new RuntimeException('Feld ' . $tableName . '.' . (string)$fieldName . ' darf in diesem Speicherbereich nicht geändert werden.');
+                        throw new RuntimeException('Field ' . $tableName . '.' . (string)$fieldName . ' cannot be changed in this save scope.');
                     }
                 }
             }
@@ -281,15 +281,15 @@ class RightsManagementSaveService
         foreach ($commandMap as $tableName => $records) {
             $tableName = (string)$tableName;
             if (!isset($allowedCommands[$tableName])) {
-                throw new RuntimeException('Kommandos für Tabelle ' . $tableName . ' sind in diesem Speicherbereich nicht erlaubt.');
+                throw new RuntimeException('Commands for table ' . $tableName . ' are not allowed in this save scope.');
             }
             foreach ((array)$records as $uid => $commands) {
                 if (!is_array($commands)) {
-                    throw new RuntimeException('Ungültiges Kommando für ' . $tableName . ':' . (string)$uid . '.');
+                    throw new RuntimeException('Invalid command for ' . $tableName . ':' . (string)$uid . '.');
                 }
                 foreach (array_keys($commands) as $commandName) {
                     if (!isset($allowedCommands[$tableName][(string)$commandName])) {
-                        throw new RuntimeException('Kommando ' . (string)$commandName . ' ist für ' . $tableName . ' nicht erlaubt.');
+                        throw new RuntimeException('Command ' . (string)$commandName . ' is not allowed for ' . $tableName . '.');
                     }
                 }
             }
@@ -444,7 +444,7 @@ class RightsManagementSaveService
             'module-management' => $this->buildAdminModuleMaps($payload),
             'group-rights-inheritance-management' => $this->buildAdminInheritanceMaps($payload),
             'mount-management' => $this->buildAdminMountMaps($payload),
-            default => throw new RuntimeException('Unbekannter Speicherbereich: ' . $scope),
+            default => throw new RuntimeException('Unknown save scope: ' . $scope),
         };
     }
 
@@ -457,7 +457,7 @@ class RightsManagementSaveService
             'module-management' => $this->buildDelegatedModuleMaps($payload, $context),
             'group-rights-inheritance-management' => $this->buildDelegatedInheritanceMaps($payload, $context),
             'mount-management' => $this->buildDelegatedMountMaps($payload, $context),
-            default => throw new RuntimeException('Unbekannter Speicherbereich: ' . $scope),
+            default => throw new RuntimeException('Unknown save scope: ' . $scope),
         };
     }
 
@@ -467,7 +467,7 @@ class RightsManagementSaveService
         foreach ($this->listPayload($payload['users'] ?? []) as $item) {
             $uid = (int)($item['uid'] ?? 0);
             if ($uid <= 0) {
-                throw new RuntimeException('Backend-User ohne UID kann nicht gespeichert werden.');
+                throw new RuntimeException('Backend user without UID cannot be saved.');
             }
             $dataMap['be_users'][$uid] = $this->filterExistingColumns('be_users', [
                 'usergroup' => $this->csv($this->intList($item['groups'] ?? [])),
@@ -488,7 +488,7 @@ class RightsManagementSaveService
             $title = $this->cleanText((string)($item['title'] ?? ''), 50);
             $description = $this->cleanText((string)($item['description'] ?? ''), 255);
             if ($title === '') {
-                throw new RuntimeException('Gruppentitel darf nicht leer sein.');
+                throw new RuntimeException('Group title must not be empty.');
             }
             $newId = StringUtility::getUniqueId('NEW');
             $dataMap['be_groups'][$newId] = $this->filterExistingColumns('be_groups', [
@@ -524,7 +524,7 @@ class RightsManagementSaveService
         foreach ($this->listPayload($payload['groups'] ?? []) as $item) {
             $uid = (int)($item['uid'] ?? 0);
             if ($uid <= 0) {
-                throw new RuntimeException('Gruppe ohne UID kann nicht gespeichert werden.');
+                throw new RuntimeException('Group without UID cannot be saved.');
             }
             [$tablesSelect, $tablesModify] = $this->tablePermissionLists(is_array($item['tables'] ?? null) ? $item['tables'] : []);
             $dataMap['be_groups'][$uid] = $this->filterExistingColumns('be_groups', [
@@ -543,7 +543,7 @@ class RightsManagementSaveService
         foreach ($this->listPayload($payload['groups'] ?? []) as $item) {
             $uid = (int)($item['uid'] ?? 0);
             if ($uid <= 0) {
-                throw new RuntimeException('Gruppe ohne UID kann nicht gespeichert werden.');
+                throw new RuntimeException('Group without UID cannot be saved.');
             }
             $dataMap['be_groups'][$uid] = $this->filterExistingColumns('be_groups', [
                 'groupMods' => $this->csv($this->stringList($item['modules'] ?? [])),
@@ -557,17 +557,17 @@ class RightsManagementSaveService
     {
         $uid = (int)($payload['groupUid'] ?? 0);
         if ($uid <= 0) {
-            throw new RuntimeException('Gruppe ohne UID kann nicht gespeichert werden.');
+            throw new RuntimeException('Group without UID cannot be saved.');
         }
         $submitted = $this->intList($payload['inherited'] ?? []);
         foreach ($submitted as $subgroupUid) {
             if ($subgroupUid === $uid) {
-                throw new RuntimeException('Eine Gruppe kann sich nicht selbst erben.');
+                throw new RuntimeException('A group cannot inherit itself.');
             }
         }
         $groupsByUid = $this->mapByUid($this->repository->getGroups());
         if ($this->wouldCreateInheritanceCycle($uid, $submitted, $groupsByUid)) {
-            throw new RuntimeException('Diese Vererbung würde eine Schleife erzeugen.');
+            throw new RuntimeException('This inheritance would create a cycle.');
         }
 
         return [[
@@ -585,7 +585,7 @@ class RightsManagementSaveService
         foreach ($this->listPayload($payload['groups'] ?? []) as $item) {
             $uid = (int)($item['uid'] ?? 0);
             if ($uid <= 0) {
-                throw new RuntimeException('Gruppe ohne UID kann nicht gespeichert werden.');
+                throw new RuntimeException('Group without UID cannot be saved.');
             }
             $dataMap['be_groups'][$uid] = $this->filterExistingColumns('be_groups', [
                 'db_mountpoints' => $this->csv($this->intList($item['dbMounts'] ?? [])),
@@ -603,7 +603,7 @@ class RightsManagementSaveService
             $uid = (int)($item['uid'] ?? 0);
             $user = $context['usersByUid'][$uid] ?? null;
             if (!is_array($user) || !$this->canTouchUser($uid, $user, $context)) {
-                throw new RuntimeException('Backend-User UID ' . $uid . ' darf nicht geändert werden.');
+                throw new RuntimeException('Backend user UID ' . $uid . ' cannot be changed.');
             }
 
             $dataMap['be_users'][$uid] = $this->filterExistingColumns('be_users', [
@@ -641,7 +641,7 @@ class RightsManagementSaveService
             $title = $this->cleanText((string)($item['title'] ?? ''), 50);
             $description = $this->cleanText((string)($item['description'] ?? ''), 255);
             if ($title === '') {
-                throw new RuntimeException('Gruppentitel darf nicht leer sein.');
+                throw new RuntimeException('Group title must not be empty.');
             }
             $newId = StringUtility::getUniqueId('NEW');
             $dataMap['be_groups'][$newId] = $this->filterExistingColumns('be_groups', [
@@ -668,7 +668,7 @@ class RightsManagementSaveService
         foreach ($this->intList($payload['delete'] ?? []) as $uid) {
             $group = $context['groupsByUid'][$uid] ?? null;
             if (!is_array($group) || !isset($context['assignableGroupSet'][(string)$uid])) {
-                throw new RuntimeException('Gruppe UID ' . $uid . ' darf nicht gelöscht werden.');
+                throw new RuntimeException('Group UID ' . $uid . ' cannot be deleted.');
             }
             $this->assertGroupHasNoReferences($uid, $context);
             $commandMap['be_groups'][$uid] = ['delete' => 1];
@@ -688,23 +688,23 @@ class RightsManagementSaveService
             foreach ($tableModes as $tableName => $mode) {
                 $tableName = (string)$tableName;
                 if (!isset($context['tableSet'][$tableName])) {
-                    throw new RuntimeException('Tabelle ' . $tableName . ' darf nicht geändert werden.');
+                    throw new RuntimeException('Table ' . $tableName . ' cannot be changed.');
                 }
                 $mode = (string)$mode;
                 if ($mode === 'write') {
                     if (!$this->accessService->canWriteTable($tableName)) {
-                        throw new RuntimeException('Schreibrecht für Tabelle ' . $tableName . ' darf nicht vergeben werden.');
+                        throw new RuntimeException('Write permission for table ' . $tableName . ' cannot be assigned.');
                     }
                     continue;
                 }
                 if ($mode === 'read') {
                     if (!$this->accessService->canReadTable($tableName)) {
-                        throw new RuntimeException('Leserecht für Tabelle ' . $tableName . ' darf nicht vergeben werden.');
+                        throw new RuntimeException('Read permission for table ' . $tableName . ' cannot be assigned.');
                     }
                     continue;
                 }
                 if ($mode !== 'none') {
-                    throw new RuntimeException('Ungültiger Tabellenmodus für ' . $tableName . '.');
+                    throw new RuntimeException('Invalid table mode for ' . $tableName . '.');
                 }
             }
             [$tablesSelect, $tablesModify] = $this->tablePermissionLists($tableModes);
@@ -757,14 +757,14 @@ class RightsManagementSaveService
         $currentSubgroupSet = array_fill_keys(array_map('strval', $this->intList($group['subgroupIds'] ?? [])), true);
         foreach ($submitted as $subgroupUid) {
             if ($subgroupUid === $uid) {
-                throw new RuntimeException('Eine Gruppe kann sich nicht selbst erben.');
+                throw new RuntimeException('A group cannot inherit itself.');
             }
             if (!isset($context['assignableGroupSet'][(string)$subgroupUid]) && !isset($currentSubgroupSet[(string)$subgroupUid])) {
-                throw new RuntimeException('Geerbte Gruppe UID ' . $subgroupUid . ' darf nicht zugewiesen werden.');
+                throw new RuntimeException('Inherited group UID ' . $subgroupUid . ' cannot be assigned.');
             }
         }
         if ($this->wouldCreateInheritanceCycle($uid, $submitted, $context['groupsByUid'])) {
-            throw new RuntimeException('Diese Vererbung würde eine Schleife erzeugen.');
+            throw new RuntimeException('This inheritance would create a cycle.');
         }
 
         return [[
@@ -823,7 +823,7 @@ class RightsManagementSaveService
                 continue;
             }
             if ($mode !== 'none') {
-                throw new RuntimeException('Ungültiger Tabellenmodus für ' . $tableName . '.');
+                throw new RuntimeException('Invalid table mode for ' . $tableName . '.');
             }
         }
 
@@ -898,7 +898,7 @@ class RightsManagementSaveService
     {
         $group = $context['groupsByUid'][$uid] ?? null;
         if (!is_array($group) || !isset($context['editableGroupSet'][(string)$uid])) {
-            throw new RuntimeException('Gruppe UID ' . $uid . ' darf nicht geändert werden.');
+            throw new RuntimeException('Group UID ' . $uid . ' cannot be changed.');
         }
 
         return $group;
@@ -920,12 +920,12 @@ class RightsManagementSaveService
     {
         foreach ($context['usersByUid'] as $user) {
             if (in_array($uid, array_map('intval', $user['groupIds'] ?? []), true)) {
-                throw new RuntimeException('Gruppe UID ' . $uid . ' ist noch Backend-Usern zugewiesen.');
+                throw new RuntimeException('Group UID ' . $uid . ' is still assigned to backend users.');
             }
         }
         foreach ($context['groupsByUid'] as $group) {
             if ((int)($group['uid'] ?? 0) !== $uid && in_array($uid, array_map('intval', $group['subgroupIds'] ?? []), true)) {
-                throw new RuntimeException('Gruppe UID ' . $uid . ' wird noch von einer anderen Gruppe geerbt.');
+                throw new RuntimeException('Group UID ' . $uid . ' is still inherited by another group.');
             }
         }
     }
@@ -987,7 +987,7 @@ class RightsManagementSaveService
                 if (isset($currentSet[(string)$value])) {
                     continue;
                 }
-                throw new RuntimeException('Wert ' . $value . ' darf nicht gespeichert werden.');
+                throw new RuntimeException('Value ' . $value . ' cannot be saved.');
             }
             $visible[] = $value;
         }

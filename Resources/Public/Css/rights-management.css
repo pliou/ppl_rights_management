@@ -21,6 +21,7 @@
     --rm-focus: #0b63ce;
     --rm-sticky-top: 0px;
     --rm-sticky-tools-height: 0px;
+    --rm-bottom-actions-height: 24px;
     --rm-shadow: 0 10px 26px rgba(31, 42, 55, .08);
     --rm-icon-overview: url("../Images/RightsManagement/icon-overview.svg");
     --rm-icon-groups: url("../Images/RightsManagement/icon-groups.svg");
@@ -35,14 +36,49 @@
     --rm-icon-warning: url("../Images/RightsManagement/icon-warning.svg");
 }
 
+html,
+body {
+    height: 100% !important;
+    min-height: 0;
+    overflow: hidden !important;
+    scroll-padding-bottom: var(--rm-bottom-actions-height);
+}
+
 .module.rm-shell,
 .rm-shell {
     color: var(--rm-text);
 }
 
+.module.rm-shell {
+    height: 100% !important;
+    min-height: 0;
+    overflow: hidden !important;
+    overscroll-behavior: contain;
+    padding-bottom: 0;
+    scroll-padding-bottom: calc(var(--rm-bottom-actions-height) + 24px);
+}
+
+.module.rm-shell .module-body {
+    box-sizing: border-box;
+    height: calc(100% - var(--module-docheader-height, 67px)) !important;
+    min-height: auto !important;
+    overflow: hidden !important;
+    padding-bottom: var(--module-body-padding-y, 24px);
+}
+
+.module.rm-shell .module-body > .rm-shell,
+.rm-shell:not(.module) {
+    box-sizing: border-box;
+    height: 100%;
+    max-height: 100%;
+    overflow-x: hidden !important;
+    overflow-y: auto !important;
+    padding-bottom: var(--rm-bottom-actions-height);
+    scroll-padding-bottom: calc(var(--rm-bottom-actions-height) + 24px);
+}
+
 .module.rm-shell .module-body {
     background: linear-gradient(180deg, #f9fbff 0, var(--rm-bg) 100%);
-    min-height: calc(100vh - 64px);
 }
 
 .rm-page-head {
@@ -1064,17 +1100,17 @@
 .rm-draft,
 .rm-savebar,
 .rm-editbar {
-    position: sticky;
-    bottom: 0;
-    z-index: 20;
+    position: relative;
+    z-index: 1;
     display: flex;
     align-items: center;
     justify-content: space-between;
     gap: 12px;
+    margin-top: 12px;
     padding: 12px 14px;
     border-top: 1px solid var(--rm-border);
-    background: rgba(255, 255, 255, .96);
-    box-shadow: 0 -8px 22px rgba(31, 42, 55, .08);
+    background: var(--rm-surface);
+    box-shadow: none;
 }
 
 .rm-draft {
@@ -1570,7 +1606,7 @@
     .rm-editbar {
         border-top-color: var(--rm-border);
         background: rgba(23, 29, 37, .96);
-        box-shadow: 0 -8px 22px rgba(0, 0, 0, .28);
+        box-shadow: none;
     }
 
     .rm-modal {

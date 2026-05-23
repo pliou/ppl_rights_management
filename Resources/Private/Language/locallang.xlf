@@ -3,8 +3,8 @@
     <file source-language="en" datatype="plaintext" original="messages" date="2026-05-04T00:00:00Z" product-name="ppl_rights_management">
         <header/>
         <body>
-            <trans-unit id="module.title"><source>Rights Management</source></trans-unit>
-            <trans-unit id="module.intro"><source>Central backend module for managing groups, users, rights, modules and mounts.</source></trans-unit>
+            <trans-unit id="module.title"><source>PPL Rights Management</source></trans-unit>
+            <trans-unit id="module.intro"><source>Central backend module for managing PPL groups, users, rights, modules and mounts.</source></trans-unit>
             <trans-unit id="tabs.overview.label"><source>Overview</source></trans-unit>
             <trans-unit id="tabs.overview.description"><source>Shows current and inherited rights, modules and mounts for selected groups or users.</source></trans-unit>
             <trans-unit id="tabs.groupManagement.label"><source>Group Management</source></trans-unit>
@@ -28,6 +28,7 @@
             <trans-unit id="common.available"><source>Available</source></trans-unit>
             <trans-unit id="common.backendGroups"><source>Backend groups</source></trans-unit>
             <trans-unit id="common.backendModule"><source>Backend module</source></trans-unit>
+            <trans-unit id="common.backendUser"><source>Backend user</source></trans-unit>
             <trans-unit id="common.backendUsers"><source>Backend users</source></trans-unit>
             <trans-unit id="common.back"><source>Back</source></trans-unit>
             <trans-unit id="common.cancel"><source>Cancel</source></trans-unit>
@@ -53,7 +54,14 @@
             <trans-unit id="common.own"><source>Own</source></trans-unit>
             <trans-unit id="common.save"><source>Save</source></trans-unit>
             <trans-unit id="common.saveChanges"><source>Save changes?</source></trans-unit>
+            <trans-unit id="common.saved"><source>Saved</source></trans-unit>
+            <trans-unit id="common.saveAborted"><source>Save aborted</source></trans-unit>
             <trans-unit id="common.status"><source>Status</source></trans-unit>
+            <trans-unit id="common.time"><source>Time</source></trans-unit>
+            <trans-unit id="common.switchedFrom"><source>Switched from</source></trans-unit>
+            <trans-unit id="common.section"><source>Section</source></trans-unit>
+            <trans-unit id="common.action"><source>Action</source></trans-unit>
+            <trans-unit id="common.summary"><source>Summary</source></trans-unit>
             <trans-unit id="common.title"><source>Title</source></trans-unit>
             <trans-unit id="common.userSearch"><source>Search username, name or UID</source></trans-unit>
             <trans-unit id="common.users"><source>Users</source></trans-unit>
@@ -147,6 +155,9 @@
             <trans-unit id="accessDenied.title"><source>No access</source></trans-unit>
             <trans-unit id="accessDenied.description"><source>This module is not enabled for the current backend user.</source></trans-unit>
             <trans-unit id="accessDenied.hint"><source>Please check module access or the rights management configuration.</source></trans-unit>
+            <trans-unit id="history.empty"><source>No history entries yet.</source></trans-unit>
+            <trans-unit id="history.tableMissing"><source>The history table is missing. Please run the Database Analyzer.</source></trans-unit>
+            <trans-unit id="history.adminOnly"><source>History is only visible to administrators.</source></trans-unit>
         </body>
     </file>
 </xliff>

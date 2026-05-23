@@ -48,11 +48,11 @@ class OverviewManagementService extends AbstractRightsManagementService
     {
         $sections = [
             [
-                'label' => 'Rechte: Seitentypen',
+                'label' => 'Rights: page types',
                 'rows' => $this->buildGroupPageTypeRows($data['availablePageTypes'], $selectedGroups, $groupMap),
             ],
             [
-                'label' => 'Rechte: Tabellen',
+                'label' => 'Rights: tables',
                 'rows' => $this->buildGroupTableRows($data['availableTables'], $selectedGroups, $groupMap),
             ],
             [
@@ -60,14 +60,14 @@ class OverviewManagementService extends AbstractRightsManagementService
                 'rows' => $this->buildGroupModuleRows($data['availableModules'], $selectedGroups, $groupMap),
             ],
             [
-                'label' => 'Mounts: Datenbank',
+                'label' => 'Mounts: database',
                 'rows' => $this->buildGroupMountRows($data['availablePages'], $selectedGroups, $groupMap, 'dbMountIds'),
             ],
         ];
 
         if ($data['hasFileMountFeature'] ?? false) {
             $sections[] = [
-                'label' => 'Mounts: Dateien',
+                'label' => 'Mounts: files',
                 'rows' => $this->buildGroupMountRows($data['availableFileMounts'], $selectedGroups, $groupMap, 'fileMountIds'),
             ];
         }
@@ -81,11 +81,11 @@ class OverviewManagementService extends AbstractRightsManagementService
 
         $sections = [
             [
-                'label' => 'Rechte: Seitentypen',
+                'label' => 'Rights: page types',
                 'rows' => $this->buildUserPageTypeRows($data['availablePageTypes'], $selectedUsers, $contexts),
             ],
             [
-                'label' => 'Rechte: Tabellen',
+                'label' => 'Rights: tables',
                 'rows' => $this->buildUserTableRows($data['availableTables'], $selectedUsers, $contexts),
             ],
             [
@@ -93,14 +93,14 @@ class OverviewManagementService extends AbstractRightsManagementService
                 'rows' => $this->buildUserModuleRows($data['availableModules'], $selectedUsers, $contexts),
             ],
             [
-                'label' => 'Mounts: Datenbank',
+                'label' => 'Mounts: database',
                 'rows' => $this->buildUserMountRows($data['availablePages'], $selectedUsers, $contexts, 'dbMountIds'),
             ],
         ];
 
         if ($data['hasFileMountFeature'] ?? false) {
             $sections[] = [
-                'label' => 'Mounts: Dateien',
+                'label' => 'Mounts: files',
                 'rows' => $this->buildUserMountRows($data['availableFileMounts'], $selectedUsers, $contexts, 'fileMountIds'),
             ];
         }
@@ -118,7 +118,7 @@ class OverviewManagementService extends AbstractRightsManagementService
                 $cells[] = $this->buildBooleanCell(
                     $this->containsValue($group['pageTypeIds'], $pageType['id']),
                     $inheritedFrom,
-                    'direkt gesetzt'
+                    'directly assigned'
                 );
             }
             $rows[] = $this->buildRow((string)$pageType['label'], '[' . $pageType['id'] . ']', $cells);
@@ -156,7 +156,7 @@ class OverviewManagementService extends AbstractRightsManagementService
                 $cells[] = $this->buildBooleanCell(
                     $this->containsValue($group['moduleIds'], $module['id']),
                     $inheritedFrom,
-                    'direkt gesetzt'
+                    'directly assigned'
                 );
             }
             $rows[] = $this->buildRow((string)$module['label'], '[' . $module['id'] . ']', $cells);
@@ -176,7 +176,7 @@ class OverviewManagementService extends AbstractRightsManagementService
                 $cells[] = $this->buildBooleanCell(
                     $this->containsValue($group[$field], $mountId),
                     $inheritedFrom,
-                    'direkt gesetzt'
+                    'directly assigned'
                 );
             }
             $rows[] = $this->buildRow(
@@ -262,7 +262,7 @@ class OverviewManagementService extends AbstractRightsManagementService
                 $cells[] = $this->buildBooleanCell(
                     $this->containsValue($user[$field], $mountId),
                     $groupsWithMount,
-                    'direkt am User'
+                    'direct on user'
                 );
             }
             $rows[] = $this->buildRow(

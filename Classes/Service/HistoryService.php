@@ -27,8 +27,8 @@ class HistoryService
             'historyRows' => $canSeeHistory ? $this->getRows() : [],
             'historyTableReady' => $this->tableReady(),
             'historyNotice' => $showImpersonationColumn
-                ? 'Die History zeigt Änderungen an Rechten mit Backend-User, Zeitpunkt und Switch-User-Quelle.'
-                : 'Die History zeigt Änderungen an Rechten mit Backend-User und Zeitpunkt.',
+                ? 'History shows rights changes with backend user, time and switch-user source.'
+                : 'History shows rights changes with backend user and time.',
             'showImpersonationColumn' => $showImpersonationColumn,
         ];
     }
@@ -176,12 +176,12 @@ class HistoryService
     {
         return match ($scope) {
             'group-management' => $this->describeGroupManagementAction($payload),
-            'backend-user-management' => 'Backend-User-Rechte geändert',
-            'group-rights-management' => 'Gruppenrechte geändert',
-            'module-management' => 'Modulrechte geändert',
-            'group-rights-inheritance-management' => 'Gruppenvererbung geändert',
-            'mount-management' => 'Mounts geändert',
-            default => $scope !== '' ? $scope : 'Änderung',
+            'backend-user-management' => 'Backend user rights changed',
+            'group-rights-management' => 'Group rights changed',
+            'module-management' => 'Module rights changed',
+            'group-rights-inheritance-management' => 'Group inheritance changed',
+            'mount-management' => 'Mounts changed',
+            default => $scope !== '' ? $scope : 'Change',
         };
     }
 
@@ -189,23 +189,23 @@ class HistoryService
     {
         $summary = match ($scope) {
             'group-management' => $this->describeGroupManagementSummary($payload),
-            'backend-user-management' => $this->describeStructuredListChange('Backend-User-Rechte geändert', $payload['users'] ?? [], 'User', [
-                'groups' => 'Gruppen',
+            'backend-user-management' => $this->describeStructuredListChange('Backend user rights changed', $payload['users'] ?? [], 'user', [
+                'groups' => 'Groups',
                 'modules' => 'Module',
-                'dbMounts' => 'DB-Mounts',
-                'fileMounts' => 'File-Mounts',
+                'dbMounts' => 'DB mounts',
+                'fileMounts' => 'File mounts',
             ]),
-            'group-rights-management' => $this->describeStructuredListChange('Gruppenrechte geändert', $payload['groups'] ?? [], 'Gruppe', [
-                'pageTypes' => 'Page-Types',
-                'tables' => 'Tabellen',
+            'group-rights-management' => $this->describeStructuredListChange('Group rights changed', $payload['groups'] ?? [], 'group', [
+                'pageTypes' => 'Page types',
+                'tables' => 'Tables',
             ]),
-            'module-management' => $this->describeStructuredListChange('Modulrechte geändert', $payload['groups'] ?? [], 'Gruppe', [
+            'module-management' => $this->describeStructuredListChange('Module rights changed', $payload['groups'] ?? [], 'group', [
                 'modules' => 'Module',
             ]),
-            'group-rights-inheritance-management' => 'Gruppenvererbung geändert: Gruppe UID ' . (int)($payload['groupUid'] ?? 0),
-            'mount-management' => $this->describeStructuredListChange('Mounts geändert', $payload['groups'] ?? [], 'Gruppe', [
-                'dbMounts' => 'DB-Mounts',
-                'fileMounts' => 'File-Mounts',
+            'group-rights-inheritance-management' => 'Group inheritance changed: group UID ' . (int)($payload['groupUid'] ?? 0),
+            'mount-management' => $this->describeStructuredListChange('Mounts changed', $payload['groups'] ?? [], 'group', [
+                'dbMounts' => 'DB mounts',
+                'fileMounts' => 'File mounts',
             ]),
             default => '',
         };
@@ -218,16 +218,16 @@ class HistoryService
         $creates = $this->listPayload($payload['create'] ?? []);
         $deletes = $this->listPayload($payload['delete'] ?? []);
         if ($creates !== [] && $deletes !== []) {
-            return 'Gruppen geändert';
+            return 'Groups changed';
         }
         if ($creates !== []) {
-            return count($creates) === 1 ? 'Gruppe angelegt' : 'Gruppen angelegt';
+            return count($creates) === 1 ? 'Group created' : 'Groups created';
         }
         if ($deletes !== []) {
-            return count($deletes) === 1 ? 'Gruppe gelöscht' : 'Gruppen gelöscht';
+            return count($deletes) === 1 ? 'Group deleted' : 'Groups deleted';
         }
 
-        return 'Gruppen geändert';
+        return 'Groups changed';
     }
 
     private function describeGroupManagementSummary(array $payload): string
@@ -235,12 +235,12 @@ class HistoryService
         $parts = [];
         $creates = $this->listPayload($payload['create'] ?? []);
         if ($creates !== []) {
-            $parts[] = (count($creates) === 1 ? 'Gruppe angelegt: ' : 'Gruppen angelegt: ')
+            $parts[] = (count($creates) === 1 ? 'Group created: ' : 'Groups created: ')
                 . $this->shortList($this->payloadRowLabels($creates));
         }
         $deletes = $this->listPayload($payload['delete'] ?? []);
         if ($deletes !== []) {
-            $parts[] = (count($deletes) === 1 ? 'Gruppe gelöscht: ' : 'Gruppen gelöscht: ')
+            $parts[] = (count($deletes) === 1 ? 'Group deleted: ' : 'Groups deleted: ')
                 . $this->shortList(array_map(static fn(mixed $uid): string => 'UID ' . (int)$uid, $deletes));
         }
 
@@ -254,7 +254,7 @@ class HistoryService
         if ($count === 0) {
             return '';
         }
-        $summary = $prefix . ': ' . $count . ' ' . ($count === 1 ? $unit : $unit . 'n');
+        $summary = $prefix . ': ' . $count . ' ' . ($count === 1 ? $unit : $unit . 's');
         if ($areas !== []) {
             $summary .= ' (' . implode(', ', $areas) . ')';
         }
@@ -284,9 +284,9 @@ class HistoryService
             $details[] = $this->labelForPayloadRow($item) . ($fieldParts !== [] ? ': ' . implode('; ', $fieldParts) : '');
         }
         if (count($items) > 3) {
-            $details[] = '+' . (count($items) - 3) . ' weitere';
+            $details[] = '+' . (count($items) - 3) . ' more';
         }
-        $summary = $prefix . ': ' . $count . ' ' . ($count === 1 ? $unit : $unit . 'n');
+        $summary = $prefix . ': ' . $count . ' ' . ($count === 1 ? $unit : $unit . 's');
         if ($details !== []) {
             $summary .= ' - ' . implode(' | ', $details);
         }
@@ -351,7 +351,7 @@ class HistoryService
         }
         $uid = (int)($row['uid'] ?? 0);
 
-        return $uid > 0 ? 'UID ' . $uid : 'neuer Datensatz';
+        return $uid > 0 ? 'UID ' . $uid : 'new record';
     }
 
     private function shortList(array $values): string
@@ -361,14 +361,15 @@ class HistoryService
             return '';
         }
         $visible = array_slice($values, 0, 5);
-        $suffix = count($values) > 5 ? ' +' . (count($values) - 5) . ' weitere' : '';
+        $suffix = count($values) > 5 ? ' +' . (count($values) - 5) . ' more' : '';
 
         return implode(', ', $visible) . $suffix;
     }
 
     private function isGenericSummary(string $summary): bool
     {
-        return (bool)preg_match('/^\d+\s+Änderung(?:en)?\s+gespeichert\.$/u', trim($summary));
+        return (bool)preg_match('/^\d+\s+change(?:s)?\s+saved\.$/u', trim($summary))
+            || (bool)preg_match('/^\d+\s+change(?:s)?\s+stored\.$/u', trim($summary));
     }
 
     private function listPayload(mixed $value): array
@@ -389,11 +390,7 @@ class HistoryService
 
     private function normalizeLegacyText(string $value): string
     {
-        return str_replace(
-            ['Aenderung', 'Aenderungen', 'vollstaendiger', 'fuer', 'geaendert', 'geloescht'],
-            ['Änderung', 'Änderungen', 'vollständiger', 'für', 'geändert', 'gelöscht'],
-            $value
-        );
+        return $value;
     }
 
     private function formatTimestamp(int $timestamp): string

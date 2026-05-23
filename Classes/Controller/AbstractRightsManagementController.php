@@ -191,7 +191,7 @@ abstract class AbstractRightsManagementController
             return false;
         }
 
-        return (string)$message->getTitle() === 'Speichern abgebrochen'
+        return (string)$message->getTitle() === $this->translate('common.saveAborted', 'ppl_rights_management')
             && str_contains((string)$message->getMessage(), self::INSERT_PLUGIN_CONTENT_TYPE_WARNING);
     }
 

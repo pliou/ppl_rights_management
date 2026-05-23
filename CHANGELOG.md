@@ -2,9 +2,9 @@
 
 All notable changes to this extension are documented here.
 
-## 13.4.0
+## 12.4.0
 
-Initial TYPO3 13.4 LTS release.
+Initial TYPO3 12.4 LTS release.
 
 - Added backend module for rights management
 - Added delegated write mode for non-admin backend users
