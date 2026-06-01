@@ -526,7 +526,7 @@ class RightsManagementSaveService
             if ($uid <= 0) {
                 throw new RuntimeException('Group without UID cannot be saved.');
             }
-            [$tablesSelect, $tablesModify] = $this->tablePermissionLists(is_array($item['tables'] ?? null) ? $item['tables'] : []);
+            [$tablesSelect, $tablesModify] = $this->tablePermissionLists($this->arrayPayloadValue($item, 'tables'));
             $dataMap['be_groups'][$uid] = $this->filterExistingColumns('be_groups', [
                 'pagetypes_select' => $this->csv($this->stringList($item['pageTypes'] ?? [])),
                 'tables_select' => $this->csv($tablesSelect),
@@ -683,7 +683,7 @@ class RightsManagementSaveService
         foreach ($this->listPayload($payload['groups'] ?? []) as $item) {
             $uid = (int)($item['uid'] ?? 0);
             $group = $this->requireEditableGroup($uid, $context);
-            $tableModes = is_array($item['tables'] ?? null) ? $item['tables'] : [];
+            $tableModes = $this->arrayPayloadValue($item, 'tables');
 
             foreach ($tableModes as $tableName => $mode) {
                 $tableName = (string)$tableName;
@@ -1036,6 +1036,13 @@ class RightsManagementSaveService
         }
 
         return array_is_list($value) ? $value : [$value];
+    }
+
+    private function arrayPayloadValue(array $payload, string $key): array
+    {
+        $value = $payload[$key] ?? null;
+
+        return is_array($value) ? $value : [];
     }
 
     private function mapByUid(array $rows): array

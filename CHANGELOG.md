@@ -8,11 +8,11 @@ All notable changes to this extension are documented here.
 - Switched backend module registration to the configured icon identifier.
 - Restricted the read-only history route to GET.
 - Logged failed history writes without blocking the original rights change.
-- Documented the current 12.4 package line as separate from future TYPO3 13.4 or 14 compatibility work.
+- Updated package documentation for the TYPO3 14 release line.
 
-## 12.4.0
+## 14.0.0
 
-Initial TYPO3 12.4 LTS release.
+Initial TYPO3 14 release.
 
 - Added backend module for rights management
 - Added delegated write mode for non-admin backend users

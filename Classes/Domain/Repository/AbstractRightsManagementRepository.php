@@ -276,8 +276,9 @@ abstract class AbstractRightsManagementRepository
 
     protected function translate(string $label): string
     {
-        if (str_starts_with($label, 'LLL:') && isset($GLOBALS['LANG'])) {
-            return $GLOBALS['LANG']->sL($label) ?: $label;
+        if ($label !== '' && isset($GLOBALS['LANG'])) {
+            $translated = $GLOBALS['LANG']->sL($label);
+            return $translated !== '' ? $translated : $label;
         }
 
         return $label;

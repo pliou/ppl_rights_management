@@ -2,14 +2,14 @@
 
 TYPO3 CMS backend module for delegated management of backend users, backend groups, module permissions, DB mounts, page tree access and file mounts.
 
-The extension is built for TYPO3 12.4 LTS and follows TYPO3 extension packaging conventions so it can be installed through Composer and published on Packagist.
+The extension is built for TYPO3 14 and follows TYPO3 extension packaging conventions so it can be installed through Composer and published on Packagist.
 
 ## Package
 
 - Extension key: `ppl_rights_management`
 - Composer package: `ppl/ppl_rights_management`
-- Current release: `12.4.0`
-- TYPO3 compatibility: `12.4.0-12.4.99`
+- Current release line: `14.x`
+- TYPO3 compatibility: `14.0.0-14.99.99`
 - PHP compatibility: `>=8.2`
 - License: `GPL-2.0-or-later`
 
@@ -28,12 +28,21 @@ The extension is built for TYPO3 12.4 LTS and follows TYPO3 extension packaging 
 
 Delegated users can only assign rights they effectively have themselves. Admin users can always save.
 
+## Related HDA Extensions
+
+PPL Rights Management can be used as a standalone TYPO3 backend module. HDA-specific projects may add companion extensions around the same data model:
+
+- `hda-ppl/hda-rights-management-group-type`: TYPO3 12.4/13.4 group type layer for PPL Rights Management. It classifies backend groups as people groups or rights groups without changing TYPO3 permissions.
+- `hda-ppl/hda-rights-management-check`: TYPO3 12.4/13.4 backend module for checking imported HDA rights schemas against PPL Rights Management data.
+
+These packages extend or verify the rights-management workflow. The base `ppl/ppl_rights_management` package remains responsible for TYPO3 backend users, backend groups, effective permissions, module access, mounts and delegated writes.
+
 ## Installation
 
 Install the extension with Composer:
 
 ```bash
-composer require ppl/ppl_rights_management:^12.4
+composer require ppl/ppl_rights_management:^14.0
 ```
 
 Activate the extension in TYPO3 if your setup does not do this automatically:
@@ -50,7 +59,7 @@ The module is registered below **System** as **PPL Rights Management**.
 
 TYPO3 backend access is still controlled by backend groups. Add the module to the allowed modules of the backend groups that should open it.
 
-The optional automatic module access helper is registered as a Symfony `event.listener` service in `Configuration/Services.yaml`. The current package line stays focused on TYPO3 12.4, while future TYPO3 13.4 or 14 compatibility work should be handled as explicit follow-up release lines instead of being inferred from this package version.
+The optional automatic module access helper is registered as a Symfony `event.listener` service in `Configuration/Services.yaml`. The current package line targets TYPO3 14.
 
 ## Extension Configuration
 
@@ -79,11 +88,11 @@ The history stores:
 
 This package uses TYPO3-aligned semantic versioning.
 
-For TYPO3 12.4 LTS, releases use the `12.4.x` line. The Composer package should be released from Git tags, for example:
+For TYPO3 14, releases use the `14.x` line. The Composer package should be released from Git tags, for example:
 
 ```bash
-git tag 12.4.0
-git push origin 12.4.0
+git tag 14.3.0
+git push origin 14.3.0
 ```
 
 Do not add a `version` field to `composer.json`; Packagist reads the version from Git tags.
