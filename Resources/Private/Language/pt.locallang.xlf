@@ -1,0 +1,640 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<xliff version="1.0">
+    <file source-language="en" datatype="plaintext" original="messages" date="2026-05-04T00:00:00Z" product-name="ppl_rights_management" target-language="pt">
+        <header />
+        <body>
+            <trans-unit id="module.title">
+                <source>PPL Rights Management</source>
+                <target>PPL Gerenciamento de direitos</target>
+            </trans-unit>
+            <trans-unit id="module.intro">
+                <source>Central backend module for managing PPL groups, users, rights, modules and mounts.</source>
+                <target>Módulo backend central para gerenciamento de grupos PPL, usuários, direitos, módulos e montagens.</target>
+            </trans-unit>
+            <trans-unit id="tabs.overview.label">
+                <source>Overview</source>
+                <target>Visão geral</target>
+            </trans-unit>
+            <trans-unit id="tabs.overview.description">
+                <source>Shows current and inherited rights, modules and mounts for selected groups or users.</source>
+                <target>Mostra direitos, módulos e montagens atuais e herdados para grupos ou usuários selecionados.</target>
+            </trans-unit>
+            <trans-unit id="tabs.groupManagement.label">
+                <source>Group Management</source>
+                <target>Gestão de Grupo</target>
+            </trans-unit>
+            <trans-unit id="tabs.groupManagement.description">
+                <source>Manages the base configuration for backend groups.</source>
+                <target>Gerencia a configuração básica para grupos de back-end.</target>
+            </trans-unit>
+            <trans-unit id="tabs.groupRightsManagement.label">
+                <source>Group Rights Management</source>
+                <target>Gerenciamento de direitos de grupo</target>
+            </trans-unit>
+            <trans-unit id="tabs.groupRightsManagement.description">
+                <source>Manages record and table permissions for backend groups.</source>
+                <target>Gerencia permissões de registros e tabelas para grupos de back-end.</target>
+            </trans-unit>
+            <trans-unit id="tabs.moduleManagement.label">
+                <source>Module Management</source>
+                <target>Gerenciamento de Módulo</target>
+            </trans-unit>
+            <trans-unit id="tabs.moduleManagement.description">
+                <source>Manages backend module permissions for backend groups.</source>
+                <target>Gerencia permissões de módulo de back-end para grupos de back-end.</target>
+            </trans-unit>
+            <trans-unit id="tabs.groupRightsInheritanceManagement.label">
+                <source>Group Rights Inheritance</source>
+                <target>Herança de direitos de grupo</target>
+            </trans-unit>
+            <trans-unit id="tabs.groupRightsInheritanceManagement.description">
+                <source>Defines which backend groups inherit rights from other groups.</source>
+                <target>Define quais grupos de back-end herdam direitos de outros grupos.</target>
+            </trans-unit>
+            <trans-unit id="tabs.backendUserManagement.label">
+                <source>Backend User Management</source>
+                <target>Gerenciamento de usuários de back-end</target>
+            </trans-unit>
+            <trans-unit id="tabs.backendUserManagement.description">
+                <source>Manages backend user specific settings.</source>
+                <target>Gerencia configurações específicas do usuário back-end.</target>
+            </trans-unit>
+            <trans-unit id="tabs.mountManagement.label">
+                <source>Mount Management</source>
+                <target>Gerenciamento de montagem</target>
+            </trans-unit>
+            <trans-unit id="tabs.mountManagement.description">
+                <source>Assigns DB and file mounts to backend groups.</source>
+                <target>Atribui DB e montagens de arquivo a grupos de back-end.</target>
+            </trans-unit>
+            <trans-unit id="tabs.history.label">
+                <source>History</source>
+                <target>História</target>
+            </trans-unit>
+            <trans-unit id="tabs.history.description">
+                <source>Shows rights management changes.</source>
+                <target>Mostra alterações no gerenciamento de direitos.</target>
+            </trans-unit>
+            <trans-unit id="common.actions">
+                <source>Actions</source>
+                <target>Ações</target>
+            </trans-unit>
+            <trans-unit id="common.active">
+                <source>active</source>
+                <target>ativo</target>
+            </trans-unit>
+            <trans-unit id="common.addGroup">
+                <source>Create new group</source>
+                <target>Criar novo grupo</target>
+            </trans-unit>
+            <trans-unit id="common.applySelection">
+                <source>Show selection</source>
+                <target>Mostrar seleção</target>
+            </trans-unit>
+            <trans-unit id="common.available">
+                <source>Available</source>
+                <target>Disponível</target>
+            </trans-unit>
+            <trans-unit id="common.backendGroups">
+                <source>Backend groups</source>
+                <target>Grupos de back-end</target>
+            </trans-unit>
+            <trans-unit id="common.backendModule">
+                <source>Backend module</source>
+                <target>Módulo de back-end</target>
+            </trans-unit>
+            <trans-unit id="common.backendUser">
+                <source>Backend user</source>
+                <target>Usuário de back-end</target>
+            </trans-unit>
+            <trans-unit id="common.backendUsers">
+                <source>Backend users</source>
+                <target>Usuários de back-end</target>
+            </trans-unit>
+            <trans-unit id="common.back">
+                <source>Back</source>
+                <target>Voltar</target>
+            </trans-unit>
+            <trans-unit id="common.cancel">
+                <source>Cancel</source>
+                <target>Cancelar</target>
+            </trans-unit>
+            <trans-unit id="common.current">
+                <source>Current</source>
+                <target>Atual</target>
+            </trans-unit>
+            <trans-unit id="common.delete">
+                <source>Delete</source>
+                <target>Excluir</target>
+            </trans-unit>
+            <trans-unit id="common.description">
+                <source>Description</source>
+                <target>Descrição</target>
+            </trans-unit>
+            <trans-unit id="common.disabled">
+                <source>disabled</source>
+                <target>desativado</target>
+            </trans-unit>
+            <trans-unit id="common.discard">
+                <source>Discard</source>
+                <target>Descartar</target>
+            </trans-unit>
+            <trans-unit id="common.draft">
+                <source>Draft:</source>
+                <target>Rascunho:</target>
+            </trans-unit>
+            <trans-unit id="common.edit">
+                <source>Edit</source>
+                <target>Editar</target>
+            </trans-unit>
+            <trans-unit id="common.entries">
+                <source>entries</source>
+                <target>entradas</target>
+            </trans-unit>
+            <trans-unit id="common.groupSearch">
+                <source>Search group title, description or UID</source>
+                <target>Pesquise título do grupo, descrição ou UID</target>
+            </trans-unit>
+            <trans-unit id="common.groupName">
+                <source>Group name</source>
+                <target>Nome do grupo</target>
+            </trans-unit>
+            <trans-unit id="common.groups">
+                <source>Groups</source>
+                <target>Grupos</target>
+            </trans-unit>
+            <trans-unit id="common.inherited">
+                <source>Inherited</source>
+                <target>Herdado</target>
+            </trans-unit>
+            <trans-unit id="common.maxEight">
+                <source>maximum 8 columns</source>
+                <target>máximo de 8 colunas</target>
+            </trans-unit>
+            <trans-unit id="common.maxTen">
+                <source>maximum 10 groups in the matrix</source>
+                <target>máximo de 10 grupos na matriz</target>
+            </trans-unit>
+            <trans-unit id="common.modules">
+                <source>Modules</source>
+                <target>Módulos</target>
+            </trans-unit>
+            <trans-unit id="common.mounts">
+                <source>Mounts</source>
+                <target>Montagens</target>
+            </trans-unit>
+            <trans-unit id="common.noChanges">
+                <source>No changes</source>
+                <target>Sem alterações</target>
+            </trans-unit>
+            <trans-unit id="common.noSelection">
+                <source>No selection available.</source>
+                <target>Nenhuma seleção disponível.</target>
+            </trans-unit>
+            <trans-unit id="common.noTitle">
+                <source>(no title)</source>
+                <target>(sem título)</target>
+            </trans-unit>
+            <trans-unit id="common.own">
+                <source>Own</source>
+                <target>Próprio</target>
+            </trans-unit>
+            <trans-unit id="common.save">
+                <source>Save</source>
+                <target>Salvar</target>
+            </trans-unit>
+            <trans-unit id="common.saveChanges">
+                <source>Save changes?</source>
+                <target>Salvar alterações?</target>
+            </trans-unit>
+            <trans-unit id="common.saved">
+                <source>Saved</source>
+                <target>Salvo</target>
+            </trans-unit>
+            <trans-unit id="common.saveAborted">
+                <source>Save aborted</source>
+                <target>Salvar abortado</target>
+            </trans-unit>
+            <trans-unit id="common.status">
+                <source>Status</source>
+                <target>Estado</target>
+            </trans-unit>
+            <trans-unit id="common.time">
+                <source>Time</source>
+                <target>Hora</target>
+            </trans-unit>
+            <trans-unit id="common.switchedFrom">
+                <source>Switched from</source>
+                <target>Mudou de</target>
+            </trans-unit>
+            <trans-unit id="common.section">
+                <source>Section</source>
+                <target>Seção</target>
+            </trans-unit>
+            <trans-unit id="common.action">
+                <source>Action</source>
+                <target>Ação</target>
+            </trans-unit>
+            <trans-unit id="common.summary">
+                <source>Summary</source>
+                <target>Resumo</target>
+            </trans-unit>
+            <trans-unit id="common.title">
+                <source>Title</source>
+                <target>Título</target>
+            </trans-unit>
+            <trans-unit id="common.userSearch">
+                <source>Search username, name or UID</source>
+                <target>Pesquise nome de usuário, nome ou UID</target>
+            </trans-unit>
+            <trans-unit id="common.users">
+                <source>Users</source>
+                <target>Usuários</target>
+            </trans-unit>
+            <trans-unit id="common.warningDraftNotPersisted">
+                <source>Review the changes before saving.</source>
+                <target>Revise as alterações antes de salvar.</target>
+            </trans-unit>
+            <trans-unit id="common.inheritsFromUid">
+                <source>Inherits from UID</source>
+                <target>Herda de UID</target>
+            </trans-unit>
+            <trans-unit id="common.writeNotActive">
+                <source>Write function is not active yet</source>
+                <target>A função de gravação ainda não está ativa</target>
+            </trans-unit>
+            <trans-unit id="common.writeDisabledByConfig">
+                <source>Read-only mode. If something needs to be changed, please contact your administrator.</source>
+                <target>Modo somente leitura. Se algo precisar ser alterado, entre em contato com seu administrador.</target>
+            </trans-unit>
+            <trans-unit id="common.groupTitleExample">
+                <source>Rights: Editors</source>
+                <target>Direitos: Editores</target>
+            </trans-unit>
+            <trans-unit id="common.groupDescriptionPlaceholder">
+                <source>Briefly describe what this group is intended for.</source>
+                <target>Descreva resumidamente a que se destina este grupo.</target>
+            </trans-unit>
+            <trans-unit id="common.area">
+                <source>Area</source>
+                <target>Área</target>
+            </trans-unit>
+            <trans-unit id="common.assignedRightsThisUser">
+                <source>Assigned rights for this user</source>
+                <target>Direitos atribuídos a este usuário</target>
+            </trans-unit>
+            <trans-unit id="common.commonAssignedRights">
+                <source>Common assigned rights</source>
+                <target>Direitos atribuídos comuns</target>
+            </trans-unit>
+            <trans-unit id="common.commonDbMounts">
+                <source>common DB mounts</source>
+                <target>montagens DB comuns</target>
+            </trans-unit>
+            <trans-unit id="common.commonDirectoryMounts">
+                <source>common directory mounts</source>
+                <target>montagens de diretório comuns</target>
+            </trans-unit>
+            <trans-unit id="common.commonMountsOfSelection">
+                <source>Common mounts of the selection</source>
+                <target>Montagens comuns da seleção</target>
+            </trans-unit>
+            <trans-unit id="common.combinationSearch">
+                <source>Search combinations</source>
+                <target>Combinações de pesquisa</target>
+            </trans-unit>
+            <trans-unit id="common.databaseMounts">
+                <source>DB mounts</source>
+                <target>DB montagens</target>
+            </trans-unit>
+            <trans-unit id="common.databaseMountSearch">
+                <source>Search DB mount</source>
+                <target>Pesquisar montagem DB</target>
+            </trans-unit>
+            <trans-unit id="common.databasePermissions">
+                <source>Database permissions</source>
+                <target>Permissões de banco de dados</target>
+            </trans-unit>
+            <trans-unit id="common.dbMountsAndDirectoryMounts">
+                <source>DB mounts and directory mounts</source>
+                <target>Montagens DB e montagens de diretório</target>
+            </trans-unit>
+            <trans-unit id="common.direct">
+                <source>Direct</source>
+                <target>Direto</target>
+            </trans-unit>
+            <trans-unit id="common.directAssignmentEdit">
+                <source>Edit direct assignment</source>
+                <target>Editar atribuição direta</target>
+            </trans-unit>
+            <trans-unit id="common.directAtUser">
+                <source>Direct on user</source>
+                <target>Direto ao usuário</target>
+            </trans-unit>
+            <trans-unit id="common.directGroup">
+                <source>Direct group</source>
+                <target>Grupo direto</target>
+            </trans-unit>
+            <trans-unit id="common.directoryMounts">
+                <source>Directory mounts</source>
+                <target>Montagens de diretório</target>
+            </trans-unit>
+            <trans-unit id="common.directoryMountSearch">
+                <source>Search directory mount</source>
+                <target>Pesquisar montagem do diretório</target>
+            </trans-unit>
+            <trans-unit id="common.file">
+                <source>File</source>
+                <target>Arquivo</target>
+            </trans-unit>
+            <trans-unit id="common.fileMountSearch">
+                <source>Search file mount</source>
+                <target>Pesquisar montagem de arquivo</target>
+            </trans-unit>
+            <trans-unit id="common.fileMounts">
+                <source>File mounts</source>
+                <target>Montagens de arquivos</target>
+            </trans-unit>
+            <trans-unit id="common.formPreparedNoDbWriteLater">
+                <source>The form is prepared; database writing follows later.</source>
+                <target>O formulário está preparado; a gravação do banco de dados segue mais tarde.</target>
+            </trans-unit>
+            <trans-unit id="common.group">
+                <source>Group</source>
+                <target>Grupo</target>
+            </trans-unit>
+            <trans-unit id="common.rights">
+                <source>Rights</source>
+                <target>Direitos</target>
+            </trans-unit>
+            <trans-unit id="common.rightSearch">
+                <source>Search rights, modules, mounts or source</source>
+                <target>Pesquise direitos, módulos, montagens ou fonte</target>
+            </trans-unit>
+            <trans-unit id="common.groupRightsInheritanceEdit">
+                <source>Edit group rights inheritance</source>
+                <target>Editar herança de direitos de grupo</target>
+            </trans-unit>
+            <trans-unit id="common.groupsSelected">
+                <source>groups selected</source>
+                <target>grupos selecionados</target>
+            </trans-unit>
+            <trans-unit id="common.hidden">
+                <source>hidden</source>
+                <target>escondido</target>
+            </trans-unit>
+            <trans-unit id="common.inheritance">
+                <source>Inheritance</source>
+                <target>Herança</target>
+            </trans-unit>
+            <trans-unit id="common.inheritedRightsReadonly">
+                <source>Inherited rights cannot be edited directly.</source>
+                <target>Os direitos herdados não podem ser editados diretamente.</target>
+            </trans-unit>
+            <trans-unit id="common.inheritedState">
+                <source>inherited</source>
+                <target>herdado</target>
+            </trans-unit>
+            <trans-unit id="common.moduleSearch">
+                <source>Search modules, group or UID</source>
+                <target>Módulos de pesquisa, grupo ou UID</target>
+            </trans-unit>
+            <trans-unit id="common.modulePermissions">
+                <source>Module permissions</source>
+                <target>Permissões do módulo</target>
+            </trans-unit>
+            <trans-unit id="common.mountRightsPerBackendGroup">
+                <source>Mount rights per backend group</source>
+                <target>Direitos de montagem por grupo de back-end</target>
+            </trans-unit>
+            <trans-unit id="common.noCommonRights">
+                <source>No rights are available for the selection</source>
+                <target>Nenhum direito está disponível para a seleção</target>
+            </trans-unit>
+            <trans-unit id="common.noFileMountsFound">
+                <source>No file mounts found</source>
+                <target>Nenhuma montagem de arquivo encontrada</target>
+            </trans-unit>
+            <trans-unit id="common.noGroup">
+                <source>No group</source>
+                <target>Nenhum grupo</target>
+            </trans-unit>
+            <trans-unit id="common.noInheritedGroups">
+                <source>No inherited groups</source>
+                <target>Nenhum grupo herdado</target>
+            </trans-unit>
+            <trans-unit id="common.noMoreGroups">
+                <source>No further groups</source>
+                <target>Não há mais grupos</target>
+            </trans-unit>
+            <trans-unit id="common.noPagesFound">
+                <source>No pages found</source>
+                <target>Nenhuma página encontrada</target>
+            </trans-unit>
+            <trans-unit id="common.noPath">
+                <source>no path</source>
+                <target>sem caminho</target>
+            </trans-unit>
+            <trans-unit id="common.noUsersSelected">
+                <source>No users selected</source>
+                <target>Nenhum usuário selecionado</target>
+            </trans-unit>
+            <trans-unit id="common.noRightsFound">
+                <source>No rights found</source>
+                <target>Nenhum direito encontrado</target>
+            </trans-unit>
+            <trans-unit id="common.onlyCommonAssignedRights">
+                <source>All visible entries are shown; partial marks mixed selections</source>
+                <target>All visible entries are shown; marcas parciais seleções mistas</target>
+            </trans-unit>
+            <trans-unit id="common.overview">
+                <source>Overview</source>
+                <target>Visão geral</target>
+            </trans-unit>
+            <trans-unit id="common.overviewSearch">
+                <source>Search overview rows, values or source</source>
+                <target>Pesquisar linhas, valores ou origem da visão geral</target>
+            </trans-unit>
+            <trans-unit id="common.showActive">
+                <source>Show active</source>
+                <target>Mostrar ativo</target>
+            </trans-unit>
+            <trans-unit id="common.showInactive">
+                <source>Show inactive</source>
+                <target>Mostrar inativo</target>
+            </trans-unit>
+            <trans-unit id="common.pageTree">
+                <source>Page tree</source>
+                <target>Árvore de páginas</target>
+            </trans-unit>
+            <trans-unit id="common.pageTreeSearch">
+                <source>Search page tree</source>
+                <target>Árvore da página de pesquisa</target>
+            </trans-unit>
+            <trans-unit id="common.pageType">
+                <source>Page type</source>
+                <target>Tipo de página</target>
+            </trans-unit>
+            <trans-unit id="common.pageTypes">
+                <source>Page types</source>
+                <target>Tipos de página</target>
+            </trans-unit>
+            <trans-unit id="common.partial">
+                <source>partial</source>
+                <target>parcial</target>
+            </trans-unit>
+            <trans-unit id="common.permissionSearch">
+                <source>Search permissions, group or UID</source>
+                <target>Permissões de pesquisa, grupo ou UID</target>
+            </trans-unit>
+            <trans-unit id="common.read">
+                <source>Read</source>
+                <target>Leia</target>
+            </trans-unit>
+            <trans-unit id="common.readAndWrite">
+                <source>Read and write</source>
+                <target>Ler e escrever</target>
+            </trans-unit>
+            <trans-unit id="common.readOnly">
+                <source>read only</source>
+                <target>somente leitura</target>
+            </trans-unit>
+            <trans-unit id="common.readShort">
+                <source>R</source>
+                <target>R</target>
+            </trans-unit>
+            <trans-unit id="common.recordPermissions">
+                <source>Record permissions</source>
+                <target>Permissões de registro</target>
+            </trans-unit>
+            <trans-unit id="common.remove">
+                <source>Remove</source>
+                <target>Remover</target>
+            </trans-unit>
+            <trans-unit id="common.selected">
+                <source>selected</source>
+                <target>selecionado</target>
+            </trans-unit>
+            <trans-unit id="common.selectedGroup">
+                <source>Selected group</source>
+                <target>Grupo selecionado</target>
+            </trans-unit>
+            <trans-unit id="common.source">
+                <source>Source</source>
+                <target>Fonte</target>
+            </trans-unit>
+            <trans-unit id="common.table">
+                <source>Table</source>
+                <target>Mesa</target>
+            </trans-unit>
+            <trans-unit id="common.tablePermissions">
+                <source>Table permissions</source>
+                <target>Permissões de tabela</target>
+            </trans-unit>
+            <trans-unit id="common.tablesRead">
+                <source>Tables: read</source>
+                <target>Tabelas: leia</target>
+            </trans-unit>
+            <trans-unit id="common.tablesWrite">
+                <source>Tables: write</source>
+                <target>Tabelas: escrever</target>
+            </trans-unit>
+            <trans-unit id="common.userManagementHint">
+                <source>Group assignment and direct user mounts; rights and modules are shown together from those settings.</source>
+                <target>Atribuição de grupo e montagens diretas de usuários; direitos e módulos são mostrados juntos a partir dessas configurações.</target>
+            </trans-unit>
+            <trans-unit id="common.usersSelected">
+                <source>users selected</source>
+                <target>usuários selecionados</target>
+            </trans-unit>
+            <trans-unit id="common.viaGroups">
+                <source>Via groups</source>
+                <target>Através de grupos</target>
+            </trans-unit>
+            <trans-unit id="common.write">
+                <source>Write</source>
+                <target>Escreva</target>
+            </trans-unit>
+            <trans-unit id="common.writeShort">
+                <source>W</source>
+                <target>W</target>
+            </trans-unit>
+            <trans-unit id="common.add">
+                <source>Add</source>
+                <target>Adicionar</target>
+            </trans-unit>
+            <trans-unit id="common.addInheritance">
+                <source>Add to inheritance</source>
+                <target>Adicionar à herança</target>
+            </trans-unit>
+            <trans-unit id="common.access">
+                <source>Access</source>
+                <target>Acesso</target>
+            </trans-unit>
+            <trans-unit id="common.all">
+                <source>All</source>
+                <target>Todos</target>
+            </trans-unit>
+            <trans-unit id="common.admin">
+                <source>Admin</source>
+                <target>Administrador</target>
+            </trans-unit>
+            <trans-unit id="common.assignments">
+                <source>Assignments</source>
+                <target>Tarefas</target>
+            </trans-unit>
+            <trans-unit id="common.noPermission">
+                <source>No permission</source>
+                <target>Sem permissão</target>
+            </trans-unit>
+            <trans-unit id="common.none">
+                <source>none</source>
+                <target>nenhum</target>
+            </trans-unit>
+            <trans-unit id="common.noneShort">
+                <source>N</source>
+                <target>N</target>
+            </trans-unit>
+            <trans-unit id="common.scope">
+                <source>Scope</source>
+                <target>Escopo</target>
+            </trans-unit>
+            <trans-unit id="accessDenied.title">
+                <source>No access</source>
+                <target>Sem acesso</target>
+            </trans-unit>
+            <trans-unit id="accessDenied.description">
+                <source>This module is not enabled for the current backend user.</source>
+                <target>Este módulo não está habilitado para o usuário backend atual.</target>
+            </trans-unit>
+            <trans-unit id="accessDenied.hint">
+                <source>Please check module access or the rights management configuration.</source>
+                <target>Verifique o acesso ao módulo ou a configuração do gerenciamento de direitos.</target>
+            </trans-unit>
+            <trans-unit id="history.empty">
+                <source>No history entries yet.</source>
+                <target>Nenhuma entrada no histórico ainda.</target>
+            </trans-unit>
+            <trans-unit id="history.tableMissing">
+                <source>The history table is missing. Please run the Database Analyzer.</source>
+                <target>A tabela de histórico está faltando. Execute o Analisador de Banco de Dados.</target>
+            </trans-unit>
+            <trans-unit id="history.adminOnly">
+                <source>History is only visible to administrators.</source>
+                <target>O histórico só é visível para administradores.</target>
+            </trans-unit>
+            <trans-unit id="extconf.enableDelegatedWriteAccess">
+                <source>Enable delegated write access for the configured groups. With this confirmation, the groups configured below receive delegated admin rights in Rights Management. They cannot assign rights they do not effectively have themselves, but they may pass their own rights to other users and groups. Admins can always save. Without this confirmation, the configured groups have read-only module access.</source>
+                <target>Ativar acesso de grava??o delegado para os grupos configurados. Com esta confirma??o, os grupos configurados abaixo recebem direitos de administra??o delegados no Rights Management. Eles n?o podem atribuir direitos que n?o tenham efetivamente, mas podem repassar seus pr?prios direitos a outros usu?rios e grupos. Administradores sempre podem salvar. Sem esta confirma??o, os grupos configurados t?m apenas acesso somente leitura ao m?dulo.</target>
+            </trans-unit>
+            <trans-unit id="extconf.allowedBackendGroups">
+                <source>Backend groups with module access. Comma-separated list of be_groups UIDs or exact group titles. Each entry is trimmed. Numeric values are treated as UIDs, text values as group titles. Access is granted through groups only, not individual backend users. Without delegated write access enabled, these groups have read-only module access.</source>
+                <target>Grupos de backend com acesso ao m?dulo. Lista separada por v?rgulas de UIDs de be_groups ou t?tulos exatos de grupos. Cada entrada tem espa?os em branco removidos. Valores num?ricos s?o tratados como UIDs, valores de texto como t?tulos de grupos. O acesso ? concedido apenas por grupos, n?o por usu?rios backend individuais. Sem acesso de grava??o delegado ativado, estes grupos t?m apenas acesso somente leitura ao m?dulo.</target>
+            </trans-unit>
+            <trans-unit id="extconf.restrictToOwnRights">
+                <source>Restrict display to own rights. When enabled, the module only shows rights the logged-in backend user effectively has. When disabled, all rights are shown; rights outside the user's own permissions remain read-only.</source>
+                <target>Restringir a exibi??o aos pr?prios direitos. Quando ativado, o m?dulo mostra apenas os direitos que o usu?rio backend conectado efetivamente possui. Quando desativado, todos os direitos s?o exibidos; direitos fora das permiss?es pr?prias do usu?rio permanecem somente leitura.</target>
+            </trans-unit>
+        </body>
+    </file>
+</xliff>

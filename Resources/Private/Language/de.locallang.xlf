@@ -158,6 +158,18 @@
             <trans-unit id="history.empty"><source>No history entries yet.</source><target>Noch keine History-Einträge vorhanden.</target></trans-unit>
             <trans-unit id="history.tableMissing"><source>The history table is missing. Please run the Database Analyzer.</source><target>Die History-Tabelle fehlt noch. Bitte den Database Analyzer ausführen.</target></trans-unit>
             <trans-unit id="history.adminOnly"><source>History is only visible to administrators.</source><target>Die History ist nur für Admins sichtbar.</target></trans-unit>
+            <trans-unit id="extconf.enableDelegatedWriteAccess">
+                <source>Enable delegated write access for the configured groups. With this confirmation, the groups configured below receive delegated admin rights in Rights Management. They cannot assign rights they do not effectively have themselves, but they may pass their own rights to other users and groups. Admins can always save. Without this confirmation, the configured groups have read-only module access.</source>
+                <target>Delegierten Schreibzugriff f?r die konfigurierten Gruppen aktivieren. Mit dieser Best?tigung erhalten die unten konfigurierten Gruppen delegierte Adminrechte in Rights Management. Sie k?nnen keine Rechte vergeben, die sie selbst nicht effektiv besitzen, d?rfen ihre eigenen Rechte aber an andere Benutzer und Gruppen weitergeben. Admins k?nnen immer speichern. Ohne diese Best?tigung haben die konfigurierten Gruppen nur lesenden Modulzugriff.</target>
+            </trans-unit>
+            <trans-unit id="extconf.allowedBackendGroups">
+                <source>Backend groups with module access. Comma-separated list of be_groups UIDs or exact group titles. Each entry is trimmed. Numeric values are treated as UIDs, text values as group titles. Access is granted through groups only, not individual backend users. Without delegated write access enabled, these groups have read-only module access.</source>
+                <target>Backend-Gruppen mit Modulzugriff. Kommagetrennte Liste von be_groups-UIDs oder exakten Gruppentiteln. Jeder Eintrag wird getrimmt. Numerische Werte werden als UIDs behandelt, Textwerte als Gruppentitel. Zugriff wird nur ?ber Gruppen gew?hrt, nicht ?ber einzelne Backend-Benutzer. Ohne aktivierten delegierten Schreibzugriff haben diese Gruppen nur lesenden Modulzugriff.</target>
+            </trans-unit>
+            <trans-unit id="extconf.restrictToOwnRights">
+                <source>Restrict display to own rights. When enabled, the module only shows rights the logged-in backend user effectively has. When disabled, all rights are shown; rights outside the user's own permissions remain read-only.</source>
+                <target>Anzeige auf eigene Rechte beschr?nken. Wenn aktiviert, zeigt das Modul nur Rechte, die der angemeldete Backend-Benutzer effektiv besitzt. Wenn deaktiviert, werden alle Rechte angezeigt; Rechte au?erhalb der eigenen Berechtigungen des Benutzers bleiben schreibgesch?tzt.</target>
+            </trans-unit>
         </body>
     </file>
 </xliff>

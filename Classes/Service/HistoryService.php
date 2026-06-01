@@ -7,7 +7,9 @@ namespace Ppl\PplRightsManagement\Service;
 use TYPO3\CMS\Core\Authentication\BackendUserAuthentication;
 use TYPO3\CMS\Core\Database\Connection;
 use TYPO3\CMS\Core\Database\ConnectionPool;
+use TYPO3\CMS\Core\Log\LogManager;
 use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 class HistoryService
 {
@@ -65,6 +67,21 @@ class HistoryService
                 'payload_before' => $this->encode($history['payloadBefore'] ?? []),
                 'payload_after' => $this->encode($history['payloadAfter'] ?? $payload),
             ]);
+        } catch (\Throwable $throwable) {
+            $this->logHistoryWriteFailure($throwable, $scope, $payload);
+        }
+    }
+
+    private function logHistoryWriteFailure(\Throwable $throwable, string $scope, array $payload): void
+    {
+        try {
+            GeneralUtility::makeInstance(LogManager::class)
+                ->getLogger(__CLASS__)
+                ->warning('Failed to write rights management history entry.', [
+                    'exception' => $throwable,
+                    'scope' => $scope,
+                    'payload' => $payload,
+                ]);
         } catch (\Throwable) {
         }
     }
@@ -144,7 +161,7 @@ class HistoryService
                 ->where(
                     $queryBuilder->expr()->eq(
                         'uid',
-                        $queryBuilder->createNamedParameter($backendUserUid, Connection::PARAM_INT)
+                        $queryBuilder->createNamedParameter($backendUserUid, \Doctrine\DBAL\ParameterType::INTEGER)
                     )
                 )
                 ->executeQuery()

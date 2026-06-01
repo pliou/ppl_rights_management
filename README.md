@@ -50,6 +50,8 @@ The module is registered below **System** as **PPL Rights Management**.
 
 TYPO3 backend access is still controlled by backend groups. Add the module to the allowed modules of the backend groups that should open it.
 
+The optional automatic module access helper is registered as a Symfony `event.listener` service in `Configuration/Services.yaml`. The current package line stays focused on TYPO3 12.4, while future TYPO3 13.4 or 14 compatibility work should be handled as explicit follow-up release lines instead of being inferred from this package version.
+
 ## Extension Configuration
 
 The extension provides these configuration options under `ppl_rights_management`:
@@ -61,6 +63,8 @@ The extension provides these configuration options under `ppl_rights_management`
 ## History
 
 Successful save operations are written to `tx_pplrightsmanagement_history`.
+
+History writes are intentionally non-blocking: a failed history insert must not roll back the rights change, but the failure is logged through TYPO3's logging system for operational follow-up.
 
 The history stores:
 

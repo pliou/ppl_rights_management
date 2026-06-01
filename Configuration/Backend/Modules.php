@@ -18,7 +18,7 @@ return [
         'position' => ['after' => '*'],
         'access' => 'user',
         'path' => '/module/system/ppl-rights-management',
-        'icon' => 'EXT:ppl_rights_management/Resources/Public/Icons/module-ppl-rights-management.svg',
+        'iconIdentifier' => 'module-ppl-rights-management',
         'labels' => 'LLL:EXT:ppl_rights_management/Resources/Private/Language/locallang_mod.xlf',
         'routes' => [
             '_default' => [
@@ -54,7 +54,7 @@ return [
             ],
             'history' => [
                 'path' => '/history',
-                'methods' => ['GET', 'POST'],
+                'methods' => ['GET'],
                 'target' => HistoryController::class . '::handleRequest',
             ],
             'save' => [

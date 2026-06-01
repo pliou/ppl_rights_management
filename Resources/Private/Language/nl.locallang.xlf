@@ -1,0 +1,640 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<xliff version="1.0">
+    <file source-language="en" datatype="plaintext" original="messages" date="2026-05-04T00:00:00Z" product-name="ppl_rights_management" target-language="nl">
+        <header />
+        <body>
+            <trans-unit id="module.title">
+                <source>PPL Rights Management</source>
+                <target>PPL Rechtenbeheer</target>
+            </trans-unit>
+            <trans-unit id="module.intro">
+                <source>Central backend module for managing PPL groups, users, rights, modules and mounts.</source>
+                <target>Centrale backendmodule voor het beheren van PPL groepen, gebruikers, rechten, modules en mounts.</target>
+            </trans-unit>
+            <trans-unit id="tabs.overview.label">
+                <source>Overview</source>
+                <target>Overzicht</target>
+            </trans-unit>
+            <trans-unit id="tabs.overview.description">
+                <source>Shows current and inherited rights, modules and mounts for selected groups or users.</source>
+                <target>Toont huidige en overgenomen rechten, modules en mounts voor geselecteerde groepen of gebruikers.</target>
+            </trans-unit>
+            <trans-unit id="tabs.groupManagement.label">
+                <source>Group Management</source>
+                <target>Groepsbeheer</target>
+            </trans-unit>
+            <trans-unit id="tabs.groupManagement.description">
+                <source>Manages the base configuration for backend groups.</source>
+                <target>Beheert de basisconfiguratie voor backend-groepen.</target>
+            </trans-unit>
+            <trans-unit id="tabs.groupRightsManagement.label">
+                <source>Group Rights Management</source>
+                <target>Beheer van groepsrechten</target>
+            </trans-unit>
+            <trans-unit id="tabs.groupRightsManagement.description">
+                <source>Manages record and table permissions for backend groups.</source>
+                <target>Beheert record- en tabelmachtigingen voor backend-groepen.</target>
+            </trans-unit>
+            <trans-unit id="tabs.moduleManagement.label">
+                <source>Module Management</source>
+                <target>Modulebeheer</target>
+            </trans-unit>
+            <trans-unit id="tabs.moduleManagement.description">
+                <source>Manages backend module permissions for backend groups.</source>
+                <target>Beheert backend-modulemachtigingen voor backend-groepen.</target>
+            </trans-unit>
+            <trans-unit id="tabs.groupRightsInheritanceManagement.label">
+                <source>Group Rights Inheritance</source>
+                <target>Overerving van groepsrechten</target>
+            </trans-unit>
+            <trans-unit id="tabs.groupRightsInheritanceManagement.description">
+                <source>Defines which backend groups inherit rights from other groups.</source>
+                <target>Definieert welke backend-groepen rechten overnemen van andere groepen.</target>
+            </trans-unit>
+            <trans-unit id="tabs.backendUserManagement.label">
+                <source>Backend User Management</source>
+                <target>Backend-gebruikersbeheer</target>
+            </trans-unit>
+            <trans-unit id="tabs.backendUserManagement.description">
+                <source>Manages backend user specific settings.</source>
+                <target>Beheert backend-gebruikerspecifieke instellingen.</target>
+            </trans-unit>
+            <trans-unit id="tabs.mountManagement.label">
+                <source>Mount Management</source>
+                <target>Beheer monteren</target>
+            </trans-unit>
+            <trans-unit id="tabs.mountManagement.description">
+                <source>Assigns DB and file mounts to backend groups.</source>
+                <target>Wijst DB en bestandsaankoppelingen toe aan backend-groepen.</target>
+            </trans-unit>
+            <trans-unit id="tabs.history.label">
+                <source>History</source>
+                <target>Geschiedenis</target>
+            </trans-unit>
+            <trans-unit id="tabs.history.description">
+                <source>Shows rights management changes.</source>
+                <target>Toont wijzigingen in rechtenbeheer.</target>
+            </trans-unit>
+            <trans-unit id="common.actions">
+                <source>Actions</source>
+                <target>Acties</target>
+            </trans-unit>
+            <trans-unit id="common.active">
+                <source>active</source>
+                <target>actief</target>
+            </trans-unit>
+            <trans-unit id="common.addGroup">
+                <source>Create new group</source>
+                <target>Nieuwe groep aanmaken</target>
+            </trans-unit>
+            <trans-unit id="common.applySelection">
+                <source>Show selection</source>
+                <target>Selectie tonen</target>
+            </trans-unit>
+            <trans-unit id="common.available">
+                <source>Available</source>
+                <target>Beschikbaar</target>
+            </trans-unit>
+            <trans-unit id="common.backendGroups">
+                <source>Backend groups</source>
+                <target>Backend-groepen</target>
+            </trans-unit>
+            <trans-unit id="common.backendModule">
+                <source>Backend module</source>
+                <target>Backend-module</target>
+            </trans-unit>
+            <trans-unit id="common.backendUser">
+                <source>Backend user</source>
+                <target>Backend-gebruiker</target>
+            </trans-unit>
+            <trans-unit id="common.backendUsers">
+                <source>Backend users</source>
+                <target>Backend-gebruikers</target>
+            </trans-unit>
+            <trans-unit id="common.back">
+                <source>Back</source>
+                <target>Terug</target>
+            </trans-unit>
+            <trans-unit id="common.cancel">
+                <source>Cancel</source>
+                <target>Annuleer</target>
+            </trans-unit>
+            <trans-unit id="common.current">
+                <source>Current</source>
+                <target>Huidig</target>
+            </trans-unit>
+            <trans-unit id="common.delete">
+                <source>Delete</source>
+                <target>Verwijderen</target>
+            </trans-unit>
+            <trans-unit id="common.description">
+                <source>Description</source>
+                <target>Beschrijving</target>
+            </trans-unit>
+            <trans-unit id="common.disabled">
+                <source>disabled</source>
+                <target>uitgeschakeld</target>
+            </trans-unit>
+            <trans-unit id="common.discard">
+                <source>Discard</source>
+                <target>Gooi weg</target>
+            </trans-unit>
+            <trans-unit id="common.draft">
+                <source>Draft:</source>
+                <target>Diepgang:</target>
+            </trans-unit>
+            <trans-unit id="common.edit">
+                <source>Edit</source>
+                <target>Bewerken</target>
+            </trans-unit>
+            <trans-unit id="common.entries">
+                <source>entries</source>
+                <target>inzendingen</target>
+            </trans-unit>
+            <trans-unit id="common.groupSearch">
+                <source>Search group title, description or UID</source>
+                <target>Zoek groepstitel, beschrijving of UID</target>
+            </trans-unit>
+            <trans-unit id="common.groupName">
+                <source>Group name</source>
+                <target>Groepsnaam</target>
+            </trans-unit>
+            <trans-unit id="common.groups">
+                <source>Groups</source>
+                <target>Groepen</target>
+            </trans-unit>
+            <trans-unit id="common.inherited">
+                <source>Inherited</source>
+                <target>Geërfd</target>
+            </trans-unit>
+            <trans-unit id="common.maxEight">
+                <source>maximum 8 columns</source>
+                <target>maximaal 8 kolommen</target>
+            </trans-unit>
+            <trans-unit id="common.maxTen">
+                <source>maximum 10 groups in the matrix</source>
+                <target>maximaal 10 groepen in de matrix</target>
+            </trans-unit>
+            <trans-unit id="common.modules">
+                <source>Modules</source>
+                <target>Modules</target>
+            </trans-unit>
+            <trans-unit id="common.mounts">
+                <source>Mounts</source>
+                <target>Mounts</target>
+            </trans-unit>
+            <trans-unit id="common.noChanges">
+                <source>No changes</source>
+                <target>Geen wijzigingen</target>
+            </trans-unit>
+            <trans-unit id="common.noSelection">
+                <source>No selection available.</source>
+                <target>Geen selectie beschikbaar.</target>
+            </trans-unit>
+            <trans-unit id="common.noTitle">
+                <source>(no title)</source>
+                <target>(geen titel)</target>
+            </trans-unit>
+            <trans-unit id="common.own">
+                <source>Own</source>
+                <target>Eigen</target>
+            </trans-unit>
+            <trans-unit id="common.save">
+                <source>Save</source>
+                <target>Opslaan</target>
+            </trans-unit>
+            <trans-unit id="common.saveChanges">
+                <source>Save changes?</source>
+                <target>Wijzigingen opslaan?</target>
+            </trans-unit>
+            <trans-unit id="common.saved">
+                <source>Saved</source>
+                <target>Opgeslagen</target>
+            </trans-unit>
+            <trans-unit id="common.saveAborted">
+                <source>Save aborted</source>
+                <target>Opslaan afgebroken</target>
+            </trans-unit>
+            <trans-unit id="common.status">
+                <source>Status</source>
+                <target>Status</target>
+            </trans-unit>
+            <trans-unit id="common.time">
+                <source>Time</source>
+                <target>Tijd</target>
+            </trans-unit>
+            <trans-unit id="common.switchedFrom">
+                <source>Switched from</source>
+                <target>Overgestapt van</target>
+            </trans-unit>
+            <trans-unit id="common.section">
+                <source>Section</source>
+                <target>Sectie</target>
+            </trans-unit>
+            <trans-unit id="common.action">
+                <source>Action</source>
+                <target>Actie</target>
+            </trans-unit>
+            <trans-unit id="common.summary">
+                <source>Summary</source>
+                <target>Samenvatting</target>
+            </trans-unit>
+            <trans-unit id="common.title">
+                <source>Title</source>
+                <target>Titel</target>
+            </trans-unit>
+            <trans-unit id="common.userSearch">
+                <source>Search username, name or UID</source>
+                <target>Zoek gebruikersnaam, naam of UID</target>
+            </trans-unit>
+            <trans-unit id="common.users">
+                <source>Users</source>
+                <target>Gebruikers</target>
+            </trans-unit>
+            <trans-unit id="common.warningDraftNotPersisted">
+                <source>Review the changes before saving.</source>
+                <target>Controleer de wijzigingen voordat u deze opslaat.</target>
+            </trans-unit>
+            <trans-unit id="common.inheritsFromUid">
+                <source>Inherits from UID</source>
+                <target>Erft van UID</target>
+            </trans-unit>
+            <trans-unit id="common.writeNotActive">
+                <source>Write function is not active yet</source>
+                <target>Schrijffunctie is nog niet actief</target>
+            </trans-unit>
+            <trans-unit id="common.writeDisabledByConfig">
+                <source>Read-only mode. If something needs to be changed, please contact your administrator.</source>
+                <target>Alleen-lezen-modus. Als er iets gewijzigd moet worden, neem dan contact op met uw beheerder.</target>
+            </trans-unit>
+            <trans-unit id="common.groupTitleExample">
+                <source>Rights: Editors</source>
+                <target>Rechten: Redactie</target>
+            </trans-unit>
+            <trans-unit id="common.groupDescriptionPlaceholder">
+                <source>Briefly describe what this group is intended for.</source>
+                <target>Briefly describe what this group is intended for.</target>
+            </trans-unit>
+            <trans-unit id="common.area">
+                <source>Area</source>
+                <target>Gebied</target>
+            </trans-unit>
+            <trans-unit id="common.assignedRightsThisUser">
+                <source>Assigned rights for this user</source>
+                <target>Toegewezen rechten voor deze gebruiker</target>
+            </trans-unit>
+            <trans-unit id="common.commonAssignedRights">
+                <source>Common assigned rights</source>
+                <target>Gemeenschappelijke toegewezen rechten</target>
+            </trans-unit>
+            <trans-unit id="common.commonDbMounts">
+                <source>common DB mounts</source>
+                <target>gebruikelijke DB-steunen</target>
+            </trans-unit>
+            <trans-unit id="common.commonDirectoryMounts">
+                <source>common directory mounts</source>
+                <target>algemene directory-mounts</target>
+            </trans-unit>
+            <trans-unit id="common.commonMountsOfSelection">
+                <source>Common mounts of the selection</source>
+                <target>Gemeenschappelijke mounts van de selectie</target>
+            </trans-unit>
+            <trans-unit id="common.combinationSearch">
+                <source>Search combinations</source>
+                <target>Zoek combinaties</target>
+            </trans-unit>
+            <trans-unit id="common.databaseMounts">
+                <source>DB mounts</source>
+                <target>DB-steunen</target>
+            </trans-unit>
+            <trans-unit id="common.databaseMountSearch">
+                <source>Search DB mount</source>
+                <target>Zoek naar DB-mount</target>
+            </trans-unit>
+            <trans-unit id="common.databasePermissions">
+                <source>Database permissions</source>
+                <target>Databasemachtigingen</target>
+            </trans-unit>
+            <trans-unit id="common.dbMountsAndDirectoryMounts">
+                <source>DB mounts and directory mounts</source>
+                <target>DB mounts en mapmounts</target>
+            </trans-unit>
+            <trans-unit id="common.direct">
+                <source>Direct</source>
+                <target>Direct</target>
+            </trans-unit>
+            <trans-unit id="common.directAssignmentEdit">
+                <source>Edit direct assignment</source>
+                <target>Directe toewijzing bewerken</target>
+            </trans-unit>
+            <trans-unit id="common.directAtUser">
+                <source>Direct on user</source>
+                <target>Direct op gebruiker</target>
+            </trans-unit>
+            <trans-unit id="common.directGroup">
+                <source>Direct group</source>
+                <target>Directe groep</target>
+            </trans-unit>
+            <trans-unit id="common.directoryMounts">
+                <source>Directory mounts</source>
+                <target>Directory-mounts</target>
+            </trans-unit>
+            <trans-unit id="common.directoryMountSearch">
+                <source>Search directory mount</source>
+                <target>Zoek directory-mount</target>
+            </trans-unit>
+            <trans-unit id="common.file">
+                <source>File</source>
+                <target>Bestand</target>
+            </trans-unit>
+            <trans-unit id="common.fileMountSearch">
+                <source>Search file mount</source>
+                <target>Bestandsmount zoeken</target>
+            </trans-unit>
+            <trans-unit id="common.fileMounts">
+                <source>File mounts</source>
+                <target>Bestandsmounts</target>
+            </trans-unit>
+            <trans-unit id="common.formPreparedNoDbWriteLater">
+                <source>The form is prepared; database writing follows later.</source>
+                <target>Het formulier is opgesteld; het schrijven van de database volgt later.</target>
+            </trans-unit>
+            <trans-unit id="common.group">
+                <source>Group</source>
+                <target>Groep</target>
+            </trans-unit>
+            <trans-unit id="common.rights">
+                <source>Rights</source>
+                <target>Rechten</target>
+            </trans-unit>
+            <trans-unit id="common.rightSearch">
+                <source>Search rights, modules, mounts or source</source>
+                <target>Zoekrechten, modules, mounts of source</target>
+            </trans-unit>
+            <trans-unit id="common.groupRightsInheritanceEdit">
+                <source>Edit group rights inheritance</source>
+                <target>Overname van groepsrechten bewerken</target>
+            </trans-unit>
+            <trans-unit id="common.groupsSelected">
+                <source>groups selected</source>
+                <target>groepen geselecteerd</target>
+            </trans-unit>
+            <trans-unit id="common.hidden">
+                <source>hidden</source>
+                <target>verborgen</target>
+            </trans-unit>
+            <trans-unit id="common.inheritance">
+                <source>Inheritance</source>
+                <target>Erfenis</target>
+            </trans-unit>
+            <trans-unit id="common.inheritedRightsReadonly">
+                <source>Inherited rights cannot be edited directly.</source>
+                <target>Overgenomen rechten kunnen niet rechtstreeks worden bewerkt.</target>
+            </trans-unit>
+            <trans-unit id="common.inheritedState">
+                <source>inherited</source>
+                <target>geërfd</target>
+            </trans-unit>
+            <trans-unit id="common.moduleSearch">
+                <source>Search modules, group or UID</source>
+                <target>Zoekmodules, groep of UID</target>
+            </trans-unit>
+            <trans-unit id="common.modulePermissions">
+                <source>Module permissions</source>
+                <target>Modulemachtigingen</target>
+            </trans-unit>
+            <trans-unit id="common.mountRightsPerBackendGroup">
+                <source>Mount rights per backend group</source>
+                <target>Mount-rechten per backend-groep</target>
+            </trans-unit>
+            <trans-unit id="common.noCommonRights">
+                <source>No rights are available for the selection</source>
+                <target>Aan de selectie zijn geen rechten verbonden</target>
+            </trans-unit>
+            <trans-unit id="common.noFileMountsFound">
+                <source>No file mounts found</source>
+                <target>Geen bestandsmounts gevonden</target>
+            </trans-unit>
+            <trans-unit id="common.noGroup">
+                <source>No group</source>
+                <target>Geen groep</target>
+            </trans-unit>
+            <trans-unit id="common.noInheritedGroups">
+                <source>No inherited groups</source>
+                <target>Geen geërfde groepen</target>
+            </trans-unit>
+            <trans-unit id="common.noMoreGroups">
+                <source>No further groups</source>
+                <target>Geen verdere groepen</target>
+            </trans-unit>
+            <trans-unit id="common.noPagesFound">
+                <source>No pages found</source>
+                <target>Geen pagina's gevonden</target>
+            </trans-unit>
+            <trans-unit id="common.noPath">
+                <source>no path</source>
+                <target>geen pad</target>
+            </trans-unit>
+            <trans-unit id="common.noUsersSelected">
+                <source>No users selected</source>
+                <target>Geen gebruikers geselecteerd</target>
+            </trans-unit>
+            <trans-unit id="common.noRightsFound">
+                <source>No rights found</source>
+                <target>Geen rechten gevonden</target>
+            </trans-unit>
+            <trans-unit id="common.onlyCommonAssignedRights">
+                <source>All visible entries are shown; partial marks mixed selections</source>
+                <target>Alle zichtbare vermeldingen worden getoond; gedeeltelijke markeringen gemengde selecties</target>
+            </trans-unit>
+            <trans-unit id="common.overview">
+                <source>Overview</source>
+                <target>Overzicht</target>
+            </trans-unit>
+            <trans-unit id="common.overviewSearch">
+                <source>Search overview rows, values or source</source>
+                <target>Zoek overzichtsrijen, waarden of bron</target>
+            </trans-unit>
+            <trans-unit id="common.showActive">
+                <source>Show active</source>
+                <target>Actief tonen</target>
+            </trans-unit>
+            <trans-unit id="common.showInactive">
+                <source>Show inactive</source>
+                <target>Toon inactief</target>
+            </trans-unit>
+            <trans-unit id="common.pageTree">
+                <source>Page tree</source>
+                <target>Paginaboom</target>
+            </trans-unit>
+            <trans-unit id="common.pageTreeSearch">
+                <source>Search page tree</source>
+                <target>Zoek paginaboom</target>
+            </trans-unit>
+            <trans-unit id="common.pageType">
+                <source>Page type</source>
+                <target>Paginatype</target>
+            </trans-unit>
+            <trans-unit id="common.pageTypes">
+                <source>Page types</source>
+                <target>Paginatypen</target>
+            </trans-unit>
+            <trans-unit id="common.partial">
+                <source>partial</source>
+                <target>gedeeltelijk</target>
+            </trans-unit>
+            <trans-unit id="common.permissionSearch">
+                <source>Search permissions, group or UID</source>
+                <target>Zoekrechten, groep of UID</target>
+            </trans-unit>
+            <trans-unit id="common.read">
+                <source>Read</source>
+                <target>Lees</target>
+            </trans-unit>
+            <trans-unit id="common.readAndWrite">
+                <source>Read and write</source>
+                <target>Lezen en schrijven</target>
+            </trans-unit>
+            <trans-unit id="common.readOnly">
+                <source>read only</source>
+                <target>alleen lezen</target>
+            </trans-unit>
+            <trans-unit id="common.readShort">
+                <source>R</source>
+                <target>R</target>
+            </trans-unit>
+            <trans-unit id="common.recordPermissions">
+                <source>Record permissions</source>
+                <target>Machtigingen opnemen</target>
+            </trans-unit>
+            <trans-unit id="common.remove">
+                <source>Remove</source>
+                <target>Verwijderen</target>
+            </trans-unit>
+            <trans-unit id="common.selected">
+                <source>selected</source>
+                <target>geselecteerd</target>
+            </trans-unit>
+            <trans-unit id="common.selectedGroup">
+                <source>Selected group</source>
+                <target>Geselecteerde groep</target>
+            </trans-unit>
+            <trans-unit id="common.source">
+                <source>Source</source>
+                <target>Bron</target>
+            </trans-unit>
+            <trans-unit id="common.table">
+                <source>Table</source>
+                <target>Tafel</target>
+            </trans-unit>
+            <trans-unit id="common.tablePermissions">
+                <source>Table permissions</source>
+                <target>Tabelmachtigingen</target>
+            </trans-unit>
+            <trans-unit id="common.tablesRead">
+                <source>Tables: read</source>
+                <target>Tabellen: lezen</target>
+            </trans-unit>
+            <trans-unit id="common.tablesWrite">
+                <source>Tables: write</source>
+                <target>Tabellen: schrijf</target>
+            </trans-unit>
+            <trans-unit id="common.userManagementHint">
+                <source>Group assignment and direct user mounts; rights and modules are shown together from those settings.</source>
+                <target>Groepstoewijzing en directe gebruikerskoppelingen; rechten en modules worden samen vanuit die instellingen weergegeven.</target>
+            </trans-unit>
+            <trans-unit id="common.usersSelected">
+                <source>users selected</source>
+                <target>gebruikers geselecteerd</target>
+            </trans-unit>
+            <trans-unit id="common.viaGroups">
+                <source>Via groups</source>
+                <target>Via groepen</target>
+            </trans-unit>
+            <trans-unit id="common.write">
+                <source>Write</source>
+                <target>Schrijf</target>
+            </trans-unit>
+            <trans-unit id="common.writeShort">
+                <source>W</source>
+                <target>W</target>
+            </trans-unit>
+            <trans-unit id="common.add">
+                <source>Add</source>
+                <target>Toevoegen</target>
+            </trans-unit>
+            <trans-unit id="common.addInheritance">
+                <source>Add to inheritance</source>
+                <target>Voeg toe aan erfenis</target>
+            </trans-unit>
+            <trans-unit id="common.access">
+                <source>Access</source>
+                <target>Toegang</target>
+            </trans-unit>
+            <trans-unit id="common.all">
+                <source>All</source>
+                <target>Allemaal</target>
+            </trans-unit>
+            <trans-unit id="common.admin">
+                <source>Admin</source>
+                <target>Beheerder</target>
+            </trans-unit>
+            <trans-unit id="common.assignments">
+                <source>Assignments</source>
+                <target>Opdrachten</target>
+            </trans-unit>
+            <trans-unit id="common.noPermission">
+                <source>No permission</source>
+                <target>Geen toestemming</target>
+            </trans-unit>
+            <trans-unit id="common.none">
+                <source>none</source>
+                <target>geen</target>
+            </trans-unit>
+            <trans-unit id="common.noneShort">
+                <source>N</source>
+                <target>N</target>
+            </trans-unit>
+            <trans-unit id="common.scope">
+                <source>Scope</source>
+                <target>Reikwijdte</target>
+            </trans-unit>
+            <trans-unit id="accessDenied.title">
+                <source>No access</source>
+                <target>Geen toegang</target>
+            </trans-unit>
+            <trans-unit id="accessDenied.description">
+                <source>This module is not enabled for the current backend user.</source>
+                <target>Deze module is niet ingeschakeld voor de huidige backend-gebruiker.</target>
+            </trans-unit>
+            <trans-unit id="accessDenied.hint">
+                <source>Please check module access or the rights management configuration.</source>
+                <target>Controleer de moduletoegang of de rechtenbeheerconfiguratie.</target>
+            </trans-unit>
+            <trans-unit id="history.empty">
+                <source>No history entries yet.</source>
+                <target>Nog geen geschiedenisvermeldingen.</target>
+            </trans-unit>
+            <trans-unit id="history.tableMissing">
+                <source>The history table is missing. Please run the Database Analyzer.</source>
+                <target>De geschiedenistabel ontbreekt. Voer de Database Analyzer uit.</target>
+            </trans-unit>
+            <trans-unit id="history.adminOnly">
+                <source>History is only visible to administrators.</source>
+                <target>De geschiedenis is alleen zichtbaar voor beheerders.</target>
+            </trans-unit>
+            <trans-unit id="extconf.enableDelegatedWriteAccess">
+                <source>Enable delegated write access for the configured groups. With this confirmation, the groups configured below receive delegated admin rights in Rights Management. They cannot assign rights they do not effectively have themselves, but they may pass their own rights to other users and groups. Admins can always save. Without this confirmation, the configured groups have read-only module access.</source>
+                <target>Gedelegeerde schrijftoegang inschakelen voor de geconfigureerde groepen. Met deze bevestiging krijgen de hieronder geconfigureerde groepen gedelegeerde beheerdersrechten in Rights Management. Ze kunnen geen rechten toewijzen die ze zelf niet effectief hebben, maar ze mogen hun eigen rechten doorgeven aan andere gebruikers en groepen. Beheerders kunnen altijd opslaan. Zonder deze bevestiging hebben de geconfigureerde groepen alleen leestoegang tot de module.</target>
+            </trans-unit>
+            <trans-unit id="extconf.allowedBackendGroups">
+                <source>Backend groups with module access. Comma-separated list of be_groups UIDs or exact group titles. Each entry is trimmed. Numeric values are treated as UIDs, text values as group titles. Access is granted through groups only, not individual backend users. Without delegated write access enabled, these groups have read-only module access.</source>
+                <target>Backendgroepen met moduletoegang. Door komma's gescheiden lijst met be_groups-UID's of exacte groepstitels. Elke invoer wordt getrimd. Numerieke waarden worden als UID's behandeld, tekstwaarden als groepstitels. Toegang wordt alleen via groepen verleend, niet via individuele backendgebruikers. Zonder ingeschakelde gedelegeerde schrijftoegang hebben deze groepen alleen leestoegang tot de module.</target>
+            </trans-unit>
+            <trans-unit id="extconf.restrictToOwnRights">
+                <source>Restrict display to own rights. When enabled, the module only shows rights the logged-in backend user effectively has. When disabled, all rights are shown; rights outside the user's own permissions remain read-only.</source>
+                <target>Weergave beperken tot eigen rechten. Wanneer ingeschakeld toont de module alleen rechten die de aangemelde backendgebruiker daadwerkelijk heeft. Wanneer uitgeschakeld worden alle rechten getoond; rechten buiten de eigen machtigingen van de gebruiker blijven alleen-lezen.</target>
+            </trans-unit>
+        </body>
+    </file>
+</xliff>

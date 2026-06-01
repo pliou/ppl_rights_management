@@ -29,7 +29,7 @@ abstract class AbstractRightsManagementRepository
         $rows = $queryBuilder
             ->select('uid', 'pid', 'title', 'description', 'hidden', 'subgroup', 'pagetypes_select', 'tables_select', 'tables_modify', 'non_exclude_fields', 'explicit_allowdeny', 'allowed_languages', 'groupMods', 'custom_options', 'db_mountpoints', 'file_mountpoints', 'file_permissions', 'workspace_perms', 'category_perms', 'TSconfig')
             ->from('be_groups')
-            ->where($queryBuilder->expr()->eq('deleted', $queryBuilder->createNamedParameter(0, Connection::PARAM_INT)))
+            ->where($queryBuilder->expr()->eq('deleted', $queryBuilder->createNamedParameter(0, \Doctrine\DBAL\ParameterType::INTEGER)))
             ->orderBy('title', 'ASC')
             ->executeQuery()
             ->fetchAllAssociative();
@@ -48,7 +48,7 @@ abstract class AbstractRightsManagementRepository
             ->select('uid', 'username', 'realName', 'email', 'admin', 'disable', 'usergroup', 'description', 'userMods', 'db_mountpoints', 'file_mountpoints', 'file_permissions')
             ->from('be_users')
             ->where(
-                $queryBuilder->expr()->eq('deleted', $queryBuilder->createNamedParameter(0, Connection::PARAM_INT)),
+                $queryBuilder->expr()->eq('deleted', $queryBuilder->createNamedParameter(0, \Doctrine\DBAL\ParameterType::INTEGER)),
                 $queryBuilder->expr()->neq('username', $queryBuilder->createNamedParameter('_cli_'))
             )
             ->orderBy('username', 'ASC')
@@ -139,7 +139,7 @@ abstract class AbstractRightsManagementRepository
             ->select('uid', 'pid', 'title', 'doktype', 'hidden', 'sorting')
             ->addSelect('perms_userid', 'perms_user', 'perms_groupid', 'perms_group', 'perms_everybody')
             ->from('pages')
-            ->where($queryBuilder->expr()->eq('deleted', $queryBuilder->createNamedParameter(0, Connection::PARAM_INT)))
+            ->where($queryBuilder->expr()->eq('deleted', $queryBuilder->createNamedParameter(0, \Doctrine\DBAL\ParameterType::INTEGER)))
             ->orderBy('pid', 'ASC')
             ->addOrderBy('sorting', 'ASC')
             ->addOrderBy('title', 'ASC')
@@ -167,7 +167,7 @@ abstract class AbstractRightsManagementRepository
         $rows = $queryBuilder
             ->select('uid', 'title', 'identifier', 'hidden', 'read_only', 'sorting')
             ->from('sys_filemounts')
-            ->where($queryBuilder->expr()->eq('deleted', $queryBuilder->createNamedParameter(0, Connection::PARAM_INT)))
+            ->where($queryBuilder->expr()->eq('deleted', $queryBuilder->createNamedParameter(0, \Doctrine\DBAL\ParameterType::INTEGER)))
             ->orderBy('sorting', 'ASC')
             ->addOrderBy('title', 'ASC')
             ->executeQuery()

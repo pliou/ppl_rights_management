@@ -377,7 +377,7 @@ class RightsManagementSaveService
             }
             $row = $queryBuilder
                 ->from($tableName)
-                ->where($queryBuilder->expr()->eq('uid', $queryBuilder->createNamedParameter($uid, \PDO::PARAM_INT)))
+                ->where($queryBuilder->expr()->eq('uid', $queryBuilder->createNamedParameter($uid, \Doctrine\DBAL\ParameterType::INTEGER)))
                 ->executeQuery()
                 ->fetchAssociative();
         } catch (\Throwable) {
@@ -407,7 +407,7 @@ class RightsManagementSaveService
             $row = $queryBuilder
                 ->select('*')
                 ->from($tableName)
-                ->where($queryBuilder->expr()->eq('uid', $queryBuilder->createNamedParameter($uid, \PDO::PARAM_INT)))
+                ->where($queryBuilder->expr()->eq('uid', $queryBuilder->createNamedParameter($uid, \Doctrine\DBAL\ParameterType::INTEGER)))
                 ->executeQuery()
                 ->fetchAssociative();
         } catch (\Throwable) {

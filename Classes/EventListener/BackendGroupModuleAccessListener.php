@@ -4,11 +4,9 @@ declare(strict_types=1);
 
 namespace Ppl\PplRightsManagement\EventListener;
 
-use TYPO3\CMS\Core\Attribute\AsEventListener;
 use TYPO3\CMS\Core\Authentication\Event\AfterGroupsResolvedEvent;
 use TYPO3\CMS\Core\Utility\StringUtility;
 
-#[AsEventListener(identifier: 'ppl-rights-management/backend-group-module-access')]
 final class BackendGroupModuleAccessListener
 {
     private const MODULE_IDS = [

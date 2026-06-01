@@ -15,3 +15,8 @@ services:
 
   Ppl\PplRightsManagement\Configuration\RightsManagementModuleConfiguration:
     public: true
+
+  Ppl\PplRightsManagement\EventListener\BackendGroupModuleAccessListener:
+    tags:
+      - name: event.listener
+        identifier: 'ppl-rights-management/backend-group-module-access'
