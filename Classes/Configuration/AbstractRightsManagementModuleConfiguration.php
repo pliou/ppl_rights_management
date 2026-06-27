@@ -113,6 +113,11 @@ abstract class AbstractRightsManagementModuleConfiguration
             'tab' => '',
             'label' => 'common.save',
         ];
+        $routes['history-undo'] = [
+            'routeName' => $this->buildTabRouteName($moduleIdentifier, 'history-undo'),
+            'tab' => '',
+            'label' => 'history.undo',
+        ];
 
         return $routes;
     }

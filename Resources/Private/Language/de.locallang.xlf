@@ -56,6 +56,7 @@
             <trans-unit id="common.saveChanges"><source>Save changes?</source><target>Änderungen speichern?</target></trans-unit>
             <trans-unit id="common.saved"><source>Saved</source><target>Gespeichert</target></trans-unit>
             <trans-unit id="common.saveAborted"><source>Save aborted</source><target>Speichern abgebrochen</target></trans-unit>
+            <trans-unit id="common.invalidFormToken"><source>The form token is invalid. Please reload the module and try again.</source><target>Das Formular-Token ist ungueltig. Bitte laden Sie das Modul neu und versuchen Sie es erneut.</target></trans-unit>
             <trans-unit id="common.status"><source>Status</source><target>Status</target></trans-unit>
             <trans-unit id="common.time"><source>Time</source><target>Zeit</target></trans-unit>
             <trans-unit id="common.switchedFrom"><source>Switched from</source><target>Gewechselt von</target></trans-unit>
@@ -156,6 +157,7 @@
             <trans-unit id="accessDenied.description"><source>This module is not enabled for the current backend user.</source><target>Dieses Modul ist für den aktuellen Backend-Benutzer nicht freigeschaltet.</target></trans-unit>
             <trans-unit id="accessDenied.hint"><source>Please check module access or the rights management configuration.</source><target>Bitte Modulzugriff oder Rights-Management-Konfiguration prüfen.</target></trans-unit>
             <trans-unit id="history.empty"><source>No history entries yet.</source><target>Noch keine History-Einträge vorhanden.</target></trans-unit>
+            <trans-unit id="history.undo"><source>Undo</source><target>Rückgängig</target></trans-unit>
             <trans-unit id="history.tableMissing"><source>The history table is missing. Please run the Database Analyzer.</source><target>Die History-Tabelle fehlt noch. Bitte den Database Analyzer ausführen.</target></trans-unit>
             <trans-unit id="history.adminOnly"><source>History is only visible to administrators.</source><target>Die History ist nur für Admins sichtbar.</target></trans-unit>
         </body>

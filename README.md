@@ -57,6 +57,7 @@ The extension provides these configuration options under `ppl_rights_management`
 - `enableDelegatedWrites`: Enables write access for configured delegated backend groups. When disabled, delegated groups can open the module read-only.
 - `moduleAccessGroupIds`: Optional comma-separated list of backend group UIDs or exact group titles that may access the module through the automatic group resolver.
 - `enforceUserPermissions`: Restricts the displayed rights to rights the current backend user effectively has. When disabled, unavailable rights remain visible but read-only for delegated users.
+- `protectedGroupUids`: Optional comma-separated list of backend group UIDs that delegated users cannot see, assign, edit, inherit or delete. Admins can still manage these groups.
 
 ## History
 

@@ -7,11 +7,24 @@ namespace Ppl\PplRightsManagement\Service;
 use TYPO3\CMS\Core\Authentication\BackendUserAuthentication;
 use TYPO3\CMS\Core\Database\Connection;
 use TYPO3\CMS\Core\Database\ConnectionPool;
+use TYPO3\CMS\Core\Log\LogManager;
 use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 class HistoryService
 {
     private const TABLE = 'tx_pplrightsmanagement_history';
+
+    /**
+     * Scopes that the History undo (v1) can safely reverse: update-only, no create/delete.
+     */
+    private const UNDOABLE_SCOPES = [
+        'backend-user-management' => true,
+        'group-rights-management' => true,
+        'module-management' => true,
+        'group-rights-inheritance-management' => true,
+        'mount-management' => true,
+    ];
 
     public function __construct(
         private readonly ConnectionPool $connectionPool
@@ -22,23 +35,147 @@ class HistoryService
         $canSeeHistory = $this->canSeeHistory();
         $showImpersonationColumn = $this->canUseBackendUserFastswitch();
 
+        // Opportunistic recovery: replay any audit rows that an earlier DB hiccup queued to the outbox.
+        if ($canSeeHistory) {
+            $this->outbox()->flush();
+        }
+
+        $notice = $showImpersonationColumn
+            ? 'History shows rights changes with backend user, time and switch-user source.'
+            : 'History shows rights changes with backend user and time.';
+        $pending = $this->outbox()->pendingCount();
+        if ($pending > 0) {
+            $notice .= sprintf(
+                ' %d audit entr%s could not be written yet and will be retried automatically.',
+                $pending,
+                $pending === 1 ? 'y' : 'ies'
+            );
+        }
+
         return [
             'canSeeHistory' => $canSeeHistory,
             'historyRows' => $canSeeHistory ? $this->getRows() : [],
             'historyTableReady' => $this->tableReady(),
-            'historyNotice' => $showImpersonationColumn
-                ? 'History shows rights changes with backend user, time and switch-user source.'
-                : 'History shows rights changes with backend user and time.',
+            'historyNotice' => $notice,
             'showImpersonationColumn' => $showImpersonationColumn,
         ];
     }
 
-    public function recordChange(string $scope, array $payload, string $summary, array $history = []): void
+    public function recordChange(string $scope, array $payload, string $summary, array $history = [], string $status = 'completed', ?string $eventId = null): void
     {
-        if (!$this->tableReady()) {
-            return;
+        $now = time();
+        $row = [
+            'pid' => 0,
+            'tstamp' => $now,
+            'crdate' => $now,
+            'event_id' => $eventId ?? $this->newEventId(),
+            'status' => $status,
+            'scope' => substr($scope, 0, 80),
+            'action' => substr($this->describeAction($scope, $payload), 0, 80),
+            'summary' => $this->describeSummary($scope, $payload, $summary),
+            'payload_before' => $this->encode($history['payloadBefore'] ?? []),
+            'payload_after' => $this->encode($history['payloadAfter'] ?? $payload),
+        ] + $this->backendUserAuditFields();
+
+        $this->persistRow($row);
+    }
+
+    public function isUndoableScope(string $scope): bool
+    {
+        return isset(self::UNDOABLE_SCOPES[$scope]);
+    }
+
+    /**
+     * Single history row including payloads and revert linkage. Admin-only.
+     *
+     * @return array<string, mixed>
+     */
+    public function getRow(int $uid): array
+    {
+        if ($uid <= 0 || !$this->canSeeHistory() || !$this->tableReady()) {
+            return [];
         }
 
+        try {
+            $queryBuilder = $this->connectionPool->getQueryBuilderForTable(self::TABLE);
+            $row = $queryBuilder
+                ->select('uid', 'scope', 'action', 'summary', 'payload_before', 'payload_after', 'reverts_history_uid', 'reverted_by_history_uid')
+                ->from(self::TABLE)
+                ->where($queryBuilder->expr()->eq('uid', $queryBuilder->createNamedParameter($uid, Connection::PARAM_INT)))
+                ->executeQuery()
+                ->fetchAssociative();
+        } catch (\Throwable) {
+            return [];
+        }
+
+        return is_array($row) ? $row : [];
+    }
+
+    /**
+     * Record an undo as its own history row and mark the original row as reverted.
+     *
+     * @param array<string, mixed> $payloadBefore state before the undo (the original after-state)
+     * @param array<string, mixed> $payloadAfter  state written by the undo (restored before-values)
+     */
+    public function recordRevert(int $originalUid, string $scope, array $payloadBefore, array $payloadAfter, string $summary, string $status = 'completed', ?string $eventId = null): int
+    {
+        if ($originalUid <= 0) {
+            return 0;
+        }
+
+        $now = time();
+        $row = [
+            'pid' => 0,
+            'tstamp' => $now,
+            'crdate' => $now,
+            'event_id' => $eventId ?? $this->newEventId(),
+            'status' => $status,
+            'scope' => substr($scope, 0, 80),
+            'action' => substr('Reverted change #' . $originalUid, 0, 80),
+            'summary' => $summary,
+            'payload_before' => $this->encode($payloadBefore),
+            'payload_after' => $this->encode($payloadAfter),
+            'reverts_history_uid' => $originalUid,
+        ] + $this->backendUserAuditFields();
+
+        if ($this->tableReady()) {
+            $connection = $this->connectionPool->getConnectionForTable(self::TABLE);
+            try {
+                $connection->beginTransaction();
+                $connection->insert(self::TABLE, $row);
+                $undoUid = (int)$connection->lastInsertId();
+                $connection->update(
+                    self::TABLE,
+                    ['reverted_by_history_uid' => $undoUid, 'reverted_at' => $now],
+                    ['uid' => $originalUid]
+                );
+                $connection->commit();
+
+                return $undoUid;
+            } catch (\Throwable $exception) {
+                try {
+                    $connection->rollBack();
+                } catch (\Throwable) {
+                    // fall through to the outbox below
+                }
+                $this->logAuditWarning('Could not write rights-management undo history row; queued to the audit outbox.', $exception);
+            }
+        }
+
+        // Table missing or insert failed: queue the undo audit; the flush replays it idempotently
+        // (deduped by event_id) and re-links the original row.
+        $this->outbox()->store($row);
+
+        return 0;
+    }
+
+    /**
+     * Backend-user identity columns shared by every history row (acting user + impersonation source).
+     *
+     * @return array<string, int|string>
+     */
+    private function backendUserAuditFields(): array
+    {
         $backendUser = ($GLOBALS['BE_USER'] ?? null) instanceof BackendUserAuthentication ? $GLOBALS['BE_USER'] : null;
         $user = is_array($backendUser?->user ?? null) ? $backendUser->user : [];
         $backendUserUid = (int)($backendUser?->getUserId() ?? ($user['uid'] ?? 0));
@@ -47,26 +184,52 @@ class HistoryService
             ? $this->getOriginalBackendUserWhenSwitched($backendUser)
             : [0, ''];
 
-        try {
-            $now = time();
-            $action = $this->describeAction($scope, $payload);
-            $summary = $this->describeSummary($scope, $payload, $summary);
-            $this->connectionPool->getConnectionForTable(self::TABLE)->insert(self::TABLE, [
-                'pid' => 0,
-                'tstamp' => $now,
-                'crdate' => $now,
-                'backend_user_uid' => $backendUserUid,
-                'backend_user_name' => $backendUserName,
-                'impersonated_user_uid' => $originalBackendUserUid,
-                'impersonated_user_name' => substr($originalBackendUserName, 0, 255),
-                'scope' => substr($scope, 0, 80),
-                'action' => substr($action, 0, 80),
-                'summary' => $summary,
-                'payload_before' => $this->encode($history['payloadBefore'] ?? []),
-                'payload_after' => $this->encode($history['payloadAfter'] ?? $payload),
-            ]);
-        } catch (\Throwable) {
+        return [
+            'backend_user_uid' => $backendUserUid,
+            'backend_user_name' => $backendUserName,
+            'impersonated_user_uid' => $originalBackendUserUid,
+            'impersonated_user_name' => substr($originalBackendUserName, 0, 255),
+        ];
+    }
+
+    private function logAuditWarning(string $message, \Throwable $exception): void
+    {
+        GeneralUtility::makeInstance(LogManager::class)
+            ->getLogger(__CLASS__)
+            ->warning($message, ['exception' => $exception]);
+    }
+
+    /**
+     * Insert a prepared history row, falling back to the durable outbox when the direct write is not
+     * possible. Never silently drops the audit of a privileged rights change.
+     *
+     * @param array<string, mixed> $row
+     */
+    private function persistRow(array $row): void
+    {
+        if ($this->tableReady()) {
+            try {
+                $this->connectionPool->getConnectionForTable(self::TABLE)->insert(self::TABLE, $row);
+                return;
+            } catch (\Throwable $exception) {
+                $this->logAuditWarning('Could not write rights-management history row; queued to the audit outbox.', $exception);
+            }
         }
+
+        $this->outbox()->store($row);
+    }
+
+    /**
+     * Immutable per-event id used to deduplicate audit rows when the outbox replays them.
+     */
+    private function newEventId(): string
+    {
+        return bin2hex(random_bytes(16));
+    }
+
+    private function outbox(): HistoryAuditOutbox
+    {
+        return GeneralUtility::makeInstance(HistoryAuditOutbox::class, $this->connectionPool);
     }
 
     private function getRows(): array
@@ -78,7 +241,7 @@ class HistoryService
         try {
             $queryBuilder = $this->connectionPool->getQueryBuilderForTable(self::TABLE);
             $rows = $queryBuilder
-                ->select('uid', 'tstamp', 'backend_user_name', 'impersonated_user_uid', 'impersonated_user_name', 'scope', 'action', 'summary', 'payload_before', 'payload_after')
+                ->select('uid', 'tstamp', 'backend_user_name', 'impersonated_user_uid', 'impersonated_user_name', 'scope', 'action', 'summary', 'payload_before', 'payload_after', 'reverts_history_uid', 'reverted_by_history_uid')
                 ->from(self::TABLE)
                 ->orderBy('tstamp', 'DESC')
                 ->setMaxResults(100)
@@ -106,6 +269,20 @@ class HistoryService
         if ($this->isGenericSummary($row['summary'])) {
             $row['summary'] = $this->describeSummary((string)($row['scope'] ?? ''), $payloadAfter, $row['summary']);
         }
+
+        $revertsUid = (int)($row['reverts_history_uid'] ?? 0);
+        $revertedBy = (int)($row['reverted_by_history_uid'] ?? 0);
+        $hasComparableState = trim((string)($row['payload_after'] ?? '')) !== '';
+        $row['isRevert'] = $revertsUid > 0;
+        $row['isReverted'] = $revertedBy > 0;
+        $row['isUndoable'] = $hasComparableState
+            && $revertsUid === 0
+            && $revertedBy === 0
+            && $this->isUndoableScope((string)($row['scope'] ?? ''));
+        $row['revertStatusLabel'] = $row['isReverted']
+            ? 'Reverted (#' . $revertedBy . ')'
+            : ($row['isRevert'] ? 'Undo of #' . $revertsUid : ($row['isUndoable'] ? 'Undoable' : ''));
+
         unset($row['payload_before'], $row['payload_after']);
 
         return $row;
@@ -181,6 +358,7 @@ class HistoryService
             'module-management' => 'Module rights changed',
             'group-rights-inheritance-management' => 'Group inheritance changed',
             'mount-management' => 'Mounts changed',
+            'hda-import-schema' => (bool)($payload['deleted'] ?? false) ? 'Import schema deleted' : 'Import schema saved',
             default => $scope !== '' ? $scope : 'Change',
         };
     }
@@ -207,6 +385,7 @@ class HistoryService
                 'dbMounts' => 'DB mounts',
                 'fileMounts' => 'File mounts',
             ]),
+            'hda-import-schema' => $this->describeImportSchemaSummary($payload, $fallback),
             default => '',
         };
 
@@ -245,6 +424,23 @@ class HistoryService
         }
 
         return implode('; ', array_filter($parts));
+    }
+
+    private function describeImportSchemaSummary(array $payload, string $fallback): string
+    {
+        $title = trim((string)($payload['title'] ?? ''));
+        $uid = (int)($payload['uid'] ?? 0);
+        if ((bool)($payload['deleted'] ?? false)) {
+            return 'Import schema deleted: UID ' . $uid;
+        }
+        if ($title !== '') {
+            return 'Import schema saved: ' . $title . ($uid > 0 ? ' (UID ' . $uid . ')' : '');
+        }
+        if ($uid > 0) {
+            return 'Import schema saved: UID ' . $uid;
+        }
+
+        return $this->normalizeLegacyText($fallback);
     }
 
     private function describeListChange(string $prefix, mixed $items, string $unit, array $areas): string

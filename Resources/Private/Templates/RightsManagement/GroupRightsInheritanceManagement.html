@@ -165,6 +165,7 @@
             <span data-i18n-key="accessDeniedHint"><f:translate key="LLL:EXT:ppl_rights_management/Resources/Private/Language/locallang.xlf:accessDenied.hint" /></span>
         </div>
         <form method="post" action="{routeUrls.save}" data-role="save-form" hidden>
+            <input type="hidden" name="form_token" value="{saveFormToken}">
             <input type="hidden" name="scope" value="group-rights-inheritance-management">
             <input type="hidden" name="payload" value="">
             <input type="hidden" name="returnUrl" value="">

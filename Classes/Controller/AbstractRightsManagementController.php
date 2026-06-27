@@ -13,6 +13,7 @@ use TYPO3\CMS\Backend\Routing\Route;
 use TYPO3\CMS\Backend\Template\ModuleTemplate;
 use TYPO3\CMS\Backend\Routing\UriBuilder;
 use TYPO3\CMS\Backend\Template\ModuleTemplateFactory;
+use TYPO3\CMS\Core\FormProtection\FormProtectionFactory;
 use TYPO3\CMS\Core\Messaging\FlashMessageService;
 use TYPO3\CMS\Core\Page\PageRenderer;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
@@ -21,13 +22,20 @@ abstract class AbstractRightsManagementController
 {
     private const INSERT_PLUGIN_CONTENT_TYPE_WARNING = 'Editing of at least one plugin was enabled but editing the page content type "Insert Plugin" is still disallowed.';
     private const SHARED_TEMPLATE_PACKAGE = 'ppl/ppl_rights_management';
+    private const SAVE_FORM_NAME = 'ppl_rights_management';
+    private const SAVE_FORM_ACTION = 'save';
+
+    private ?FormProtectionFactory $formProtectionFactory = null;
 
     public function __construct(
         private readonly ModuleTemplateFactory $moduleTemplateFactory,
         private readonly AbstractRightsManagementModuleConfiguration $moduleConfiguration,
         private readonly UriBuilder $uriBuilder,
-        private readonly PageRenderer $pageRenderer
-    ) {}
+        private readonly PageRenderer $pageRenderer,
+        ?FormProtectionFactory $formProtectionFactory = null
+    ) {
+        $this->formProtectionFactory = $formProtectionFactory;
+    }
 
     public function handleRequest(ServerRequestInterface $request): ResponseInterface
     {
@@ -54,6 +62,9 @@ abstract class AbstractRightsManagementController
         $this->removeStalePluginIntegrityFlashMessages();
         $this->loadUiAssets();
         $labels = $this->buildLabels($extensionKey);
+        $formProtection = $this->getFormProtectionFactory()->createFromRequest($request);
+        $saveFormToken = $formProtection->generateToken(self::SAVE_FORM_NAME, self::SAVE_FORM_ACTION);
+        $historyUndoFormToken = $formProtection->generateToken(self::SAVE_FORM_NAME, 'history-undo');
         if (!$canUseActiveTab) {
             $moduleTemplate->assignMultiple([
                 'activeTab' => $activeTab,
@@ -62,6 +73,8 @@ abstract class AbstractRightsManagementController
                 'uiLabels' => $labels,
                 'routeUrls' => $this->buildRouteUrls($routes),
                 'routes' => $routes,
+                'saveFormToken' => $saveFormToken,
+                'historyUndoFormToken' => $historyUndoFormToken,
                 'tabs' => $tabs,
                 'title' => $definition['module']['title'],
             ]);
@@ -76,11 +89,22 @@ abstract class AbstractRightsManagementController
             'uiLabels' => $labels,
             'routeUrls' => $this->buildRouteUrls($routes),
             'routes' => $routes,
+            'saveFormToken' => $saveFormToken,
+            'historyUndoFormToken' => $historyUndoFormToken,
             'tabs' => $tabs,
             'title' => $definition['module']['title'],
         ]);
 
         return $moduleTemplate->renderResponse($this->getTemplateName());
+    }
+
+    private function getFormProtectionFactory(): FormProtectionFactory
+    {
+        if (!$this->formProtectionFactory instanceof FormProtectionFactory) {
+            $this->formProtectionFactory = GeneralUtility::makeInstance(FormProtectionFactory::class);
+        }
+
+        return $this->formProtectionFactory;
     }
 
     private function filterAccessibleTabs(array $tabs, RightsManagementAccessService $accessService): array

@@ -13,3 +13,6 @@ moduleAccessGroupIds =
 
 # cat=rightsmanagement/access/30; type=boolean; label=Restrict display to own rights: When enabled, the module only shows rights the logged-in backend user effectively has. When disabled, all rights are shown; rights outside the user's own permissions remain read-only.
 enforceUserPermissions = 0
+
+# cat=rightsmanagement/access/40; type=string; label=Protected backend group UIDs: Comma-separated be_groups UIDs that delegated users must not see, assign, edit, inherit or delete. Admins can still manage these groups.
+protectedGroupUids =

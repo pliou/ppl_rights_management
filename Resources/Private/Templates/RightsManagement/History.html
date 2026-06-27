@@ -46,6 +46,8 @@
                                                         <th><f:translate key="LLL:EXT:ppl_rights_management/Resources/Private/Language/locallang.xlf:common.section" /></th>
                                                         <th><f:translate key="LLL:EXT:ppl_rights_management/Resources/Private/Language/locallang.xlf:common.action" /></th>
                                                         <th><f:translate key="LLL:EXT:ppl_rights_management/Resources/Private/Language/locallang.xlf:common.summary" /></th>
+                                                        <th><f:translate key="LLL:EXT:ppl_rights_management/Resources/Private/Language/locallang.xlf:common.status" /></th>
+                                                        <th><f:translate key="LLL:EXT:ppl_rights_management/Resources/Private/Language/locallang.xlf:common.actions" /></th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
@@ -59,6 +61,17 @@
                                                             <td>{row.scope}</td>
                                                             <td>{row.action}</td>
                                                             <td>{row.summary}</td>
+                                                            <td>{row.revertStatusLabel}</td>
+                                                            <td>
+                                                                <f:if condition="{row.isUndoable}">
+                                                                    <form method="post" action="{routeUrls.historyUndo}" class="rm-history-undo">
+                                                                        <input type="hidden" name="form_token" value="{historyUndoFormToken}">
+                                                                        <input type="hidden" name="history_uid" value="{row.uid}">
+                                                                        <input type="hidden" name="returnUrl" value="{routeUrls.history}">
+                                                                        <button type="submit" class="btn btn-default btn-sm"><f:translate key="LLL:EXT:ppl_rights_management/Resources/Private/Language/locallang.xlf:history.undo" /></button>
+                                                                    </form>
+                                                                </f:if>
+                                                            </td>
                                                         </tr>
                                                     </f:for>
                                                 </tbody>

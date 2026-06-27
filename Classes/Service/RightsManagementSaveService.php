@@ -59,15 +59,46 @@ class RightsManagementSaveService
         ];
     }
 
+    /**
+     * Apply an already field-level inverse map (from History undo) through the same
+     * per-scope allowlist and privileged DataHandler writer as a forward save.
+     *
+     * The caller (HistoryUndoService) is responsible for the conflict check; this
+     * method guarantees the write can never touch tables/fields a forward save in the
+     * same scope could not. Admin-only.
+     *
+     * @param array<string, array<int, array<string, mixed>>> $dataMap
+     */
+    public function applyVettedUndo(string $scope, array $dataMap): int
+    {
+        $scope = trim($scope);
+        if ($scope === '' || isset(self::READONLY_SCOPES[$scope])) {
+            throw new RuntimeException('This view is read-only.');
+        }
+        $backendUser = $this->getBackendUser();
+        if (!$backendUser instanceof BackendUserAuthentication || !$backendUser->isAdmin()) {
+            throw new RuntimeException('Undo requires administrator privileges.');
+        }
+        $this->assertDataHandlerMapsAllowed($scope, $dataMap, []);
+
+        $count = 0;
+        foreach ($dataMap as $records) {
+            $count += count((array)$records);
+        }
+        if ($count === 0) {
+            return 0;
+        }
+
+        return $this->runDataHandler($dataMap, [], $count)['count'];
+    }
+
     private function saveAdminWithDataHandler(string $scope, array $payload): array
     {
         [$dataMap, $commandMap, $count] = $this->buildAdminDataHandlerMaps($scope, $payload);
         $this->assertDataHandlerMapsAllowed($scope, $dataMap, $commandMap);
         $dataMap = $this->addRequiredInsertPluginContentTypeAllow($dataMap);
-        $history = $this->buildHistoryContext($dataMap, $commandMap);
-        $runResult = $this->runDataHandler($dataMap, $commandMap, $count);
 
-        return [$runResult['count'], $this->finalizeHistoryContext($history, $dataMap, $runResult['newIdMap'])];
+        return $this->runDataHandlerWithAudit($scope, $payload, $dataMap, $commandMap, $count);
     }
 
     private function saveDelegatedWithDataHandler(string $scope, array $payload, array $context): array
@@ -75,10 +106,50 @@ class RightsManagementSaveService
         [$dataMap, $commandMap, $count] = $this->buildDelegatedDataHandlerMaps($scope, $payload, $context);
         $this->assertDataHandlerMapsAllowed($scope, $dataMap, $commandMap);
         $dataMap = $this->addRequiredInsertPluginContentTypeAllow($dataMap);
-        $history = $this->buildHistoryContext($dataMap, $commandMap);
-        $runResult = $this->runDataHandler($dataMap, $commandMap, $count);
 
-        return [$runResult['count'], $this->finalizeHistoryContext($history, $dataMap, $runResult['newIdMap'])];
+        return $this->runDataHandlerWithAudit($scope, $payload, $dataMap, $commandMap, $count);
+    }
+
+    /**
+     * Run the privileged DataHandler write and record the audit row in the SAME step.
+     *
+     * The audit used to be written by the controller only AFTER a fully successful save(); a save
+     * that DataHandler partially applied and then rejected (blocking error) threw before the
+     * controller ever reached recordChange(), leaving a partial privileged rights change with no
+     * history entry. Recording here — on success AND on a post-write failure — closes that gap; the
+     * shared immutable event_id keeps the outbox replay idempotent.
+     *
+     * @param array<string, array<int|string, mixed>> $dataMap
+     * @param array<string, array<int|string, mixed>> $commandMap
+     * @return array{0:int,1:array<string, mixed>}
+     */
+    private function runDataHandlerWithAudit(string $scope, array $payload, array $dataMap, array $commandMap, int $count): array
+    {
+        $beforeContext = $this->buildHistoryContext($dataMap, $commandMap);
+        $eventId = bin2hex(random_bytes(16));
+
+        try {
+            $runResult = $this->runDataHandler($dataMap, $commandMap, $count);
+        } catch (\Throwable $exception) {
+            // process_datamap()/process_cmdmap() may already have applied part of the change before
+            // the blocking-error check threw: audit the attempt so it is never silently unlogged.
+            $history = $this->finalizeHistoryContext($beforeContext, $dataMap, []);
+            $this->historyService()->recordChange($scope, $payload, $exception->getMessage(), $history, 'aborted', $eventId);
+            throw $exception;
+        }
+
+        $history = $this->finalizeHistoryContext($beforeContext, $dataMap, $runResult['newIdMap']);
+        if ($runResult['count'] > 0) {
+            $message = $runResult['count'] === 1 ? '1 change saved.' : $runResult['count'] . ' changes saved.';
+            $this->historyService()->recordChange($scope, $payload, $message, $history, 'completed', $eventId);
+        }
+
+        return [$runResult['count'], $history];
+    }
+
+    private function historyService(): HistoryService
+    {
+        return GeneralUtility::makeInstance(HistoryService::class, $this->connectionPool);
     }
 
     private function runDataHandler(array $dataMap, array $commandMap, int $count): array
@@ -845,6 +916,7 @@ class RightsManagementSaveService
                 'moduleSet' => [],
                 'pageSet' => [],
                 'fileMountSet' => [],
+                'protectedGroupSet' => [],
                 'isAdmin' => false,
             ];
         }
@@ -890,12 +962,17 @@ class RightsManagementSaveService
             'moduleSet' => $this->idSet($this->assignableRows($filtered['availableModules'] ?? [])),
             'pageSet' => $this->uidSet($this->assignableRows($filtered['availablePages'] ?? [])),
             'fileMountSet' => $this->uidSet($this->assignableRows($filtered['availableFileMounts'] ?? [])),
+            'protectedGroupSet' => $this->accessService->protectedGroupUidSet(),
             'isAdmin' => $this->getBackendUser()?->isAdmin() ?? false,
         ];
     }
 
     private function requireEditableGroup(int $uid, array $context): array
     {
+        if (isset($context['protectedGroupSet'][(string)$uid])) {
+            throw new RuntimeException('Group UID ' . $uid . ' is protected and cannot be changed by delegated users.');
+        }
+
         $group = $context['groupsByUid'][$uid] ?? null;
         if (!is_array($group) || !isset($context['editableGroupSet'][(string)$uid])) {
             throw new RuntimeException('Group UID ' . $uid . ' cannot be changed.');
@@ -911,6 +988,11 @@ class RightsManagementSaveService
         }
         if ((bool)($user['admin'] ?? false)) {
             return false;
+        }
+        foreach ($this->intList($user['groupIds'] ?? []) as $groupUid) {
+            if (isset($context['protectedGroupSet'][(string)$groupUid])) {
+                return false;
+            }
         }
 
         return isset($context['visibleUsersByUid'][$uid]);

@@ -53,6 +53,19 @@ class RightsManagementAccessService
         return $this->getBooleanConfiguration('enableDelegatedWrites', false);
     }
 
+    public function protectedGroupUidSet(): array
+    {
+        $set = [];
+        foreach ($this->getStringListConfiguration('protectedGroupUids') as $groupUid) {
+            $groupUid = (int)$groupUid;
+            if ($groupUid > 0) {
+                $set[(string)$groupUid] = true;
+            }
+        }
+
+        return $set;
+    }
+
     public function canAccessTab(string $tabId): bool
     {
         if ($tabId === 'history') {
@@ -247,12 +260,16 @@ class RightsManagementAccessService
         $visibleFileMountIds = $this->uidSet($data['availableFileMounts'] ?? []);
         $rawGroupMap = $this->mapGroupsByUid($groups);
         $assignableGroupIds = $this->assignableGroupIds($rawGroupMap, $visiblePageIds, $visibleFileMountIds);
+        $protectedGroupIds = $this->protectedGroupUidSet();
         $filteredGroups = [];
         $visibleGroupIds = [];
 
         foreach ($groups as $group) {
             $groupUid = (int)$group['uid'];
             if ($groupUid <= 0) {
+                continue;
+            }
+            if (isset($protectedGroupIds[(string)$groupUid])) {
                 continue;
             }
             $group['assignable'] = isset($assignableGroupIds[$groupUid]);
@@ -300,9 +317,13 @@ class RightsManagementAccessService
         )));
         $rawGroupMap = $this->mapGroupsByUid($groups);
         $assignableGroupIds = $this->assignableGroupIds($rawGroupMap, $visiblePageIds, $visibleFileMountIds);
+        $protectedGroupIds = $this->protectedGroupUidSet();
         foreach ($groups as $index => $group) {
-            $groups[$index]['assignable'] = isset($assignableGroupIds[(int)($group['uid'] ?? 0)]);
-            $groups[$index]['editable'] = true;
+            $groupUid = (int)($group['uid'] ?? 0);
+            $groups[$index]['assignable'] = $groupUid > 0
+                && !isset($protectedGroupIds[(string)$groupUid])
+                && isset($assignableGroupIds[$groupUid]);
+            $groups[$index]['editable'] = $groupUid > 0 && !isset($protectedGroupIds[(string)$groupUid]);
         }
 
         return $groups;
@@ -819,6 +840,7 @@ class RightsManagementAccessService
             'moduleAccessGroupIds' => '',
             'enforceUserPermissions' => '0',
             'enableDelegatedWrites' => '0',
+            'protectedGroupUids' => '',
         ];
         $pplConfiguration = $GLOBALS['TYPO3_CONF_VARS']['EXTENSIONS']['ppl_rights_management'] ?? [];
         $pplConfiguration = is_array($pplConfiguration) ? $pplConfiguration : [];
