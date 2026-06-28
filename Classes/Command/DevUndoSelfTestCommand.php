@@ -54,6 +54,13 @@ final class DevUndoSelfTestCommand extends Command
     /** @var array{groups: int[], users: int[], history: int[]} */
     private array $created = ['groups' => [], 'users' => [], 'history' => []];
 
+    // TYPO3 14: ModuleProvider is a private DI service and can no longer be GeneralUtility::makeInstance()d
+    // (it would be `new`ed with no constructor args). Inject it instead and pass it through explicitly.
+    public function __construct(private readonly ModuleProvider $moduleProvider)
+    {
+        parent::__construct();
+    }
+
     protected function configure(): void
     {
         $this->addOption('force', null, InputOption::VALUE_NONE, 'Confirm you are running this destructive DEV-ONLY test.');
@@ -248,7 +255,7 @@ final class DevUndoSelfTestCommand extends Command
         $repository = GeneralUtility::makeInstance(
             OverviewManagementRepository::class,
             $this->cp,
-            GeneralUtility::makeInstance(ModuleProvider::class)
+            $this->moduleProvider
         );
         $this->saveService = GeneralUtility::makeInstance(
             RightsManagementSaveService::class,
@@ -270,7 +277,7 @@ final class DevUndoSelfTestCommand extends Command
     {
         try {
             $backendUser = $GLOBALS['BE_USER'] instanceof BackendUserAuthentication ? $GLOBALS['BE_USER'] : null;
-            $modules = GeneralUtility::makeInstance(ModuleProvider::class)->getModules($backendUser);
+            $modules = $this->moduleProvider->getModules($backendUser);
             return array_values(array_keys($modules));
         } catch (\Throwable) {
             return ['web_layout', 'web_list'];

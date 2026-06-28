@@ -5,14 +5,14 @@
 # customcategory=rightsmanagement=Rights Management
 # customsubcategory=access=Access and delegation
 
-# cat=rightsmanagement/access/10; type=boolean; label=Enable delegated write access for the configured groups: With this confirmation, the groups configured below receive delegated admin rights in Rights Management. They cannot assign rights they do not effectively have themselves, but they may pass their own rights to other users and groups. Admins can always save. Without this confirmation, the configured groups have read-only module access.
+# cat=rightsmanagement/access/10; type=boolean; label=LLL:EXT:ppl_rights_management/Resources/Private/Language/locallang.xlf:extconf.enableDelegatedWriteAccess
 enableDelegatedWrites = 0
 
-# cat=rightsmanagement/access/20; type=string; label=Backend groups with module access: Comma-separated list of be_groups UIDs or exact group titles. Each entry is trimmed. Numeric values are treated as UIDs, text values as group titles. Access is granted through groups only, not individual backend users. Without delegated write access enabled, these groups have read-only module access.
+# cat=rightsmanagement/access/20; type=string; label=LLL:EXT:ppl_rights_management/Resources/Private/Language/locallang.xlf:extconf.allowedBackendGroups
 moduleAccessGroupIds =
 
-# cat=rightsmanagement/access/30; type=boolean; label=Restrict display to own rights: When enabled, the module only shows rights the logged-in backend user effectively has. When disabled, all rights are shown; rights outside the user's own permissions remain read-only.
+# cat=rightsmanagement/access/30; type=boolean; label=LLL:EXT:ppl_rights_management/Resources/Private/Language/locallang.xlf:extconf.restrictToOwnRights
 enforceUserPermissions = 0
 
-# cat=rightsmanagement/access/40; type=string; label=Protected backend group UIDs: Comma-separated be_groups UIDs that delegated users must not see, assign, edit, inherit or delete. Admins can still manage these groups.
+# cat=rightsmanagement/access/40; type=string; label=LLL:EXT:ppl_rights_management/Resources/Private/Language/locallang.xlf:extconf.protectedGroupUids
 protectedGroupUids =
