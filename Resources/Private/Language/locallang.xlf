@@ -56,6 +56,7 @@
             <trans-unit id="common.saveChanges"><source>Save changes?</source></trans-unit>
             <trans-unit id="common.saved"><source>Saved</source></trans-unit>
             <trans-unit id="common.saveAborted"><source>Save aborted</source></trans-unit>
+            <trans-unit id="common.invalidFormToken"><source>The form token is invalid. Please reload the module and try again.</source></trans-unit>
             <trans-unit id="common.status"><source>Status</source></trans-unit>
             <trans-unit id="common.time"><source>Time</source></trans-unit>
             <trans-unit id="common.switchedFrom"><source>Switched from</source></trans-unit>
@@ -156,11 +157,9 @@
             <trans-unit id="accessDenied.description"><source>This module is not enabled for the current backend user.</source></trans-unit>
             <trans-unit id="accessDenied.hint"><source>Please check module access or the rights management configuration.</source></trans-unit>
             <trans-unit id="history.empty"><source>No history entries yet.</source></trans-unit>
+            <trans-unit id="history.undo"><source>Undo</source></trans-unit>
             <trans-unit id="history.tableMissing"><source>The history table is missing. Please run the Database Analyzer.</source></trans-unit>
             <trans-unit id="history.adminOnly"><source>History is only visible to administrators.</source></trans-unit>
-            <trans-unit id="extconf.enableDelegatedWriteAccess"><source>Enable delegated write access for the configured groups. With this confirmation, the groups configured below receive delegated admin rights in Rights Management. They cannot assign rights they do not effectively have themselves, but they may pass their own rights to other users and groups. Admins can always save. Without this confirmation, the configured groups have read-only module access.</source></trans-unit>
-            <trans-unit id="extconf.allowedBackendGroups"><source>Backend groups with module access. Comma-separated list of be_groups UIDs or exact group titles. Each entry is trimmed. Numeric values are treated as UIDs, text values as group titles. Access is granted through groups only, not individual backend users. Without delegated write access enabled, these groups have read-only module access.</source></trans-unit>
-            <trans-unit id="extconf.restrictToOwnRights"><source>Restrict display to own rights. When enabled, the module only shows rights the logged-in backend user effectively has. When disabled, all rights are shown; rights outside the user's own permissions remain read-only.</source></trans-unit>
         </body>
     </file>
 </xliff>

@@ -6,17 +6,14 @@ namespace Ppl\PplRightsManagement\Domain\Repository;
 
 use TYPO3\CMS\Backend\Module\ModuleInterface;
 use TYPO3\CMS\Backend\Module\ModuleProvider;
-use TYPO3\CMS\Core\Database\Connection;
 use TYPO3\CMS\Core\Database\ConnectionPool;
+use TYPO3\CMS\Core\Database\Query\Restriction\DeletedRestriction;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 abstract class AbstractRightsManagementRepository
 {
-    private const SYSTEM_ADMIN_GROUP_TITLES = [
-        'admin',
-        'admins',
-        'administrator',
-        'administrators',
-    ];
+    /** @var array<int, true>|null Cached set of configured protected (hidden) group UIDs. */
+    private ?array $protectedGroupUidSet = null;
 
     public function __construct(
         protected readonly ConnectionPool $connectionPool,
@@ -26,6 +23,7 @@ abstract class AbstractRightsManagementRepository
     public function getGroups(): array
     {
         $queryBuilder = $this->connectionPool->getQueryBuilderForTable('be_groups');
+        $queryBuilder->getRestrictions()->removeAll()->add(GeneralUtility::makeInstance(DeletedRestriction::class));
         $rows = $queryBuilder
             ->select('uid', 'pid', 'title', 'description', 'hidden', 'subgroup', 'pagetypes_select', 'tables_select', 'tables_modify', 'non_exclude_fields', 'explicit_allowdeny', 'allowed_languages', 'groupMods', 'custom_options', 'db_mountpoints', 'file_mountpoints', 'file_permissions', 'workspace_perms', 'category_perms', 'TSconfig')
             ->from('be_groups')
@@ -36,7 +34,7 @@ abstract class AbstractRightsManagementRepository
 
         return array_values(array_filter(
             array_map(fn(array $row): array => $this->normalizeGroup($row), $rows),
-            static fn(array $group): bool => !($group['systemAdminGroup'] ?? false)
+            static fn(array $group): bool => !($group['protectedGroup'] ?? false)
         ));
     }
 
@@ -44,6 +42,7 @@ abstract class AbstractRightsManagementRepository
     {
         $groupMap = $this->mapByUid($groups);
         $queryBuilder = $this->connectionPool->getQueryBuilderForTable('be_users');
+        $queryBuilder->getRestrictions()->removeAll()->add(GeneralUtility::makeInstance(DeletedRestriction::class));
         $rows = $queryBuilder
             ->select('uid', 'username', 'realName', 'email', 'admin', 'disable', 'usergroup', 'description', 'userMods', 'db_mountpoints', 'file_mountpoints', 'file_permissions')
             ->from('be_users')
@@ -135,6 +134,7 @@ abstract class AbstractRightsManagementRepository
     public function getPages(): array
     {
         $queryBuilder = $this->connectionPool->getQueryBuilderForTable('pages');
+        $queryBuilder->getRestrictions()->removeAll()->add(GeneralUtility::makeInstance(DeletedRestriction::class));
         $rows = $queryBuilder
             ->select('uid', 'pid', 'title', 'doktype', 'hidden', 'sorting')
             ->addSelect('perms_userid', 'perms_user', 'perms_groupid', 'perms_group', 'perms_everybody')
@@ -164,6 +164,7 @@ abstract class AbstractRightsManagementRepository
     public function getFileMounts(): array
     {
         $queryBuilder = $this->connectionPool->getQueryBuilderForTable('sys_filemounts');
+        $queryBuilder->getRestrictions()->removeAll()->add(GeneralUtility::makeInstance(DeletedRestriction::class));
         $rows = $queryBuilder
             ->select('uid', 'title', 'identifier', 'hidden', 'read_only', 'sorting')
             ->from('sys_filemounts')
@@ -209,7 +210,7 @@ abstract class AbstractRightsManagementRepository
             'title' => (string)$row['title'],
             'description' => (string)($row['description'] ?? ''),
             'hidden' => (bool)$row['hidden'],
-            'systemAdminGroup' => $this->isSystemAdminGroupTitle((string)$row['title']),
+            'protectedGroup' => $this->isProtectedGroup((int)$row['uid']),
             'subgroupIds' => $subgroupIds,
             'subgroupCsv' => implode(',', $subgroupIds),
             'pageTypeIds' => $this->splitCsv($row['pagetypes_select'] ?? ''),
@@ -237,9 +238,19 @@ abstract class AbstractRightsManagementRepository
         ];
     }
 
-    private function isSystemAdminGroupTitle(string $title): bool
+    private function isProtectedGroup(int $groupUid): bool
     {
-        return in_array(strtolower(trim($title)), self::SYSTEM_ADMIN_GROUP_TITLES, true);
+        if ($this->protectedGroupUidSet === null) {
+            $configured = (string)($GLOBALS['TYPO3_CONF_VARS']['EXTENSIONS']['ppl_rights_management']['protectedGroupUids'] ?? '');
+            $this->protectedGroupUidSet = [];
+            foreach (array_filter(array_map('trim', explode(',', $configured))) as $value) {
+                if (ctype_digit($value)) {
+                    $this->protectedGroupUidSet[(int)$value] = true;
+                }
+            }
+        }
+
+        return $groupUid > 0 && isset($this->protectedGroupUidSet[$groupUid]);
     }
 
     protected function mapByUid(array $rows): array

@@ -416,22 +416,7 @@ class OverviewManagementService extends AbstractRightsManagementService
         return $rows;
     }
 
-    private function getInheritedGroups(array $group, array $groupMap, array $visited = []): array
-    {
-        $groups = [];
-        $visited[(int)$group['uid']] = true;
-        foreach ($group['subgroupIds'] as $subgroupId) {
-            $subgroupId = (int)$subgroupId;
-            if (isset($visited[$subgroupId]) || !isset($groupMap[$subgroupId])) {
-                continue;
-            }
-            $visited[$subgroupId] = true;
-            $groups[] = $groupMap[$subgroupId];
-            $groups = array_merge($groups, $this->getInheritedGroups($groupMap[$subgroupId], $groupMap, $visited));
-        }
-
-        return $groups;
-    }
+    // getInheritedGroups() now lives in the base service (root-seeded + uid-deduped).
 
     private function filterGroupsByValue(array $groups, string $field, string|int $value): array
     {
@@ -444,18 +429,6 @@ class OverviewManagementService extends AbstractRightsManagementService
     private function containsValue(array $values, string|int $value): bool
     {
         return in_array((int)$value, $values, true) || in_array((string)$value, $values, true);
-    }
-
-    private function resolveTableMode(string $tableName, array $group): string
-    {
-        if (in_array($tableName, $group['tablesModify'], true)) {
-            return 'write';
-        }
-        if (in_array($tableName, $group['tablesSelect'], true)) {
-            return 'read';
-        }
-
-        return 'none';
     }
 
     private function resolveHighestTableMode(string $tableName, array $groups): array

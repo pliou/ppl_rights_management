@@ -7,6 +7,7 @@ use Ppl\PplRightsManagement\Controller\GroupManagementController;
 use Ppl\PplRightsManagement\Controller\GroupRightsInheritanceManagementController;
 use Ppl\PplRightsManagement\Controller\GroupRightsManagementController;
 use Ppl\PplRightsManagement\Controller\HistoryController;
+use Ppl\PplRightsManagement\Controller\HistoryRevertController;
 use Ppl\PplRightsManagement\Controller\ModuleManagementController;
 use Ppl\PplRightsManagement\Controller\MountManagementController;
 use Ppl\PplRightsManagement\Controller\OverviewManagementController;
@@ -54,8 +55,13 @@ return [
             ],
             'history' => [
                 'path' => '/history',
-                'methods' => ['GET'],
+                'methods' => ['GET', 'POST'],
                 'target' => HistoryController::class . '::handleRequest',
+            ],
+            'history-undo' => [
+                'path' => '/history/undo',
+                'methods' => ['POST'],
+                'target' => HistoryRevertController::class . '::undoAction',
             ],
             'save' => [
                 'path' => '/save',

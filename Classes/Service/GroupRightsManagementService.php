@@ -96,22 +96,6 @@ class GroupRightsManagementService extends AbstractRightsManagementService
         return $map;
     }
 
-    private function getInheritedGroups(array $group, array $groupMap, array $visited = []): array
-    {
-        $groups = [];
-        foreach ($group['subgroupIds'] as $subgroupId) {
-            $subgroupId = (int)$subgroupId;
-            if (isset($visited[$subgroupId], $groupMap[$subgroupId]) || !isset($groupMap[$subgroupId])) {
-                continue;
-            }
-            $visited[$subgroupId] = true;
-            $groups[] = $groupMap[$subgroupId];
-            $groups = array_merge($groups, $this->getInheritedGroups($groupMap[$subgroupId], $groupMap, $visited));
-        }
-
-        return $groups;
-    }
-
     private function filterGroupsByPageType(array $groups, string $pageTypeId): array
     {
         return array_values(array_filter(
@@ -119,18 +103,6 @@ class GroupRightsManagementService extends AbstractRightsManagementService
             static fn(array $group): bool => in_array((int)$pageTypeId, $group['pageTypeIds'], true)
                 || in_array($pageTypeId, $group['pageTypeIds'], true)
         ));
-    }
-
-    private function resolveTableMode(string $tableName, array $group): string
-    {
-        if (in_array($tableName, $group['tablesModify'], true)) {
-            return 'write';
-        }
-        if (in_array($tableName, $group['tablesSelect'], true)) {
-            return 'read';
-        }
-
-        return 'none';
     }
 
     private function resolveInheritedTableMode(string $tableName, array $groups): array
@@ -153,17 +125,5 @@ class GroupRightsManagementService extends AbstractRightsManagementService
         }
 
         return ['mode' => $mode, 'groups' => $matchingGroups];
-    }
-
-    private function formatInheritedFrom(array $groups): string
-    {
-        if ($groups === []) {
-            return '';
-        }
-
-        return implode(', ', array_map(
-            static fn(array $group): string => $group['title'] . ' [' . $group['uid'] . ']',
-            $groups
-        ));
     }
 }

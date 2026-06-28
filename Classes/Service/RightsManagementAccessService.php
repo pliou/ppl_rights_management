@@ -25,7 +25,10 @@ class RightsManagementAccessService
 
         $allowedGroups = $this->getStringListConfiguration('moduleAccessGroupIds');
         if ($allowedGroups === []) {
-            return true;
+            // Fail closed: with no module-access groups configured, only admins (handled above)
+            // may use the module — mirrors BackendGroupModuleAccessListener, which grants the
+            // module to nobody when the list is empty (previously this was an allow-all default).
+            return false;
         }
 
         if ($this->matchesAllowedBackendGroup($allowedGroups, $backendUser)) {
@@ -51,6 +54,19 @@ class RightsManagementAccessService
     public function delegatedWritesEnabled(): bool
     {
         return $this->getBooleanConfiguration('enableDelegatedWrites', false);
+    }
+
+    public function protectedGroupUidSet(): array
+    {
+        $set = [];
+        foreach ($this->getStringListConfiguration('protectedGroupUids') as $groupUid) {
+            $groupUid = (int)$groupUid;
+            if ($groupUid > 0) {
+                $set[(string)$groupUid] = true;
+            }
+        }
+
+        return $set;
     }
 
     public function canAccessTab(string $tabId): bool
@@ -247,12 +263,16 @@ class RightsManagementAccessService
         $visibleFileMountIds = $this->uidSet($data['availableFileMounts'] ?? []);
         $rawGroupMap = $this->mapGroupsByUid($groups);
         $assignableGroupIds = $this->assignableGroupIds($rawGroupMap, $visiblePageIds, $visibleFileMountIds);
+        $protectedGroupIds = $this->protectedGroupUidSet();
         $filteredGroups = [];
         $visibleGroupIds = [];
 
         foreach ($groups as $group) {
             $groupUid = (int)$group['uid'];
             if ($groupUid <= 0) {
+                continue;
+            }
+            if (isset($protectedGroupIds[(string)$groupUid])) {
                 continue;
             }
             $group['assignable'] = isset($assignableGroupIds[$groupUid]);
@@ -300,9 +320,13 @@ class RightsManagementAccessService
         )));
         $rawGroupMap = $this->mapGroupsByUid($groups);
         $assignableGroupIds = $this->assignableGroupIds($rawGroupMap, $visiblePageIds, $visibleFileMountIds);
+        $protectedGroupIds = $this->protectedGroupUidSet();
         foreach ($groups as $index => $group) {
-            $groups[$index]['assignable'] = isset($assignableGroupIds[(int)($group['uid'] ?? 0)]);
-            $groups[$index]['editable'] = true;
+            $groupUid = (int)($group['uid'] ?? 0);
+            $groups[$index]['assignable'] = $groupUid > 0
+                && !isset($protectedGroupIds[(string)$groupUid])
+                && isset($assignableGroupIds[$groupUid]);
+            $groups[$index]['editable'] = $groupUid > 0 && !isset($protectedGroupIds[(string)$groupUid]);
         }
 
         return $groups;
@@ -361,6 +385,10 @@ class RightsManagementAccessService
                 return true;
             }
             if (isset($visited[$groupUid])) {
+                // Cycle back-edge: this group is already being validated by the frame that first
+                // reached it (its per-permission checks run on that first visit, before recursing
+                // into subgroups), so returning true here only terminates the recursion and can
+                // never skip a rights check.
                 return true;
             }
             $visited[$groupUid] = true;
@@ -819,6 +847,7 @@ class RightsManagementAccessService
             'moduleAccessGroupIds' => '',
             'enforceUserPermissions' => '0',
             'enableDelegatedWrites' => '0',
+            'protectedGroupUids' => '',
         ];
         $pplConfiguration = $GLOBALS['TYPO3_CONF_VARS']['EXTENSIONS']['ppl_rights_management'] ?? [];
         $pplConfiguration = is_array($pplConfiguration) ? $pplConfiguration : [];

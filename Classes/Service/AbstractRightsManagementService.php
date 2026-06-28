@@ -72,4 +72,49 @@ abstract class AbstractRightsManagementService
 
         return array_values(array_filter(array_map('intval', $groups)));
     }
+
+    protected function resolveTableMode(string $tableName, array $group): string
+    {
+        if (in_array($tableName, $group['tablesModify'], true)) {
+            return 'write';
+        }
+        if (in_array($tableName, $group['tablesSelect'], true)) {
+            return 'read';
+        }
+
+        return 'none';
+    }
+
+    protected function getInheritedGroups(array $group, array $groupMap, array $visited = []): array
+    {
+        // Seed the root as visited so a cycle (A -> B -> A) cannot list a group as its own
+        // inherited group; key results by uid so a diamond (A -> B,C -> D) lists D only once.
+        $groups = [];
+        $visited[(int)$group['uid']] = true;
+        foreach ($group['subgroupIds'] as $subgroupId) {
+            $subgroupId = (int)$subgroupId;
+            if (isset($visited[$subgroupId]) || !isset($groupMap[$subgroupId])) {
+                continue;
+            }
+            $visited[$subgroupId] = true;
+            $groups[$subgroupId] = $groupMap[$subgroupId];
+            foreach ($this->getInheritedGroups($groupMap[$subgroupId], $groupMap, $visited) as $inheritedGroup) {
+                $groups[(int)$inheritedGroup['uid']] = $inheritedGroup;
+            }
+        }
+
+        return array_values($groups);
+    }
+
+    protected function formatInheritedFrom(array $groups): string
+    {
+        if ($groups === []) {
+            return '';
+        }
+
+        return implode(', ', array_map(
+            static fn(array $group): string => $group['title'] . ' [' . $group['uid'] . ']',
+            $groups
+        ));
+    }
 }

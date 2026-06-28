@@ -3,7 +3,7 @@
 
     try {
     const root = document.querySelector('.module.rm-shell') || document.querySelector('.rm-shell');
-    if (!root) {
+    if (!root || typeof root.nodeType !== 'number') {
         return;
     }
 
@@ -30,36 +30,40 @@
         const docHeader = module ? module.querySelector('.module-docheader') : null;
         const docHeaderHeight = docHeader ? Math.ceil(docHeader.getBoundingClientRect().height) : 0;
 
-        document.documentElement.style.setProperty('height', '100%', 'important');
-        document.documentElement.style.setProperty('overflow', 'hidden', 'important');
-        document.body.style.setProperty('height', '100%', 'important');
-        document.body.style.setProperty('overflow', 'hidden', 'important');
-
         if (module) {
             module.classList.add('rm-scroll-frame');
-            module.style.setProperty('height', '100%', 'important');
-            module.style.setProperty('min-height', '0', 'important');
-            module.style.setProperty('overflow', 'hidden', 'important');
-            module.style.setProperty('scroll-padding-bottom', '48px', 'important');
+            module.style.setProperty('height', '100%');
+            module.style.setProperty('min-height', '0');
+            module.style.setProperty('overflow', 'hidden');
+            module.style.setProperty('scroll-padding-bottom', '48px');
         }
         if (moduleBody) {
-            moduleBody.style.setProperty('box-sizing', 'border-box', 'important');
-            moduleBody.style.setProperty('height', docHeaderHeight > 0 ? 'calc(100% - ' + docHeaderHeight + 'px)' : '100%', 'important');
-            moduleBody.style.setProperty('min-height', 'auto', 'important');
-            moduleBody.style.setProperty('overflow', 'hidden', 'important');
-            moduleBody.style.setProperty('padding-bottom', '24px', 'important');
+            moduleBody.style.setProperty('box-sizing', 'border-box');
+            moduleBody.style.setProperty('height', docHeaderHeight > 0 ? 'calc(100% - ' + docHeaderHeight + 'px)' : '100%');
+            moduleBody.style.setProperty('min-height', 'auto');
+            moduleBody.style.setProperty('overflow', 'hidden');
+            moduleBody.style.setProperty('padding-bottom', '24px');
         }
         if (innerShell && innerShell !== module) {
-            innerShell.style.setProperty('box-sizing', 'border-box', 'important');
-            innerShell.style.setProperty('height', '100%', 'important');
-            innerShell.style.setProperty('max-height', '100%', 'important');
-            innerShell.style.setProperty('overflow-x', 'hidden', 'important');
-            innerShell.style.setProperty('overflow-y', 'auto', 'important');
-            innerShell.style.setProperty('padding-bottom', '24px', 'important');
-            innerShell.style.setProperty('scroll-padding-bottom', '48px', 'important');
+            innerShell.style.setProperty('box-sizing', 'border-box');
+            innerShell.style.setProperty('height', '100%');
+            innerShell.style.setProperty('max-height', '100%');
+            innerShell.style.setProperty('overflow-x', 'hidden');
+            innerShell.style.setProperty('overflow-y', 'auto');
+            innerShell.style.setProperty('padding-bottom', '24px');
+            innerShell.style.setProperty('scroll-padding-bottom', '48px');
         }
     }
 
+    // KNOWN LIMITATION (P3, display-only, contrived trigger): the i18n token system
+    // translates __rmLabel:KEY__ placeholders in server-rendered TEXT here at load, and the
+    // JS render paths translate __rmLabel: / {labels. / {uiLabels. in JS-built markup. A DB
+    // record whose title literally contains that token syntax (e.g. a group named
+    // "__rmLabel:save__") is therefore rewritten on display. The JS-render paths ARE guarded
+    // upstream by RightsManagementSave.safeLabel() applied at data-attribute ingestion; but
+    // server-rendered TEXT (group/user/page/module lists, the rights-matrix headers) is NOT
+    // guarded -- a proper fix would neutralize DB titles at the source (server-side) or
+    // exclude DB-content nodes from this load-time text walk. Saves are unaffected (UIDs only).
     function enhanceTranslations() {
         const labels = {};
         const labelNodes = root.querySelectorAll('[data-i18n-key]');
@@ -265,7 +269,7 @@
         window.addEventListener('scroll', updateStickyTableHeaders, true);
         document.addEventListener('scroll', updateStickyTableHeaders, true);
         root.addEventListener('scroll', updateStickyTableHeaders, true);
-        if (window.MutationObserver) {
+        if (window.MutationObserver && typeof root.nodeType === 'number') {
             const observer = new MutationObserver(function () {
                 window.setTimeout(function () {
                     enhanceTableScrollbars();
@@ -945,6 +949,18 @@
                 return ({'&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#039;'}[char]);
             });
         },
+        safeLabel(value) {
+            // Neutralize this module's i18n token syntax (__rmLabel:KEY__, {labels.KEY},
+            // {uiLabels.KEY}) inside DB-derived display text, so neither translate() nor
+            // translateDom() rewrites a record title/label that happens to contain it. A
+            // zero-width space breaks the token pattern while staying visually identical;
+            // ordinary titles never contain the syntax and pass through unchanged, and
+            // saved payloads carry UIDs only, so stored data is unaffected.
+            return String(value || '')
+                .replace(/__rmLabel:/g, '__rmLabel\u200B:')
+                .replace(/\{labels\./g, '{labels\u200B.')
+                .replace(/\{uiLabels\./g, '{uiLabels\u200B.');
+        },
         openModal(modal, changesNode, html) {
             if (!modal || !changesNode) {
                 this.notify('Confirmation dialog was not found.');
@@ -1220,10 +1236,10 @@
                 node,
                 checkbox: node.querySelector('[data-role="user-check"]'),
                 uid: Number(node.dataset.uid || 0),
-                username: node.dataset.title || '',
-                realName: node.dataset.realName || '',
-                email: node.dataset.email || '',
-                description: node.dataset.description || '',
+                username: window.RightsManagementSave.safeLabel(node.dataset.title),
+                realName: window.RightsManagementSave.safeLabel(node.dataset.realName),
+                email: window.RightsManagementSave.safeLabel(node.dataset.email),
+                description: window.RightsManagementSave.safeLabel(node.dataset.description),
                 admin: isTruthy(node.dataset.admin),
                 assignable: isTruthy(node.dataset.assignable),
                 groups: parseIds(node.dataset.groups),
@@ -1233,8 +1249,8 @@
             }));
             const groups = Array.from(app.querySelectorAll('[data-role="group-data"]')).map((node) => ({
                 uid: Number(node.dataset.uid || 0),
-                title: node.dataset.title || '',
-                description: node.dataset.description || '',
+                title: window.RightsManagementSave.safeLabel(node.dataset.title),
+                description: window.RightsManagementSave.safeLabel(node.dataset.description),
                 assignable: isTruthy(node.dataset.assignable),
                 subgroups: parseIds(node.dataset.subgroups),
                 pageTypes: parseMixed(node.dataset.pageTypes),
@@ -1244,22 +1260,22 @@
                 dbMounts: parseIds(node.dataset.dbMounts),
                 fileMounts: parseIds(node.dataset.fileMounts),
             }));
-            const pageTypes = Array.from(app.querySelectorAll('[data-role="page-type-data"]')).map((node) => ({id: node.dataset.id || '', label: node.dataset.label || '', assignable: isTruthy(node.dataset.assignable)}));
-            const tables = Array.from(app.querySelectorAll('[data-role="table-data"]')).map((node) => ({id: node.dataset.id || '', label: node.dataset.label || '', assignable: isTruthy(node.dataset.assignable), canAssignWrite: isTruthy(node.dataset.canAssignWrite)}));
-            const modules = Array.from(app.querySelectorAll('[data-role="module-data"]')).map((node) => ({id: node.dataset.id || '', label: node.dataset.label || '', assignable: isTruthy(node.dataset.assignable)}));
+            const pageTypes = Array.from(app.querySelectorAll('[data-role="page-type-data"]')).map((node) => ({id: node.dataset.id || '', label: window.RightsManagementSave.safeLabel(node.dataset.label), assignable: isTruthy(node.dataset.assignable)}));
+            const tables = Array.from(app.querySelectorAll('[data-role="table-data"]')).map((node) => ({id: node.dataset.id || '', label: window.RightsManagementSave.safeLabel(node.dataset.label), assignable: isTruthy(node.dataset.assignable), canAssignWrite: isTruthy(node.dataset.canAssignWrite)}));
+            const modules = Array.from(app.querySelectorAll('[data-role="module-data"]')).map((node) => ({id: node.dataset.id || '', label: window.RightsManagementSave.safeLabel(node.dataset.label), assignable: isTruthy(node.dataset.assignable)}));
             const pages = Array.from(app.querySelectorAll('[data-role="page-data"]')).map((node) => ({
                 uid: Number(node.dataset.uid || 0),
                 pid: Number(node.dataset.pid || 0),
                 sorting: Number(node.dataset.sorting || 0),
-                label: node.dataset.label || '',
-                meta: node.dataset.meta || '',
+                label: window.RightsManagementSave.safeLabel(node.dataset.label),
+                meta: window.RightsManagementSave.safeLabel(node.dataset.meta),
                 disabled: isTruthy(node.dataset.disabled),
                 assignable: isTruthy(node.dataset.assignable),
             }));
             const fileMounts = Array.from(app.querySelectorAll('[data-role="file-data"]')).map((node) => ({
                 uid: Number(node.dataset.uid || 0),
-                label: node.dataset.label || '',
-                meta: node.dataset.meta || '',
+                label: window.RightsManagementSave.safeLabel(node.dataset.label),
+                meta: window.RightsManagementSave.safeLabel(node.dataset.meta),
                 disabled: isTruthy(node.dataset.disabled),
                 assignable: isTruthy(node.dataset.assignable),
                 readOnly: isTruthy(node.dataset.readOnly),
@@ -2035,7 +2051,7 @@
             function openDeleteModal(button) {
                 if (!canSave || !button) return;
                 const uid = Number(button.dataset.uid || 0);
-                const title = button.dataset.title || ('UID ' + uid);
+                const title = window.RightsManagementSave.safeLabel(button.dataset.title) || ('UID ' + uid);
                 if (!uid) return;
                 pendingPayload = {create: [], delete: [uid]};
                 window.RightsManagementSave.openModal(modal, modalChanges, `
@@ -2078,8 +2094,8 @@
             const allGroups = Array.from(app.querySelectorAll('[data-role="source-group"]')).map((node) => ({
                 node,
                 uid: Number(node.dataset.uid || 0),
-                title: node.dataset.title || '',
-                description: node.dataset.description || '',
+                title: window.RightsManagementSave.safeLabel(node.dataset.title),
+                description: window.RightsManagementSave.safeLabel(node.dataset.description),
                 assignable: isTruthy(node.dataset.assignable),
                 editable: isTruthy(node.dataset.editable),
                 inherited: parseIds(node.dataset.inherited || ''),
@@ -2517,8 +2533,8 @@
             const groups = Array.from(app.querySelectorAll('[data-role="group-item"]')).map((node) => ({
                 node,
                 uid: Number(node.dataset.uid || 0),
-                title: node.dataset.title || '',
-                description: node.dataset.description || '',
+                title: window.RightsManagementSave.safeLabel(node.dataset.title),
+                description: window.RightsManagementSave.safeLabel(node.dataset.description),
                 assignable: isTruthy(node.dataset.assignable),
                 editable: isTruthy(node.dataset.editable),
                 subgroups: parseIds(node.dataset.subgroups || ''),
@@ -2530,15 +2546,15 @@
                 uid: Number(node.dataset.uid || 0),
                 pid: Number(node.dataset.pid || 0),
                 sorting: Number(node.dataset.sorting || 0),
-                label: node.dataset.label || '',
-                meta: node.dataset.meta || '',
+                label: window.RightsManagementSave.safeLabel(node.dataset.label),
+                meta: window.RightsManagementSave.safeLabel(node.dataset.meta),
                 disabled: isTruthy(node.dataset.disabled),
                 assignable: isTruthy(node.dataset.assignable),
             }));
             const fileMounts = Array.from(app.querySelectorAll('[data-role="file-data"]')).map((node) => ({
                 uid: Number(node.dataset.uid || 0),
-                label: node.dataset.label || '',
-                meta: node.dataset.meta || '',
+                label: window.RightsManagementSave.safeLabel(node.dataset.label),
+                meta: window.RightsManagementSave.safeLabel(node.dataset.meta),
                 disabled: isTruthy(node.dataset.disabled),
                 assignable: isTruthy(node.dataset.assignable),
                 readOnly: isTruthy(node.dataset.readOnly),

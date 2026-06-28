@@ -2,14 +2,14 @@
 
 TYPO3 CMS backend module for delegated management of backend users, backend groups, module permissions, DB mounts, page tree access and file mounts.
 
-The extension is built for TYPO3 12.4 LTS and follows TYPO3 extension packaging conventions so it can be installed through Composer and published on Packagist.
+The extension is built for TYPO3 13.4 LTS and follows TYPO3 extension packaging conventions so it can be installed through Composer and published on Packagist.
 
 ## Package
 
 - Extension key: `ppl_rights_management`
 - Composer package: `ppl/ppl_rights_management`
-- Current release: `12.4.0`
-- TYPO3 compatibility: `12.4.0-12.4.99`
+- Current release: `13.4.1`
+- TYPO3 compatibility: `13.4.0-13.4.99`
 - PHP compatibility: `>=8.2`
 - License: `GPL-2.0-or-later`
 
@@ -24,6 +24,7 @@ The extension is built for TYPO3 12.4 LTS and follows TYPO3 extension packaging 
 - Direct backend user rights management
 - DB mount and file mount management
 - History log for rights management changes
+- Undo/revert of recorded rights changes
 - Delegated write mode for non-admin backend users
 
 Delegated users can only assign rights they effectively have themselves. Admin users can always save.
@@ -33,7 +34,7 @@ Delegated users can only assign rights they effectively have themselves. Admin u
 Install the extension with Composer:
 
 ```bash
-composer require ppl/ppl_rights_management:^12.4
+composer require ppl/ppl_rights_management:^13.4
 ```
 
 Activate the extension in TYPO3 if your setup does not do this automatically:
@@ -50,7 +51,7 @@ The module is registered below **System** as **PPL Rights Management**.
 
 TYPO3 backend access is still controlled by backend groups. Add the module to the allowed modules of the backend groups that should open it.
 
-The optional automatic module access helper is registered as a Symfony `event.listener` service in `Configuration/Services.yaml`. The current package line stays focused on TYPO3 12.4, while future TYPO3 13.4 or 14 compatibility work should be handled as explicit follow-up release lines instead of being inferred from this package version.
+The optional automatic module access helper is registered as a Symfony `event.listener` service in `Configuration/Services.yaml`.
 
 ## Extension Configuration
 
@@ -59,6 +60,7 @@ The extension provides these configuration options under `ppl_rights_management`
 - `enableDelegatedWrites`: Enables write access for configured delegated backend groups. When disabled, delegated groups can open the module read-only.
 - `moduleAccessGroupIds`: Optional comma-separated list of backend group UIDs or exact group titles that may access the module through the automatic group resolver.
 - `enforceUserPermissions`: Restricts the displayed rights to rights the current backend user effectively has. When disabled, unavailable rights remain visible but read-only for delegated users.
+- `protectedGroupUids`: Optional comma-separated list of backend group UIDs that delegated users cannot see, assign, edit, inherit or delete. Admins can still manage these groups.
 
 ## History
 
@@ -74,16 +76,21 @@ The history stores:
 - action
 - summary
 - payload before and after the change
+- an `event_id` correlation identifier and a `status` field
+
+Recorded rights changes can be undone again: the stored before/after payload is replayed to revert a change from the history view.
+
+History entries are persisted through a durable audit outbox. Entries are first written to an outbox with atomic write, deduplication and quarantine handling, and then replayed transactionally into `tx_pplrightsmanagement_history`. Pending outbox entries can be drained manually with the `FlushAuditOutbox` console command.
 
 ## Versioning
 
 This package uses TYPO3-aligned semantic versioning.
 
-For TYPO3 12.4 LTS, releases use the `12.4.x` line. The Composer package should be released from Git tags, for example:
+For TYPO3 13.4 LTS, releases use the `13.4.x` line. The Composer package should be released from Git tags, for example:
 
 ```bash
-git tag 12.4.0
-git push origin 12.4.0
+git tag 13.4.1
+git push origin 13.4.1
 ```
 
 Do not add a `version` field to `composer.json`; Packagist reads the version from Git tags.

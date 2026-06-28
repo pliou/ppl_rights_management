@@ -633,7 +633,11 @@
             </trans-unit>
             <trans-unit id="extconf.restrictToOwnRights">
                 <source>Restrict display to own rights. When enabled, the module only shows rights the logged-in backend user effectively has. When disabled, all rights are shown; rights outside the user's own permissions remain read-only.</source>
-                <target>Limita la visualizzazione ai propri diritti. Quando ? attivo, il modulo mostra solo i diritti che l'utente backend connesso possiede effettivamente. Quando ? disattivato, vengono mostrati tutti i diritti; i diritti al di fuori delle autorizzazioni proprie dell'utente rimangono in sola lettura.</target>
+                <target>Limita la visualizzazione ai propri diritti. Quando è attivo, il modulo mostra solo i diritti che l'utente backend connesso possiede effettivamente. Quando è disattivato, vengono mostrati tutti i diritti; i diritti al di fuori delle autorizzazioni proprie dell'utente rimangono in sola lettura.</target>
+            </trans-unit>
+            <trans-unit id="extconf.protectedGroupUids">
+                <source>Protected backend groups (hidden from the module). Comma-separated list of be_groups UIDs to hide from all Rights Management lists (for example privileged system groups). Numeric UIDs only; non-numeric entries are ignored. Default empty: nothing is hidden. This is a display filter only and does not by itself grant or deny TYPO3 permissions.</source>
+                <target>Gruppi di backend protetti (nascosti nel modulo). Elenco separato da virgole di UID be_groups da nascondere in tutti gli elenchi di Rights Management (ad esempio gruppi di sistema con privilegi). Solo UID numerici; le voci non numeriche vengono ignorate. Vuoto per impostazione predefinita: non viene nascosto nulla. È solo un filtro di visualizzazione e non concede né nega di per sé autorizzazioni TYPO3.</target>
             </trans-unit>
         </body>
     </file>

@@ -58,32 +58,4 @@ class ModuleManagementService extends AbstractRightsManagementService
 
         return $map;
     }
-
-    private function getInheritedGroups(array $group, array $groupMap, array $visited = []): array
-    {
-        $groups = [];
-        foreach ($group['subgroupIds'] as $subgroupId) {
-            $subgroupId = (int)$subgroupId;
-            if (isset($visited[$subgroupId], $groupMap[$subgroupId]) || !isset($groupMap[$subgroupId])) {
-                continue;
-            }
-            $visited[$subgroupId] = true;
-            $groups[] = $groupMap[$subgroupId];
-            $groups = array_merge($groups, $this->getInheritedGroups($groupMap[$subgroupId], $groupMap, $visited));
-        }
-
-        return $groups;
-    }
-
-    private function formatInheritedFrom(array $groups): string
-    {
-        if ($groups === []) {
-            return '';
-        }
-
-        return implode(', ', array_map(
-            static fn(array $group): string => $group['title'] . ' [' . $group['uid'] . ']',
-            $groups
-        ));
-    }
 }
