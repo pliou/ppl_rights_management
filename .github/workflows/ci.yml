@@ -4,7 +4,7 @@ name: CI
 
 on:
   push:
-    branches: [12.4, 13.4, 14.3]
+    branches: ['12.4', '13.4', '14.3']
   pull_request:
   workflow_dispatch:
 
