@@ -1,0 +1,17 @@
+# Copy into each public TYPO3 extension repo as .github/workflows/ci.yml â€” on EACH active LTS branch
+# (12.4/13.4/14.3), not the stale `main`. Set php-version to match the branch's TYPO3 line.
+name: CI
+
+on:
+  push:
+    branches: ['12.4', '13.4', '14.3']
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  qa:
+    uses: pliou/ppl-ci-public/.github/workflows/typo3-package-ci.yml@main
+    with:
+      php-version: '8.3'
+      phpstan-level: '5'
+    secrets: inherit
